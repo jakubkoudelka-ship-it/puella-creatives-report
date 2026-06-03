@@ -195,13 +195,13 @@ tbody td .campaign{color:var(--muted);font-size:11px;display:block;margin-top:2p
 .brief-section .body{font-size:13px;line-height:1.5;color:var(--ink)}
 .brief-section.rationale .body{color:var(--muted);font-style:italic;font-size:12.5px}
 
-.gen-banners-wrap{margin-top:14px;padding-top:14px;border-top:1px solid var(--ivory)}
+.gen-banners-wrap{margin-top:16px;padding-top:14px;border-top:1px solid var(--ivory);clear:both;overflow:hidden}
 .gen-banners-label{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--wine);text-transform:uppercase;margin-bottom:10px}
-.gen-banners-grid{display:flex;gap:10px;flex-wrap:wrap}
-.gen-banner-card{flex:0 0 auto;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(26,26,26,.1);position:relative;width:110px}
-.gen-banner-dl{display:block;text-decoration:none;position:relative}
-.gen-banner-dl img{width:110px;height:110px;object-fit:cover;display:block;background:var(--ivory)}
-.gen-banner-overlay{position:absolute;inset:0;background:rgba(233,30,140,.0);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:background .15s}
+.gen-banners-grid{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start;margin-top:8px}
+.gen-banner-card{flex:0 0 90px;width:90px;border-radius:6px;overflow:hidden;box-shadow:0 2px 6px rgba(26,26,26,.12);position:relative;background:var(--ivory)}
+.gen-banner-dl{display:block;text-decoration:none;position:relative;line-height:0}
+.gen-banner-dl img{width:90px;height:90px;object-fit:cover;display:block;background:var(--ivory);vertical-align:top}
+.gen-banner-overlay{position:absolute;inset:0;background:rgba(233,30,140,0);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:background .15s}
 .gen-banner-dl:hover .gen-banner-overlay{background:rgba(233,30,140,.75)}
 .gen-banner-fmt{font-size:10px;font-weight:700;color:white;opacity:0;transition:opacity .15s;letter-spacing:.5px}
 .gen-banner-btn{font-size:11px;font-weight:700;color:white;opacity:0;transition:opacity .15s;background:rgba(0,0,0,.3);padding:3px 8px;border-radius:999px}
