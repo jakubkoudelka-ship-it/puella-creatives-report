@@ -491,12 +491,15 @@ function _renderAdsetPeriodContent(){
   const recsHtml=(periodData.recommendations||[]).map(r=>typeof r==="string"?`<li>${escapeHtml(r)}`:`` ).join("");
   const periodLabel=periodData.label||PERIOD_LABELS[ADSET_PERIOD]||ADSET_PERIOD;
   const dateRange=periodData.date_from&&periodData.date_to?` · ${periodData.date_from.slice(5).replace("-",".")} – ${periodData.date_to.slice(5).replace("-",".")}. ${periodData.date_to.slice(0,4)}`:"";
-  // Period picker buttons
+  // Period picker buttons — always show, gray out unavailable periods
   const availPeriods=Object.keys(allPeriods);
-  const pickerBtns=PERIOD_ORDER.filter(p=>availPeriods.includes(p)).map(p=>
-    `<button class="period-btn${p===ADSET_PERIOD?" active":""}" onclick="setAdsetPeriod('${p}')">${PERIOD_LABELS[p]||p}</button>`
-  ).join("");
-  const picker=availPeriods.length>1?`<div class="period-pick"><span class="period-pick-label">Perioda:</span>${pickerBtns}</div>`:"";
+  const pickerBtns=PERIOD_ORDER.map(p=>{
+    const avail=availPeriods.includes(p);
+    const active=p===ADSET_PERIOD;
+    const title=avail?"":("Data pro "+( PERIOD_LABELS[p]||p)+" nejsou k dispozici");
+    return `<button class="period-btn${active?" active":""}${avail?"":" disabled"}" ${avail?`onclick="setAdsetPeriod('${p}')"`:""} title="${title}" ${avail?"":"disabled"}>${PERIOD_LABELS[p]||p}</button>`;
+  }).join("");
+  const picker=`<div class="period-pick"><span class="period-pick-label">Perioda:</span>${pickerBtns}</div>`;
   document.getElementById("adset-view").innerHTML=`
     ${picker}
     <div class="adset-assess">
