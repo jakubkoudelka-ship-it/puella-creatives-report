@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<title>Cotonissa – přehled kreativ</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #f0f0ee; padding: 24px; color: #111; }
+h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+h2 { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+.subtitle { font-size: 13px; color: #666; margin-bottom: 20px; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+.card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.card img { width: 100%; display: block; aspect-ratio: 1/1; object-fit: cover; }
+.info { padding: 10px 12px 12px; }
+.name { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.roas-badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 20px; color: #fff; margin-bottom: 8px; }
+.roas-good  { background: #16803c; }
+.roas-mid   { background: #b45309; }
+.roas-bad   { background: #b91c1c; }
+.roas-none  { background: #6b7280; }
+.metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; }
+.metric { font-size: 11px; color: #555; }
+.metric strong { display: block; font-size: 13px; font-weight: 600; color: #111; }
+.spend-bar-wrap { height: 3px; background: #e5e7eb; border-radius: 2px; margin-top: 8px; }
+.spend-bar { height: 3px; border-radius: 2px; background: #2563eb; }
+.tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+.tag { font-size: 10px; background: #f3f4f6; color: #555; padding: 2px 6px; border-radius: 4px; }
+.summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+.stat { background: #fff; border-radius: 10px; padding: 12px 14px; }
+.stat-label { font-size: 11px; color: #888; margin-bottom: 2px; }
+.stat-value { font-size: 22px; font-weight: 600; }
+
+/* Section divider */
+.section { margin-top: 36px; }
+.section-title { font-size: 15px; font-weight: 600; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #e0e0dd; }
+
+/* Analysis cards */
+.analysis-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 0; }
+@media (max-width: 900px) { .analysis-grid { grid-template-columns: 1fr; } }
+.analysis-card { background: #fff; border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.analysis-card h3 { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-green { background: #16803c; }
+.dot-red { background: #b91c1c; }
+.dot-blue { background: #2563eb; }
+.analysis-card ul { list-style: none; padding: 0; }
+.analysis-card ul li { font-size: 12.5px; color: #444; line-height: 1.6; padding: 5px 0; border-bottom: 1px solid #f3f4f6; }
+.analysis-card ul li:last-child { border-bottom: none; }
+.analysis-card ul li strong { color: #111; }
+
+/* Pattern pills */
+.patterns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.pattern-pill { font-size: 11.5px; background: #f0f9f4; border: 1px solid #bbf7d0; color: #166534; padding: 4px 10px; border-radius: 20px; }
+.pattern-pill.bad { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+.pattern-pill.neutral { background: #eff6ff; border-color: #bfdbfe; color: #1e40af; }
+
+/* Brief section */
+.brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px) { .brief-grid { grid-template-columns: 1fr; } }
+.brief-card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.brief-card .brief-num { font-size: 11px; font-weight: 700; color: #888; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 4px; }
+.brief-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.brief-card .brief-hook { font-size: 12px; color: #666; font-style: italic; margin-bottom: 12px; }
+.brief-row { display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start; }
+.brief-label { font-size: 10.5px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .04em; min-width: 72px; padding-top: 1px; }
+.brief-val { font-size: 12.5px; color: #333; line-height: 1.5; }
+.priority-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 8px; border-radius: 10px; margin-bottom: 10px; }
+.priority-a { background: #fef9c3; color: #713f12; }
+.priority-b { background: #e0f2fe; color: #0c4a6e; }
+.priority-c { background: #f3f4f6; color: #555; }
+
+/* Pause pills */
+.pause-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.pause-pill { font-size: 12px; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 5px 12px; border-radius: 8px; }
+.pause-pill span { font-weight: 700; }
+.pause-pill small { display: block; font-size: 10.5px; color: #b91c1c; opacity: .8; }
+</style>
+</head>
+<body>
+
+<h1>Cotonissa – kreativy (CZ, last 30 days)</h1>
+<p class="subtitle">Adset: 16/06/26 - CZ - akv - parfémy na praní - cotonissa &nbsp;·&nbsp; Kampaň: CZ_20250620_AKV_flash_ABO &nbsp;·&nbsp; Celkem 11 kreativ, goal metrika: ROAS</p>
+
+<div class="summary">
+  <div class="stat"><div class="stat-label">Celkový spend</div><div class="stat-value">47 762 Kč</div></div>
+  <div class="stat"><div class="stat-label">Nejlepší ROAS</div><div class="stat-value">10.65</div></div>
+  <div class="stat"><div class="stat-label">Nejlepší CPA</div><div class="stat-value">75 Kč</div></div>
+  <div class="stat"><div class="stat-label">Průměrný CTR</div><div class="stat-value">2.07 %</div></div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<!-- ANALÝZA -->
+<div class="section">
+  <div class="section-title">Analýza výkonu</div>
+  <div class="analysis-grid">
+
+    <div class="analysis-card">
+      <h3><span class="dot dot-green"></span>Co funguje</h3>
+      <ul>
+        <li><strong>Světlý lifestyle background + produkt</strong> – Copy základ &amp; Copy 4 mají nejvetší spend a ROAS 9–10. Bílá/pastelová estetika s plovoucími benefit bublami je referenční vizuální styl.</li>
+        <li><strong>Split Screen (Copy 7)</strong> – nejlepší ROAS v adsetu (10.65) přesto jen 942 Kč spend. Čistý mramorový background s bavlnou, žádný model, minimální text. Škálovat.</li>
+        <li><strong>Benefit callouts jako plovoucí bubliny</strong> – cena za praní + počet praní jsou silné value anchory. Přítomné ve všech top kreativách.</li>
+        <li><strong>CTR ≥ 2 % jako gating metrika</strong> – všechny kreativy pod 2 % CTR mají horší ROAS. Spolehlivý early signal.</li>
+        <li><strong>For Sensitive Skin messaging</strong> – funguje, ale jen v kombinaci s lifestyle vizuálem (samotná citlivá pokožka nestačí).</li>
+      </ul>
+    </div>
+
+    <div class="analysis-card">
+      <h3><span class="dot dot-red"></span>Co nefunguje</h3>
+      <ul>
+        <li><strong>UGC Selfie (Copy 10)</strong> – ROAS 3.86, CTR 1.84 %. Vizuálně nesedí do Puella brandingu. Generická fotka nevyvolává důvěru u prémiového parfému na praní.</li>
+        <li><strong>Tmavé pozadí (Copy 3, Originál)</strong> – Copy 3: 0 nákupů, Originál: ROAS 6.66. Tmavá estetika jde proti produktové hodnotě svěžesti a čistoty.</li>
+        <li><strong>Offer-First Banner (Copy 6)</strong> – 8K spend, ale CTR jen 1.65 % a ROAS 7.75. Text-heavy přístup prohrává s lifestyle vizuálem.</li>
+        <li><strong>Feature Benefit + Offer Banner přes foto (Copy 8)</strong> – přeplněný layout, ROAS 3.52.</li>
+        <li><strong>Jednotný messaging</strong> – 10 z 11 kreativ komunikuje sensitive skin nebo feature benefit. Chybí diversifikace úhlů.</li>
+      </ul>
+    </div>
+
+    <div class="analysis-card">
+      <h3><span class="dot dot-blue"></span>Doporučení</h3>
+      <ul>
+        <li><strong>Pausovat</strong> Copy 3, Copy 8, Copy 10 – čisté vyhazování peněz, žádný potenciál k obrácení.</li>
+        <li><strong>Škálovat Copy 7</strong> – nejlepší ROAS, stále jen 942 Kč. Připravit 2–3 variace Split Screen formátu.</li>
+        <li><strong>Přepracovat Copy 6</strong> – vzít lifestyle základ jako Copy 4, ale max 2 benefit bubliny místo výčtu. Méně textu = lepší CTR.</li>
+        <li><strong>Otestovat video (15 s)</strong> – žádné video dosud nebylo v adsetu. Pro vůni a textilní produkt je pohyb silný nástroj.</li>
+        <li><strong>Nový messaging angle: vůně</strong> – "Prádlo voní 3 dny" jako hlavní hook místo sensitive skin.</li>
+        <li><strong>In-use situace</strong> – Copy 9 (žena s ručníkem) má nízký spend ale ROAS 8.95. Scény "čerstvě vypraného prádla" mají potenciál.</li>
+      </ul>
+
+      <div class="patterns">
+        <span class="pattern-pill">Světlé pozadí ✓</span>
+        <span class="pattern-pill">Plovoucí benefit bubliny ✓</span>
+        <span class="pattern-pill">CTR ≥ 2 % ✓</span>
+        <span class="pattern-pill bad">Tmavé pozadí ✗</span>
+        <span class="pattern-pill bad">UGC selfie ✗</span>
+        <span class="pattern-pill bad">Text-heavy layout ✗</span>
+        <span class="pattern-pill neutral">Split Screen → škálovat</span>
+        <span class="pattern-pill neutral">Video → testovat</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Kreativy k pausování -->
+  <div style="margin-top: 14px; background: #fff; border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.08);">
+    <div style="font-size: 12px; font-weight: 600; color: #991b1b; margin-bottom: 10px;">⛔ Doporučeno k pausování</div>
+    <div class="pause-list">
+      <div class="pause-pill"><span>Copy 3</span><small>ROAS 0 · 0 nákupů · 231 Kč</small></div>
+      <div class="pause-pill"><span>Copy 8</span><small>ROAS 3.52 · CPA 133 Kč</small></div>
+      <div class="pause-pill"><span>Copy 10</span><small>ROAS 3.86 · CPA 126 Kč</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- KREATIVNÍ BRIEF -->
+<div class="section">
+  <div class="section-title">Kreativní brief pro grafiky – nové kreativy</div>
+  <div class="brief-grid">
+
+    <div class="brief-card">
+      <div class="brief-num">Brief 01</div>
+      <span class="priority-badge priority-a">Priorita A – škálovat hned</span>
+      <h3>Split Screen – variace na Copy 7</h3>
+      <div class="brief-hook">"Jemnost, která je vidět i cítit"</div>
+      <div class="brief-row"><div class="brief-label">Formát</div><div class="brief-val">Statický obraz 1:1 + 4:5</div></div>
+      <div class="brief-row"><div class="brief-label">Layout</div><div class="brief-val">Vertikální split – levá polovina: detail bavlněné tkaniny nebo složeného prádla na mramorovém/bílém podkladu. Pravá polovina: lahvička Cotonissa na čistém bílém pozadí. Minimální text.</div></div>
+      <div class="brief-row"><div class="brief-label">Variace A</div><div class="brief-val">Místo tkaniny: ruka hladící ručník (in-use detail, žádná tvář)</div></div>
+      <div class="brief-row"><div class="brief-label">Variace B</div><div class="brief-val">Levá polovina: bavlněné klasy / přírodní materiál. Produktový shot vpravo. Nápis "63× vůně z jedné lahvičky".</div></div>
+      <div class="brief-row"><div class="brief-label">Paleta</div><div class="brief-val">Bílá, krémová, světle šedá. Žádné tmavé prvky.</div></div>
+      <div class="brief-row"><div class="brief-label">Text</div><div class="brief-val">Max 1 benefit bublina + název produktu. Žádný výčet.</div></div>
+      <div class="brief-row"><div class="brief-label">Proč</div><div class="brief-val">Copy 7 má nejlepší ROAS (10.65) v celém adsetu. Formát funguje – potřebujeme víc variant k testování škálování.</div></div>
+    </div>
+
+    <div class="brief-card">
+      <div class="brief-num">Brief 02</div>
+      <span class="priority-badge priority-a">Priorita A – nový úhel</span>
+      <h3>Vůně jako hlavní hook</h3>
+      <div class="brief-hook">"Prádlo voní ještě tři dny po vyprání"</div>
+      <div class="brief-row"><div class="brief-label">Formát</div><div class="brief-val">Statický obraz 1:1 + 4:5</div></div>
+      <div class="brief-row"><div class="brief-label">Vizuál</div><div class="brief-val">Lifestyle foto: žena s čerstvě vypraným prádlem – bílé ložní prádlo nebo složený ručník u obličeje (detail, bez celého těla). Výraz potěšení / ponoření se do vůně. Světlé, vzdušné prostředí.</div></div>
+      <div class="brief-row"><div class="brief-label">Headline</div><div class="brief-val">"Prádlo voní ještě 3 dny po vyprání" nebo "Vůně, která přetrvá"</div></div>
+      <div class="brief-row"><div class="brief-label">Benefit bubla</div><div class="brief-val">Lahvička produktu + "Dlouhotrvající parfém na praní"</div></div>
+      <div class="brief-row"><div class="brief-label">Paleta</div><div class="brief-val">Bílá, pastelová, přírodní tóny (krémová, béžová)</div></div>
+      <div class="brief-row"><div class="brief-label">Proč</div><div class="brief-val">Všech 11 kreativ komunikuje sensitive skin nebo feature benefit. Vůně jako emotivní hook dosud netestována – přitom je to hlavní diferenciátor produktu.</div></div>
+    </div>
+
+    <div class="brief-card">
+      <div class="brief-num">Brief 03</div>
+      <span class="priority-badge priority-b">Priorita B – video test</span>
+      <h3>Video 15 s – produktový reveal</h3>
+      <div class="brief-hook">"Nejjemnější parfém na praní od Puella"</div>
+      <div class="brief-row"><div class="brief-label">Formát</div><div class="brief-val">Video 1:1 nebo 4:5, 12–15 s, bez zvuku musí dávat smysl (titulky)</div></div>
+      <div class="brief-row"><div class="brief-label">Struktura</div><div class="brief-val">
+        0–3 s: Hook – čerstvě vypraná hromada bílého prádla, ruka ho bere / přivoní<br>
+        3–8 s: Lahvička produktu + 2 benefit texty (cena/praní, délka vůně)<br>
+        8–12 s: Logo Puella + CTA "Vyzkoušej Cottonissu"
+      </div></div>
+      <div class="brief-row"><div class="brief-label">Styl</div><div class="brief-val">Čistý, pomalý pohyb. Žádné efekty, žádné rychlé střihy. Prémiový pocit.</div></div>
+      <div class="brief-row"><div class="brief-label">Paleta</div><div class="brief-val">Bílá, přírodní materiály, přirozené světlo</div></div>
+      <div class="brief-row"><div class="brief-label">Proč</div><div class="brief-val">V adsetu dosud žádné video. Pro produkt prodávající vůni a hmatový zážitek je pohyb silnější než statický obraz. Nízkonákladový test s potenciálně velkým dopadem.</div></div>
+    </div>
+
+    <div class="brief-card">
+      <div class="brief-num">Brief 04</div>
+      <span class="priority-badge priority-b">Priorita B – přepracování</span>
+      <h3>Copy 6 redesign – méně textu</h3>
+      <div class="brief-hook">"NOVINKA OD PUELLA" s čistým layoutem</div>
+      <div class="brief-row"><div class="brief-label">Formát</div><div class="brief-val">Statický obraz 1:1 + 4:5</div></div>
+      <div class="brief-row"><div class="brief-label">Problém</div><div class="brief-val">Stávající Copy 6 má výčet 4+ benefitů jako textový banner. CTR 1.65 % – nejnižší v adsetu.</div></div>
+      <div class="brief-row"><div class="brief-label">Řešení</div><div class="brief-val">Použít lifestyle foto základu (Copy základ nebo Copy 4 jako inspirace). Zachovat "NOVINKA" badge. Ale místo výčtu: jen 2 plovoucí bubliny – "8 Kč / praní" + "Pro citlivou pokožku". Zbytek pryč.</div></div>
+      <div class="brief-row"><div class="brief-label">Pozadí</div><div class="brief-val">Světlé, vzdušné – žádný tmavý panel nebo banner přes celou šířku</div></div>
+      <div class="brief-row"><div class="brief-label">Benchmark</div><div class="brief-val">Copy 4: stejný lifestyle styl, CTR 2.39 %, ROAS 10.07. Toto je cíl.</div></div>
+    </div>
+
+    <div class="brief-card">
+      <div class="brief-num">Brief 05</div>
+      <span class="priority-badge priority-c">Priorita C – longer shot</span>
+      <h3>Price-anchored kreativa</h3>
+      <div class="brief-hook">"Prémiový parfém za 8 Kč praní"</div>
+      <div class="brief-row"><div class="brief-label">Formát</div><div class="brief-val">Statický obraz 1:1</div></div>
+      <div class="brief-row"><div class="brief-label">Vizuál</div><div class="brief-val">Productový shot lahvičky na mramorovém povrchu. Vedle lahvičky: velká typografie "8 Kč / praní" nebo "485 Kč · 63 praní". Minimalistický, jako luxusní parfém billboard.</div></div>
+      <div class="brief-row"><div class="brief-label">Styl</div><div class="brief-val">Bez lifestyle modelu. Čistý produkt + cena. Inspirace: parfémové reklamy (Chanel, Zara Home styl).</div></div>
+      <div class="brief-row"><div class="brief-label">Paleta</div><div class="brief-val">Bílá nebo světle béžová. Zlaté nebo černé typografie (otestovat obojí).</div></div>
+      <div class="brief-row"><div class="brief-label">Proč</div><div class="brief-val">Cenová komunikace funguje jako benefit bubla ve stávajících kreativách. Testujeme ji jako primární hook na čistém product shotu.</div></div>
+    </div>
+
+    <div class="brief-card" style="background: #f8f9fa; border: 1.5px dashed #d1d5db;">
+      <div class="brief-num">Obecné zásady</div>
+      <span class="priority-badge priority-a">Platí pro všechny kreativy</span>
+      <h3>Co vždy / nikdy</h3>
+      <ul style="list-style:none; padding: 0;">
+        <li style="font-size:12.5px; padding: 5px 0; border-bottom: 1px solid #e5e7eb; color: #333;"><strong style="color:#16803c">✓ Vždy:</strong> světlé/bílé pozadí, plovoucí benefit bubliny, viditelná lahvička produktu, CTR test ≥ 2 %</li>
+        <li style="font-size:12.5px; padding: 5px 0; border-bottom: 1px solid #e5e7eb; color: #333;"><strong style="color:#b91c1c">✗ Nikdy:</strong> tmavé pozadí, textové bannery přes celou šířku, výčet více než 3 benefitů v jedné kreativě</li>
+        <li style="font-size:12.5px; padding: 5px 0; border-bottom: 1px solid #e5e7eb; color: #333;"><strong style="color:#b91c1c">✗ Nikdy:</strong> UGC selfie styl (nesedí do brandingu Puella)</li>
+        <li style="font-size:12.5px; padding: 5px 0; color: #333;"><strong style="color:#2563eb">→ Benchmark:</strong> Copy základ (CTR 2.44%, ROAS 9.27) a Copy 7 (ROAS 10.65) jsou referenční kreativy – porovnat každou novou s těmito</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="grid" id="grid" style="margin-top: 0; display: none;"></div>
+
+<script>
+const maxSpend = 23390.92;
+const data = [
+  { name:"Copy (základ)", spend:23390.92, roas:9.27, cpa:84.14, ctr:2.44,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96abee/large-thumbnail/9c8a1ab4-0921-49c3-8214-811038f12ab7.png",
+    tags:["Lifestyle + Text","Feature Benefit","Families","Demographic Callout"] },
+  { name:"Copy 4", spend:8480.61, roas:10.07, cpa:75.05, ctr:2.39,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96ab6b/large-thumbnail/29a441a2-7018-4581-8c5f-37c766548b80.png",
+    tags:["Lifestyle + Text","Feature Benefit","Families","For Sensitive Skin"] },
+  { name:"Copy 6", spend:8240.40, roas:7.75, cpa:94.72, ctr:1.65,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96ab4b/large-thumbnail/b91d4179-9604-4c81-8b12-9acc7f1c1ab0.png",
+    tags:["Lifestyle + Text","Offer-First Banner","Families","For Sensitive Skin"] },
+  { name:"Copy 2", spend:1963.45, roas:10.48, cpa:78.54, ctr:2.03,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96aae9/large-thumbnail/65c35780-42d2-49da-9127-8afca13709c7.png",
+    tags:["Lifestyle + Text","Feature Benefit + Headline","Sensitive Skin","Bold Claim"] },
+  { name:"Copy 5", spend:1247.96, roas:9.39, cpa:78.00, ctr:2.16,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96ac46/large-thumbnail/aa63d674-bb0b-49f3-b6a8-3734610f4d69.png",
+    tags:["Lifestyle + Text","Feature Benefit","Families","Bold Claim","For Sensitive Skin"] },
+  { name:"Originál", spend:2006.49, roas:6.66, cpa:87.24, ctr:2.15,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96aaba/large-thumbnail/c5055216-7423-4a09-bbfe-8a20fb3df1a5.png",
+    tags:["Product + Text","Headline","Sensitive Skin","Bold Claim"] },
+  { name:"Copy 7", spend:941.87, roas:10.65, cpa:78.49, ctr:2.12,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96ab1a/large-thumbnail/46d0ee13-1503-44c0-861f-05f395aed54d.png",
+    tags:["Lifestyle + Text","Split Screen","Sensitive Skin","Bold Claim"] },
+  { name:"Copy 10", spend:629.15, roas:3.86, cpa:125.83, ctr:1.84,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96ac09/large-thumbnail/1c6f5091-ad54-47fe-8693-3807fccb069c.png",
+    tags:["Lifestyle + Text","UGC Selfie","Families","For Sensitive Skin"] },
+  { name:"Copy 8", spend:532.33, roas:3.52, cpa:133.08, ctr:1.96,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96ab9e/large-thumbnail/afc43038-e86c-437e-9c36-a5c3fa1eca49.png",
+    tags:["Lifestyle + Text","Feature Benefit + Offer Banner","Sensitive Skin","Bold Claim"] },
+  { name:"Copy 3", spend:230.75, roas:0, cpa:0, ctr:1.63,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96ab2a/large-thumbnail/95de6529-e362-4367-9d48-4367ae92dc7b.png",
+    tags:["Product + Text","Feature Benefit + Split Screen","Families","Bold Claim"] },
+  { name:"Copy 9", spend:97.79, roas:8.95, cpa:84.53, ctr:1.39,
+    thumb:"https://motionaccountassets.blob.core.windows.net/6864dfe5537ab3302ab7d436/adunit/6a31125511237eecac96abc8/large-thumbnail/e5947bfe-97b6-4730-b146-405ab40c7467.png",
+    tags:["Lifestyle + Text","Feature Benefit","Families","Contrast","For Sensitive Skin"] },
+];
+
+function roasClass(r) {
+  if (r === 0) return 'roas-none';
+  if (r >= 9.5) return 'roas-good';
+  if (r >= 7) return 'roas-mid';
+  return 'roas-bad';
+}
+
+const grid = document.getElementById('grid');
+grid.style.display = 'grid';
+grid.innerHTML = data.map(c => `
+  <div class="card">
+    <img src="${c.thumb}" alt="${c.name}">
+    <div class="info">
+      <div class="name">${c.name}</div>
+      <span class="roas-badge ${roasClass(c.roas)}">ROAS ${c.roas > 0 ? c.roas.toFixed(2) : '–'}</span>
+      <div class="metrics">
+        <div class="metric"><strong>${c.spend >= 1000 ? (c.spend/1000).toFixed(1)+'K' : c.spend} Kč</strong>spend</div>
+        <div class="metric"><strong>${c.cpa > 0 ? c.cpa.toFixed(0)+' Kč' : '–'}</strong>CPA</div>
+        <div class="metric"><strong>${c.ctr.toFixed(2)}%</strong>CTR</div>
+      </div>
+      <div class="spend-bar-wrap"><div class="spend-bar" style="width:${Math.round(c.spend/maxSpend*100)}%"></div></div>
+      <div class="tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    </div>
+  </div>
+`).join('');
+</script>
+</body>
+</html>
