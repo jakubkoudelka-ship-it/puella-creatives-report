@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puella — Unified Cross-Market Personas</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #f0f0ee; padding: 24px; color: #111; }
+
+h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.subtitle { font-size: 13px; color: #666; margin-bottom: 20px; }
+
+/* Summary bar */
+.summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
+@media (max-width: 900px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } }
+.sum-card { background: #fff; border-radius: 10px; padding: 12px 14px; box-shadow: 0 1px 4px rgba(0,0,0,.08); border-top: 3px solid transparent; }
+.sum-name { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+.sum-archetype { font-size: 11px; color: #888; margin-bottom: 6px; }
+.sum-pct { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.sum-roas { font-size: 11px; }
+.sum-roas span { font-weight: 700; }
+
+/* Segment bars */
+.seg-bar-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+.seg-bar-label { width: 24px; font-size: 10px; color: #888; }
+.seg-bar-track { flex: 1; height: 5px; background: #f0f0ee; border-radius: 3px; }
+.seg-bar-fill { height: 5px; border-radius: 3px; }
+.fill-cz { background: #3b82f6; }
+.fill-hu { background: #22c55e; }
+.fill-de { background: #9ca3af; }
+.seg-bar-pct { width: 26px; text-align: right; font-size: 10px; font-weight: 600; color: #555; }
+
+/* Section */
+.section { margin-top: 32px; }
+.section-title { font-size: 15px; font-weight: 600; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #e0e0dd; }
+
+/* Persona card */
+.persona-card { background: #fff; border-radius: 14px; box-shadow: 0 1px 5px rgba(0,0,0,.09); margin-bottom: 16px; overflow: hidden; }
+.accent-strip { height: 4px; }
+.accent-1 { background: linear-gradient(90deg, #f59e0b, #f97316); }
+.accent-2 { background: linear-gradient(90deg, #8b5cf6, #c084fc); }
+.accent-3 { background: linear-gradient(90deg, #10b981, #34d399); }
+.accent-4 { background: linear-gradient(90deg, #ec4899, #f9a8d4); }
+.accent-5 { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+
+.persona-header { padding: 14px 20px 12px; border-bottom: 1px solid #f3f4f6; display: flex; align-items: flex-start; gap: 12px; }
+.persona-emoji { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+.persona-meta { flex: 1; }
+.persona-name { font-size: 16px; font-weight: 700; margin-bottom: 1px; }
+.persona-archetype { font-size: 11.5px; color: #888; font-weight: 500; margin-bottom: 6px; }
+.local-names { display: flex; gap: 5px; flex-wrap: wrap; }
+.local-name { font-size: 11px; background: #f3f4f6; padding: 2px 8px; border-radius: 5px; color: #444; }
+.persona-size { text-align: right; flex-shrink: 0; }
+.size-pct { font-size: 24px; font-weight: 700; line-height: 1; margin-bottom: 2px; }
+.size-label { font-size: 11px; color: #888; }
+
+.persona-body { display: grid; grid-template-columns: 220px 1fr 1fr; }
+@media (max-width: 1000px) { .persona-body { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 700px) { .persona-body { grid-template-columns: 1fr; } }
+
+.persona-col { padding: 14px 16px; border-right: 1px solid #f3f4f6; }
+.persona-col:last-child { border-right: none; }
+.col-title { font-size: 10.5px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+
+/* Metrics */
+.metric-row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 1px solid #f8f8f8; font-size: 12.5px; }
+.metric-row:last-child { border-bottom: none; }
+.metric-label { color: #666; }
+.metric-val { font-weight: 600; color: #111; text-align: right; max-width: 60%; }
+.metric-highlight { color: #16803c; }
+.metric-warn { color: #b45309; }
+
+/* ROAS table in metrics */
+.roas-market-row { display: flex; align-items: center; gap: 6px; padding: 4px 0; border-bottom: 1px solid #f8f8f8; font-size: 12px; }
+.roas-market-row:last-child { border-bottom: none; }
+.mkt-badge { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; flex-shrink: 0; }
+.mkt-cz { background: #dbeafe; color: #1e40af; }
+.mkt-hu { background: #dcfce7; color: #166534; }
+.mkt-de { background: #f3f4f6; color: #6b7280; }
+.roas-val { font-weight: 700; margin-left: auto; }
+.roas-good { color: #16803c; }
+.roas-mid { color: #b45309; }
+.roas-low { color: #9ca3af; }
+
+/* Format table */
+.format-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f8f8f8; }
+.format-item:last-child { border-bottom: none; }
+.format-stars { font-size: 11px; color: #f59e0b; flex-shrink: 0; margin-top: 1px; }
+.format-info { flex: 1; }
+.format-name { font-size: 12.5px; font-weight: 600; color: #111; margin-bottom: 2px; }
+.format-roas { display: flex; gap: 5px; flex-wrap: wrap; }
+.roas-badge { font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 10px; color: #fff; }
+.badge-green { background: #16803c; }
+.badge-amber { background: #b45309; }
+.badge-gray { background: #9ca3af; }
+
+/* CEP */
+.cep-item { padding: 7px 0; border-bottom: 1px solid #f8f8f8; }
+.cep-item:last-child { border-bottom: none; }
+.cep-situation { font-size: 10.5px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
+.cep-headline { font-size: 12.5px; font-weight: 600; color: #111; margin-bottom: 2px; font-style: italic; }
+.cep-copy { font-size: 11.5px; color: #666; line-height: 1.4; }
+
+/* Market notes */
+.market-notes { padding: 10px 16px; background: #fafaf9; border-top: 1px solid #f0f0ee; display: flex; flex-wrap: wrap; gap: 6px; }
+.note-pill { font-size: 11px; padding: 4px 10px; border-radius: 7px; line-height: 1.4; }
+.note-cz { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+.note-hu { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.note-de { background: #f3f4f6; color: #374151; border: 1px solid #e5e7eb; }
+.note-all { background: #fef9c3; color: #713f12; border: 1px solid #fde68a; }
+.note-red { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+/* Barrier tags */
+.barrier-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.barrier-tag { font-size: 11px; background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412; padding: 2px 8px; border-radius: 5px; }
+
+/* Cross-market section */
+.cross-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 700px) { .cross-grid { grid-template-columns: 1fr; } }
+.cross-card { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.cross-card h3 { font-size: 13px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dot-green { background: #16803c; }
+.dot-red { background: #b91c1c; }
+.dot-blue { background: #3b82f6; }
+.dot-yellow { background: #f59e0b; }
+.cross-card ul { list-style: none; }
+.cross-card ul li { font-size: 12.5px; color: #444; line-height: 1.5; padding: 5px 0; border-bottom: 1px solid #f3f4f6; }
+.cross-card ul li:last-child { border-bottom: none; }
+.cross-card ul li strong { color: #111; }
+
+.pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.pill { font-size: 11px; padding: 3px 9px; border-radius: 10px; }
+.pill-green { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.pill-red { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+.pill-blue { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+.pill-yellow { background: #fef9c3; color: #713f12; border: 1px solid #fde68a; }
+
+/* DE strategy */
+.de-strategy { background: #fff; border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-top: 12px; }
+.de-strategy h3 { font-size: 13px; font-weight: 600; margin-bottom: 10px; color: #374151; }
+.phase-row { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-bottom: 1px solid #f3f4f6; font-size: 12.5px; }
+.phase-row:last-child { border-bottom: none; }
+.phase-label { font-size: 10px; font-weight: 700; background: #f3f4f6; color: #555; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
+.phase-label.active { background: #dbeafe; color: #1e40af; }
+
+footer { margin-top: 32px; font-size: 11px; color: #aaa; text-align: center; padding-top: 16px; border-top: 1px solid #e0e0dd; }
+
+/* Motivation flow */
+.motivation-flow { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+.motive-step { font-size: 11px; background: #f3f4f6; padding: 2px 8px; border-radius: 5px; color: #333; }
+.motive-arrow { font-size: 10px; color: #ccc; }
+.motive-top { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+</style>
+</head>
+<body>
+
+<h1>Puella — Unified Cross-Market Customer Personas</h1>
+<p class="subtitle">🇨🇿 CZ · 🇭🇺 HU · 🇩🇪 DE/AT &nbsp;·&nbsp; Verzia 1.0 · Júl 2026 &nbsp;·&nbsp; Zdroje: CZ dotazník n=1006 · HU + DE/AT segmentové analýzy · Motion Creative Analytics (90 dní)</p>
+
+<!-- SUMMARY OVERVIEW -->
+<div class="summary-grid">
+
+  <div class="sum-card" style="border-top-color: #f59e0b;">
+    <div class="sum-name">🏆 Domáca šampionka</div>
+    <div class="sum-archetype">45–54 · žena · Core</div>
+    <div class="sum-pct">32 %</div>
+    <div class="sum-roas" style="margin-bottom:8px;">CZ+HU ROAS <span style="color:#16803c;">4.51×</span></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">CZ</div><div class="seg-bar-track"><div class="seg-bar-fill fill-cz" style="width:60%"></div></div><div class="seg-bar-pct">30 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">HU</div><div class="seg-bar-track"><div class="seg-bar-fill fill-hu" style="width:68%"></div></div><div class="seg-bar-pct">34 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">DE</div><div class="seg-bar-track"><div class="seg-bar-fill fill-de" style="width:64%"></div></div><div class="seg-bar-pct">32 %</div></div>
+  </div>
+
+  <div class="sum-card" style="border-top-color: #8b5cf6;">
+    <div class="sum-name">💎 Verná seniorka</div>
+    <div class="sum-archetype">55+ · žena · Loyal base</div>
+    <div class="sum-pct">32 %</div>
+    <div class="sum-roas" style="margin-bottom:8px;">CZ+HU ROAS <span style="color:#16803c;">3.88×</span></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">CZ</div><div class="seg-bar-track"><div class="seg-bar-fill fill-cz" style="width:78%"></div></div><div class="seg-bar-pct">39 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">HU</div><div class="seg-bar-track"><div class="seg-bar-fill fill-hu" style="width:38%"></div></div><div class="seg-bar-pct">19 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">DE</div><div class="seg-bar-track"><div class="seg-bar-fill fill-de" style="width:74%"></div></div><div class="seg-bar-pct">37 %</div></div>
+  </div>
+
+  <div class="sum-card" style="border-top-color: #10b981;">
+    <div class="sum-name">📈 Aktívna zapálená</div>
+    <div class="sum-archetype">35–44 · žena · Growth ★</div>
+    <div class="sum-pct">19 %</div>
+    <div class="sum-roas" style="margin-bottom:8px;">CZ+HU ROAS <span style="color:#16803c;">4.49×</span></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">CZ</div><div class="seg-bar-track"><div class="seg-bar-fill fill-cz" style="width:30%"></div></div><div class="seg-bar-pct">15 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">HU</div><div class="seg-bar-track"><div class="seg-bar-fill fill-hu" style="width:48%"></div></div><div class="seg-bar-pct">24 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">DE</div><div class="seg-bar-track"><div class="seg-bar-fill fill-de" style="width:38%"></div></div><div class="seg-bar-pct">19 %</div></div>
+  </div>
+
+  <div class="sum-card" style="border-top-color: #ec4899;">
+    <div class="sum-name">✨ Mladá fanúšička</div>
+    <div class="sum-archetype">18–34 · žena · Future value</div>
+    <div class="sum-pct">8 %</div>
+    <div class="sum-roas" style="margin-bottom:8px;">CZ ROAS <span style="color:#16803c;">4.27×</span> · CPA ↓</div>
+    <div class="seg-bar-row"><div class="seg-bar-label">CZ</div><div class="seg-bar-track"><div class="seg-bar-fill fill-cz" style="width:14%"></div></div><div class="seg-bar-pct">7 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">HU</div><div class="seg-bar-track"><div class="seg-bar-fill fill-hu" style="width:24%"></div></div><div class="seg-bar-pct">12 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">DE</div><div class="seg-bar-track"><div class="seg-bar-fill fill-de" style="width:10%"></div></div><div class="seg-bar-pct">5 %</div></div>
+  </div>
+
+  <div class="sum-card" style="border-top-color: #3b82f6;">
+    <div class="sum-name">🔧 Mužský pragmatik</div>
+    <div class="sum-archetype">35–54 · muž · Underserved</div>
+    <div class="sum-pct">8 %</div>
+    <div class="sum-roas" style="margin-bottom:8px;">CZ ROAS <span style="color:#16803c;">4.05×</span> · 0 mž. kreatív</div>
+    <div class="seg-bar-row"><div class="seg-bar-label">CZ</div><div class="seg-bar-track"><div class="seg-bar-fill fill-cz" style="width:18%"></div></div><div class="seg-bar-pct">9 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">HU</div><div class="seg-bar-track"><div class="seg-bar-fill fill-hu" style="width:14%"></div></div><div class="seg-bar-pct">7 %</div></div>
+    <div class="seg-bar-row"><div class="seg-bar-label">DE</div><div class="seg-bar-track"><div class="seg-bar-fill fill-de" style="width:16%"></div></div><div class="seg-bar-pct">8 %</div></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- PERSONA 1: DOMÁCA ŠAMPIONKA -->
+<!-- ============================================================ -->
+<div class="section">
+<div class="section-title">Persony</div>
+
+<div class="persona-card">
+  <div class="accent-strip accent-1"></div>
+  <div class="persona-header">
+    <div class="persona-emoji">🏆</div>
+    <div class="persona-meta">
+      <div class="persona-name">Domáca šampionka</div>
+      <div class="persona-archetype">45–54 rokov · žena · rodina · najväčší spend segment</div>
+      <div class="local-names">
+        <span class="local-name">🇨🇿 Marta</span>
+        <span class="local-name">🇭🇺 Katalin</span>
+        <span class="local-name">🇩🇪 Marta</span>
+      </div>
+    </div>
+    <div class="persona-size">
+      <div class="size-pct">32 %</div>
+      <div class="size-label">priemerná báza</div>
+    </div>
+  </div>
+
+  <div class="persona-body">
+    <!-- COL 1: PROFIL -->
+    <div class="persona-col">
+      <div class="col-title">Profil &amp; metriky</div>
+      <div class="metric-row"><span class="metric-label">Lojalita</span><span class="metric-val metric-highlight">67–68 %</span></div>
+      <div class="metric-row"><span class="metric-label">Bez aviváže</span><span class="metric-val">67 %</span></div>
+      <div class="metric-row"><span class="metric-label">Pranie / týždeň</span><span class="metric-val">3–4×</span></div>
+      <div class="metric-row"><span class="metric-label">Darčekový potenciál</span><span class="metric-val">16 %</span></div>
+      <div class="metric-row"><span class="metric-label">Trial trigger</span><span class="metric-val">vzorka 75 %</span></div>
+      <div class="metric-row"><span class="metric-label">Kanál</span><span class="metric-val">FB + e-mail</span></div>
+      <div style="margin-top:12px;">
+        <div class="col-title">ROAS podľa trhu</div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-cz">CZ</span> 4.39× · CPA 132 Kč <span class="roas-val roas-good">4.39×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-hu">HU</span> CPA 2 208 HUF <span class="roas-val roas-good">4.63×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-de">DE</span> expanzný trh <span class="roas-val roas-low">1.37×</span></div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Top vône</div>
+        <div style="font-size:12.5px; color:#333;">Double Y (zelená) · Frayo · EmiJa</div>
+      </div>
+      <div class="barrier-tags">
+        <span class="barrier-tag">Cena bez akcie</span>
+        <span class="barrier-tag">Obava o práčku</span>
+        <span class="barrier-tag">Offline nedostupnosť</span>
+      </div>
+    </div>
+
+    <!-- COL 2: KREATIVY -->
+    <div class="persona-col">
+      <div class="col-title">Top kreatívne formáty (konsenzus CZ+HU)</div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Cinematic B-Roll</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.03×</span>
+            <span class="roas-badge badge-green">HU 10.71×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Testimonial / UGC</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.71×</span>
+            <span class="roas-badge badge-green">HU 7.15×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Offer-First Banner (sezónny)</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 6.15×</span>
+            <span class="roas-badge badge-green">HU 8.45×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Countdown / Price Drop</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.94×</span>
+            <span class="roas-badge badge-gray">hidden → reaktivovať</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Sign / Lifestyle</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">HU 7.97×</span>
+            <span class="roas-badge badge-gray">CZ testovať</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Motivácia ku kúpe</div>
+        <div class="motivation-flow">
+          <span class="motive-step motive-top">WOM 63 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">Akcia 55 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">Dochádza 47 %</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COL 3: CEP -->
+    <div class="persona-col">
+      <div class="col-title">CEP — Category Entry Points</div>
+      <div class="cep-item">
+        <div class="cep-situation">Domáci luxus</div>
+        <div class="cep-headline">„Päťhviezdičkový hotel — každú noc, doma."</div>
+        <div class="cep-copy">Double Y a Frayo premenia oblečenie na zážitok. Pretože si zaslúžite luxus každý deň — bez príplatku.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">WOM / odporúčanie</div>
+        <div class="cep-headline">„Nemusíš nič hovoriť — ostatní sa sami opýtajú."</div>
+        <div class="cep-copy">63 % zákazníčok Puellu objavilo cez odporúčanie. Preto aj tvoja vôňa bude hovoriť za teba.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Ekonomická hodnota</div>
+        <div class="cep-headline">„Len 0,31 € za pranie. Luxus, ktorý si môžeš dovoliť."</div>
+        <div class="cep-copy">Viac ako 1,5 milióna zákazníkov vie: Puella nie je výdavok — je to úspora s vôňou navyše.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Sezónne odkladanie</div>
+        <div class="cep-headline">„Vytiahnite zimné veci — budú voňať ako nové."</div>
+        <div class="cep-copy">Žiadny prach, žiadny zatuchnutý pach. Frayo a Double Y zostávajú vo vláknach mesiace.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="market-notes">
+    <span class="note-hu">🇭🇺 Najväčší segment (34 %) — Cinematic B-Roll 10.71× → prioritizovať spend</span>
+    <span class="note-de">🇩🇪 ROAS 1.37× = awareness fáza — UGC Overlay + Direct Address formáty</span>
+    <span class="note-all">★ Vzorka = 75 % trial trigger vo všetkých trhoch</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PERSONA 2: VERNÁ SENIORKA -->
+<!-- ============================================================ -->
+<div class="persona-card">
+  <div class="accent-strip accent-2"></div>
+  <div class="persona-header">
+    <div class="persona-emoji">💎</div>
+    <div class="persona-meta">
+      <div class="persona-name">Verná seniorka</div>
+      <div class="persona-archetype">55+ rokov · žena · loyal base · najvyšší darčekový potenciál · podfinancovaná</div>
+      <div class="local-names">
+        <span class="local-name">🇨🇿 Elena</span>
+        <span class="local-name">🇭🇺 Erzsébet</span>
+        <span class="local-name">🇩🇪 Elena</span>
+      </div>
+    </div>
+    <div class="persona-size">
+      <div class="size-pct">32 %</div>
+      <div class="size-label">priemerná báza</div>
+    </div>
+  </div>
+
+  <div class="persona-body">
+    <div class="persona-col">
+      <div class="col-title">Profil &amp; metriky</div>
+      <div class="metric-row"><span class="metric-label">Lojalita</span><span class="metric-val metric-highlight">63 %</span></div>
+      <div class="metric-row"><span class="metric-label">Bez aviváže</span><span class="metric-val metric-warn">56 % — 44 % kombinuje</span></div>
+      <div class="metric-row"><span class="metric-label">Pranie / týždeň</span><span class="metric-val">1–2×</span></div>
+      <div class="metric-row"><span class="metric-label">Darčekový potenciál</span><span class="metric-val metric-highlight">21 % ★ najvyšší</span></div>
+      <div class="metric-row"><span class="metric-label">Kanál</span><span class="metric-val">E-mail + Facebook</span></div>
+      <div class="metric-row"><span class="metric-label">Thumbstop 65+</span><span class="metric-val metric-highlight">10.1 % ★ najvyšší CZ</span></div>
+      <div style="margin-top:12px;">
+        <div class="col-title">ROAS podľa trhu</div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-cz">CZ 55–64</span><span class="roas-val roas-good">3.74×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-cz">CZ 65+</span><span class="roas-val roas-mid">3.14×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-hu">HU</span><span class="roas-val roas-good">4.32×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-de">DE</span><span class="roas-val roas-low">0.99×</span></div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Top vône</div>
+        <div style="font-size:12.5px; color:#333;">Double Y · JaLu (unisex/rodina) · EmiJa</div>
+      </div>
+      <div class="barrier-tags">
+        <span class="barrier-tag">44 % + aviváž</span>
+        <span class="barrier-tag">Bytové difuzéry chýbajú</span>
+        <span class="barrier-tag">Nízka dig. afinita</span>
+      </div>
+    </div>
+
+    <div class="persona-col">
+      <div class="col-title">Top kreatívne formáty (konsenzus CZ+HU)</div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Testimonial — peer skupina</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.71×</span>
+            <span class="roas-badge badge-green">HU 7.15×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Direct Address hook</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.61×</span>
+            <span class="roas-badge badge-gray">DE 3.45×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Offer-First / Holiday (Matka, Vianoce)</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 6.15×</span>
+            <span class="roas-badge badge-green">HU 8.45×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Free Product With Purchase</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 7.73×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">High Production / Demo</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 7.25×</span>
+            <span class="roas-badge badge-gray">thumbstop 14.4 %</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Motivácia ku kúpe</div>
+        <div class="motivation-flow">
+          <span class="motive-step motive-top">WOM 49 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">FB reklama 30 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">Akcia 47 %</span>
+        </div>
+        <div style="font-size:11px; color:#888; margin-top:4px;">⚠ FB reklama ako trigger je unikát tejto persony</div>
+      </div>
+    </div>
+
+    <div class="persona-col">
+      <div class="col-title">CEP — Category Entry Points</div>
+      <div class="cep-item">
+        <div class="cep-situation">Darček pre blízkych</div>
+        <div class="cep-headline">„Darček, ktorý cítia každý deň."</div>
+        <div class="cep-copy">Puella ako darček pre dcéru alebo priateľku — osobné, praktické a voňavé.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Náhrada aviváže</div>
+        <div class="cep-headline">„Najvoňavejšia náhrada aviváže. Bez kompromisov."</div>
+        <div class="cep-copy">Puella nahrádza aviváž — vôňa zostáva omnoho dlhšie. Pranie pri 20 °C.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Bezpečnosť / dôvera</div>
+        <div class="cep-headline">„Dermatologicky testované. Pre citlivú pokožku."</div>
+        <div class="cep-copy">Puella je jemná k pokožke a silná voči zápachu. Bezpečná aj pre alergikov.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Domáci luxus</div>
+        <div class="cep-headline">„Päťhviezdičkový hotel — každú noc, doma."</div>
+        <div class="cep-copy">Double Y a First Dream premenia posteľnú bielizeň na miesto skutočného odpočinku.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="market-notes">
+    <span class="note-hu">🇭🇺 Menší segment (19 %) ale ROAS 4.32× — výrazne vyšší ako CZ → investovať</span>
+    <span class="note-de">🇩🇪 Najväčší DE segment (37 %) s ROAS 0.99× — brand-building, nie performance</span>
+    <span class="note-all">💡 65+ CZ: thumbstop 10.1 % (najvyšší v celom CZ účte) — výrazne podfinancovaný</span>
+    <span class="note-red">Bytové difuzéry — žiadané vo všetkých trhoch, chýbajú v ponuke</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PERSONA 3: AKTÍVNA ZAPÁLENÁ -->
+<!-- ============================================================ -->
+<div class="persona-card">
+  <div class="accent-strip accent-3"></div>
+  <div class="persona-header">
+    <div class="persona-emoji">📈</div>
+    <div class="persona-meta">
+      <div class="persona-name">Aktívna zapálená</div>
+      <div class="persona-archetype">35–44 rokov · žena · kariéra + rodina · NAJVYŠŠÍ ROAS naprieč core trhmi</div>
+      <div class="local-names">
+        <span class="local-name">🇨🇿 Zuzana</span>
+        <span class="local-name">🇭🇺 Zsuzsanna</span>
+        <span class="local-name">🇩🇪 Zuzana</span>
+      </div>
+    </div>
+    <div class="persona-size">
+      <div class="size-pct" style="color:#10b981;">19 %</div>
+      <div class="size-label">priemerná báza · ★ Growth</div>
+    </div>
+  </div>
+
+  <div class="persona-body">
+    <div class="persona-col">
+      <div class="col-title">Profil &amp; metriky</div>
+      <div class="metric-row"><span class="metric-label">Lojalita</span><span class="metric-val metric-highlight">68 %</span></div>
+      <div class="metric-row"><span class="metric-label">Bez aviváže</span><span class="metric-val">65 %</span></div>
+      <div class="metric-row"><span class="metric-label">Pranie / týždeň</span><span class="metric-val metric-highlight">3–6× ★ najvyšší</span></div>
+      <div class="metric-row"><span class="metric-label">Akciový trigger</span><span class="metric-val metric-warn">56 % — len pri akcii</span></div>
+      <div class="metric-row"><span class="metric-label">Competitor risk</span><span class="metric-val metric-warn">Lenor · Silan ⚠</span></div>
+      <div class="metric-row"><span class="metric-label">Kanál</span><span class="metric-val">FB + e-mail + web</span></div>
+      <div style="margin-top:12px;">
+        <div class="col-title">ROAS podľa trhu</div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-cz">CZ</span> CPA 139 Kč <span class="roas-val roas-good">4.47×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-hu">HU</span> CPA 2 263 HUF <span class="roas-val roas-good">4.51×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-de">DE</span> expanzný <span class="roas-val roas-low">1.48×</span></div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Top vône</div>
+        <div style="font-size:12.5px; color:#333;">Double Y · Frayo · Queenka (víkend)</div>
+      </div>
+      <div class="barrier-tags">
+        <span class="barrier-tag">56 % len pri akcii</span>
+        <span class="barrier-tag">Lenor/Silan churn</span>
+        <span class="barrier-tag">Sušičkové produkty</span>
+      </div>
+    </div>
+
+    <div class="persona-col">
+      <div class="col-title">Top kreatívne formáty (konsenzus CZ+HU)</div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Cinematic B-Roll (Hybrid)</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.03×</span>
+            <span class="roas-badge badge-green">HU 9.68×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Testimonial / UGC</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.71×</span>
+            <span class="roas-badge badge-green">HU 7.15×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Demo (UGC) — funkčný benefit</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 5.90×</span>
+            <span class="roas-badge badge-green">HU 4.73–6.97×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">How To</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">HU 6.91×</span>
+            <span class="roas-badge badge-amber">CZ 3.01× — testovať</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Discount / Split Screen cena</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 7.56×</span>
+            <span class="roas-badge badge-green">Split 6.44×</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Motivácia ku kúpe</div>
+        <div class="motivation-flow">
+          <span class="motive-step motive-top">Akcia 56 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">WOM 53 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">Nová vôňa 19 %</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="persona-col">
+      <div class="col-title">CEP — Category Entry Points</div>
+      <div class="cep-item">
+        <div class="cep-situation">Prvý dojem</div>
+        <div class="cep-headline">„Vôňa, ktorá vojde do miestnosti pred vami."</div>
+        <div class="cep-copy">Zabudnite na prchavé parfémy. Nechajte za sebou stopu sviežosti od rána do večera.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Hodnota na pranie</div>
+        <div class="cep-headline">„0,31 € za pranie. Počítali ste to s Lenorom?"</div>
+        <div class="cep-copy">Puella je lacnejšia ako prémiová aviváž — a vonia výrazne dlhšie.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Nostalgia (nový angle)</div>
+        <div class="cep-headline">„Voní ako u mámy. Teraz u teba."</div>
+        <div class="cep-copy">Niektoré veci zostávajú — vôňa čistého prádla je jednou z nich.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">WOM / zastavenie na ulici</div>
+        <div class="cep-headline">„Zastavujú ťa a pýtajú sa, čo máš za vôňu."</div>
+        <div class="cep-copy">Puella zákazníčky to zažívajú každý deň. Teraz je rada na teba.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="market-notes">
+    <span class="note-hu">🇭🇺 Rýchlo rastúci segment (24 % vs 15 % CZ) — väčší investičný potenciál</span>
+    <span class="note-de">🇩🇪 Before/After + Text Message formáty fungujú v expanznej fáze</span>
+    <span class="note-all">⚡ Najvyšší ROAS naprieč core trhmi (4.47–4.51×) — prioritný budget segment</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PERSONA 4: MLADÁ FANÚŠIČKA -->
+<!-- ============================================================ -->
+<div class="persona-card">
+  <div class="accent-strip accent-4"></div>
+  <div class="persona-header">
+    <div class="persona-emoji">✨</div>
+    <div class="persona-meta">
+      <div class="persona-name">Mladá fanúšička</div>
+      <div class="persona-archetype">18–34 rokov · žena · single / páry · najnižšia CPA · najvyšší referral potenciál · podfinancovaná</div>
+      <div class="local-names">
+        <span class="local-name">🇨🇿 Lucia</span>
+        <span class="local-name">🇭🇺 Luca</span>
+        <span class="local-name">🇩🇪 Lucia</span>
+      </div>
+    </div>
+    <div class="persona-size">
+      <div class="size-pct">8 %</div>
+      <div class="size-label">priemerná báza</div>
+    </div>
+  </div>
+
+  <div class="persona-body">
+    <div class="persona-col">
+      <div class="col-title">Profil &amp; metriky</div>
+      <div class="metric-row"><span class="metric-label">Lojalita</span><span class="metric-val metric-warn">58 % — najnižšia</span></div>
+      <div class="metric-row"><span class="metric-label">Bez aviváže</span><span class="metric-val">65 %</span></div>
+      <div class="metric-row"><span class="metric-label">Pranie / týždeň</span><span class="metric-val">3–4×</span></div>
+      <div class="metric-row"><span class="metric-label">Referral potenciál</span><span class="metric-val metric-highlight">★★★ najvyšší</span></div>
+      <div class="metric-row"><span class="metric-label">Kanál</span><span class="metric-val">Web + e-mail + Instagram</span></div>
+      <div class="metric-row"><span class="metric-label">Marketplace záujem</span><span class="metric-val metric-warn">28 % — chýbame tam</span></div>
+      <div style="margin-top:12px;">
+        <div class="col-title">ROAS podľa trhu</div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-cz">CZ 25–34</span><span class="roas-val roas-good">4.18×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-cz">CZ 18–24</span><span class="roas-val roas-good">4.36× · CPA 127 Kč ★</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-hu">HU</span><span class="roas-val roas-good">~4.3×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-de">DE</span><span class="roas-val roas-low">nízky</span></div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Top vône</div>
+        <div style="font-size:12.5px; color:#333;">Double Y · Queenka (víkend) · EmiJa · First Dream</div>
+      </div>
+      <div class="barrier-tags">
+        <span class="barrier-tag">63 % len pri akcii</span>
+        <span class="barrier-tag">Marketplace chýba</span>
+        <span class="barrier-tag">Nízka lojalita</span>
+      </div>
+    </div>
+
+    <div class="persona-col">
+      <div class="col-title">Top kreatívne formáty (konsenzus CZ+HU)</div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">UGC / Testimonial (autenticita)</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.71×</span>
+            <span class="roas-badge badge-green">HU 7.15–9.10×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Chore To Pleasure</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 9.31× ★</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Cinematic B-Roll</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.03×</span>
+            <span class="roas-badge badge-green">HU 9.68×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">UGC Partnership / influencer</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">HU 9.10×</span>
+            <span class="roas-badge badge-gray">CZ testovať</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Static To Video (Stories)</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">HU 5.87×</span>
+            <span class="roas-badge badge-gray">thumbstop 28.6 %</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Motivácia ku kúpe</div>
+        <div class="motivation-flow">
+          <span class="motive-step motive-top">Akcia 63 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">WOM 46 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">Nová vôňa 31 %</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="persona-col">
+      <div class="col-title">CEP — Category Entry Points</div>
+      <div class="cep-item">
+        <div class="cep-situation">Sociálna validácia</div>
+        <div class="cep-headline">„Vôňa, o ktorej sa pýtajú."</div>
+        <div class="cep-copy">„Zastavujú ma na ulici a pýtajú sa." Vaša signature vôňa začína pri praní, nie pri pulte.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Self-care rituál</div>
+        <div class="cep-headline">„Pranie ako rituál, nie ako povinnosť."</div>
+        <div class="cep-copy">Zapni obľúbený playlist, pridaj Puella a premeň večer len pre seba.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Affordable luxury</div>
+        <div class="cep-headline">„Malý luxus, ktorý si môžeš dopriať každý deň."</div>
+        <div class="cep-copy">Nie každý deň si kúpiš parfum. Ale každý deň môžeš prať s Puella.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Product discovery</div>
+        <div class="cep-headline">„Nevedela som, že prádlo môže tak voňať."</div>
+        <div class="cep-copy">Od prvého použitia si hovoríš: prečo som to neskúsila skôr?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="market-notes">
+    <span class="note-hu">🇭🇺 Väčší segment (12 % vs 7 % CZ) — UGC Partnership funguje výborne (9.10×)</span>
+    <span class="note-all">💡 18–24 CZ: najnižšia CPA v celom účte (127 Kč) — výrazne podfinancovaný</span>
+    <span class="note-red">Marketplace (Alza/eMAG/Amazon) = neobsadená príležitosť vo všetkých trhoch</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PERSONA 5: MUŽSKÝ PRAGMATIK -->
+<!-- ============================================================ -->
+<div class="persona-card">
+  <div class="accent-strip accent-5"></div>
+  <div class="persona-header">
+    <div class="persona-emoji">🔧</div>
+    <div class="persona-meta">
+      <div class="persona-name">Mužský pragmatik</div>
+      <div class="persona-archetype">35–54 rokov · muž · solídny ROAS napriek nulovej mužskej kreatíve vo všetkých trhoch</div>
+      <div class="local-names">
+        <span class="local-name">🇨🇿 Petr</span>
+        <span class="local-name">🇭🇺 Péter</span>
+        <span class="local-name">🇩🇪 Peter</span>
+      </div>
+    </div>
+    <div class="persona-size">
+      <div class="size-pct">8 %</div>
+      <div class="size-label">priemerná báza</div>
+    </div>
+  </div>
+
+  <div class="persona-body">
+    <div class="persona-col">
+      <div class="col-title">Profil &amp; metriky</div>
+      <div class="metric-row"><span class="metric-label">Lojalita</span><span class="metric-val metric-highlight">64 %</span></div>
+      <div class="metric-row"><span class="metric-label">Bez aviváže</span><span class="metric-val metric-warn">62 % — 38 % kombinuje</span></div>
+      <div class="metric-row"><span class="metric-label">Pranie / týždeň</span><span class="metric-val">1–3×</span></div>
+      <div class="metric-row"><span class="metric-label">Marketplace záujem</span><span class="metric-val">18 %</span></div>
+      <div class="metric-row"><span class="metric-label">Kanál</span><span class="metric-val">Facebook + web</span></div>
+      <div class="metric-row"><span class="metric-label">Mužská kreativa</span><span class="metric-val metric-warn">0 Kč/€ spend ★</span></div>
+      <div style="margin-top:12px;">
+        <div class="col-title">ROAS podľa trhu</div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-cz">CZ 35–44 m</span><span class="roas-val roas-good">3.98×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-cz">CZ 45–54 m</span><span class="roas-val roas-good">4.11×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-hu">HU</span><span class="roas-val roas-good">~4.0×</span></div>
+        <div class="roas-market-row"><span class="mkt-badge mkt-de">DE</span><span class="roas-val roas-low">—</span></div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Top vône</div>
+        <div style="font-size:12.5px; color:#333;">Double Y · Frayo (napriek ženskému profilu)</div>
+        <div style="font-size:11px; color:#991b1b; margin-top:3px;">🔴 Korenistá/mužská vôňa — chýba vo všetkých trhoch</div>
+      </div>
+      <div class="barrier-tags">
+        <span class="barrier-tag">0 mužských kreatív</span>
+        <span class="barrier-tag">Chýba mužská vôňa</span>
+        <span class="barrier-tag">38 % + aviváž</span>
+      </div>
+    </div>
+
+    <div class="persona-col">
+      <div class="col-title">Top kreatívne formáty (dostupné dáta)</div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Demo / Testimonial (mužský hlas — chýba)</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 5.90–8.71×</span>
+            <span class="roas-badge badge-green">HU 4.73–6.97×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★★</div>
+        <div class="format-info">
+          <div class="format-name">Direct Address hook</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 8.61×</span>
+            <span class="roas-badge badge-gray">DE 3.45×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Offer-First Banner</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 6.15×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Split Screen — cena vs. aviváž</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-green">CZ 6.44×</span>
+          </div>
+        </div>
+      </div>
+      <div class="format-item">
+        <div class="format-stars">★★</div>
+        <div class="format-info">
+          <div class="format-name">Before / After</div>
+          <div class="format-roas">
+            <span class="roas-badge badge-gray">DE 3.45×</span>
+            <span class="roas-badge badge-gray">CZ/HU neotestované</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="col-title" style="margin-bottom:5px;">Motivácia ku kúpe</div>
+        <div class="motivation-flow">
+          <span class="motive-step motive-top">Dochádza 53 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">WOM 49 %</span>
+          <span class="motive-arrow">›</span>
+          <span class="motive-step">Akcia 46 %</span>
+        </div>
+        <div style="font-size:11px; color:#888; margin-top:4px;">→ Na rozdiel od žien: primárny trigger je zásobovanie, nie akcia</div>
+      </div>
+    </div>
+
+    <div class="persona-col">
+      <div class="col-title">CEP — Category Entry Points</div>
+      <div class="cep-item">
+        <div class="cep-situation">Prvý dojem / mužský</div>
+        <div class="cep-headline">„Oblečenie hovorí za teba."</div>
+        <div class="cep-copy">„Navštívili ma — a čerstvo vyprané oblečenie hovorilo samo za seba." Double Y a Frayo.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Jednoduchosť / rutina</div>
+        <div class="cep-headline">„Jedno naliatie. Sto praní. Nula starostí."</div>
+        <div class="cep-copy">Puella parfum funguje s každým pracím gélom — bez zmeny rutiny.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Hodnota</div>
+        <div class="cep-headline">„0,31 € za pranie. Menej ako káva cestou do práce."</div>
+        <div class="cep-copy">500 ml vydrží desiatky praní. Lacnejšie ako prémiová aviváž.</div>
+      </div>
+      <div class="cep-item">
+        <div class="cep-situation">Náhrada aviváže</div>
+        <div class="cep-headline">„Zabudnite na aviváž. Jedno naliatie stačí."</div>
+        <div class="cep-copy">Puella nahrádza aviváž — jeden krok, lepší výsledok. Menej chemie, viac vône.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="market-notes">
+    <span class="note-red">⛔ Žiadna mužská kreativa = 0 spend testov vo všetkých 3 trhoch — celá príležitosť neotestovaná</span>
+    <span class="note-de">🇩🇪 Ekologický argument rezonuje — „menej chemie, viac vône" pre DE verziu</span>
+    <span class="note-all">💡 A/B test: mužský hlas vs. štandardná kreativa = crossmarket priorita č. 1</span>
+    <span class="note-red">🔴 Produktová príležitosť: korenistá/mužská vôňa — žiadaná konsistentne vo všetkých trhoch</span>
+  </div>
+</div>
+
+</div><!-- /section -->
+
+<!-- ============================================================ -->
+<!-- CROSS-MARKET PATTERNS -->
+<!-- ============================================================ -->
+<div class="section">
+<div class="section-title">Spoločné vzory naprieč všetkými trhmi</div>
+<div class="cross-grid">
+
+  <div class="cross-card">
+    <h3><span class="dot dot-green"></span>Crossmarket winners</h3>
+    <ul>
+      <li><strong>Testimonial / UGC:</strong> CZ 8.71×, HU 7.15–9.10× — škálovať vo všetkých trhoch okamžite.</li>
+      <li><strong>Cinematic B-Roll:</strong> CZ 8.03×, HU 9.68–10.71× — prioritný video formát pre Core a Growth segment.</li>
+      <li><strong>Double Y dominuje universálne</strong> — #1 vôňa v každom segmente a každom trhu. Hero produkt pre každú kreatívu.</li>
+      <li><strong>Vzorka = 61–75 % trial trigger</strong> — sampling kreativa musí byť v sampling kampani, nie akvizícii.</li>
+      <li><strong>E-shop Puella preferovaný (63–70 %)</strong> naprieč všetkými personami a trhmi.</li>
+    </ul>
+    <div class="pills">
+      <span class="pill pill-green">Testimonial ✓</span>
+      <span class="pill pill-green">Cinematic B-Roll ✓</span>
+      <span class="pill pill-green">Double Y ✓</span>
+      <span class="pill pill-green">E-shop first ✓</span>
+    </div>
+  </div>
+
+  <div class="cross-card">
+    <h3><span class="dot dot-red"></span>Spoločné bariéry (top 5)</h3>
+    <ul>
+      <li><strong>Cena bez akcie</strong> — akcia je primárny trigger vo všetkých segmentoch a trhoch.</li>
+      <li><strong>Nedostupnosť offline</strong> — drogérie, supermarkety, marketplace (Alza/eMAG/Amazon).</li>
+      <li><strong>Sušičkové produkty chýbajú</strong> — žiadané konzistentne vo všetkých trhoch.</li>
+      <li><strong>JaLu paradox</strong> — #3 v trialu, #1 neobľúbená naprieč všetkými segmentmi.</li>
+      <li><strong>Mužská kreativa = 0 spend</strong> — celá príležitosť neotestovaná v každom trhu.</li>
+    </ul>
+    <div class="pills">
+      <span class="pill pill-red">Cena bez akcie ✗</span>
+      <span class="pill pill-red">Offline chýba ✗</span>
+      <span class="pill pill-red">Sušičky ✗</span>
+      <span class="pill pill-red">Mužská kreativa 0 ✗</span>
+    </div>
+  </div>
+
+  <div class="cross-card">
+    <h3><span class="dot dot-blue"></span>Produktové príležitosti</h3>
+    <ul>
+      <li><strong>Bytové difuzéry</strong> — zmienené zákazníčkami vo viacerých trhoch, odišli ku konkurencii.</li>
+      <li><strong>Sušičkové guľôčky</strong> — wish list top 3 naprieč segmentmi.</li>
+      <li><strong>Korenistá / mužská vôňa</strong> — explicitne žiadaná v CZ, HU aj DE.</li>
+      <li><strong>Marketplace expanzia</strong> — 18–28 % zákazníkov preferuje Alza/eMAG/Amazon. Puella tam nie je.</li>
+    </ul>
+    <div class="pills">
+      <span class="pill pill-blue">Difuzéry</span>
+      <span class="pill pill-blue">Sušičkové guľôčky</span>
+      <span class="pill pill-blue">Mužská vôňa</span>
+      <span class="pill pill-blue">Marketplace</span>
+    </div>
+  </div>
+
+  <div class="cross-card">
+    <h3><span class="dot dot-yellow"></span>DE/AT stratégia (expanzný trh)</h3>
+    <p style="font-size:12px; color:#555; margin-bottom:10px;">Systematicky nižší ROAS (0.9–1.5×) nie je problém kreatívy — je to úroveň povedomia o značke.</p>
+    <div class="phase-row">
+      <span class="phase-label active">Fáza 1 ← sme tu</span>
+      <span style="font-size:12px; color:#444;">Awareness: Testimonial, UGC, Direct Address</span>
+    </div>
+    <div class="phase-row">
+      <span class="phase-label">Fáza 2</span>
+      <span style="font-size:12px; color:#444;">Retargeting s cenovou komunikáciou (Text Message, Before/After)</span>
+    </div>
+    <div class="phase-row">
+      <span class="phase-label">Fáza 3</span>
+      <span style="font-size:12px; color:#444;">Offer-First škálovanie ako v CZ/HU</span>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<footer>Puella / PUELLAvone s.r.o. · Interný dokument · Júl 2026 · Zdroje: CZ zákaznícky dotazník jún 2026 (n=1006) · HU + DE/AT segmentové analýzy · Motion Creative Analytics MCP (CZ+HU workspaces, 90 dní, mar.–jún. 2026)</footer>
+
+</body>
+</html>
