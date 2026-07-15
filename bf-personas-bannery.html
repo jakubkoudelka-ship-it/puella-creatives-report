@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puella — Black Friday 2026: Persony &amp; Návrhy Bannerů</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #f0f0ee; padding: 24px; color: #111; }
+h1 { font-size: 19px; font-weight: 700; margin-bottom: 4px; }
+.subtitle { font-size: 13px; color: #666; margin-bottom: 18px; }
+
+/* Promo callout */
+.promo-box { background: linear-gradient(90deg, #1a1a1a, #2e2e38); color: #fff; border-radius: 14px; padding: 16px 20px; margin-bottom: 22px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.promo-badge { background: #f2c94c; color: #1a1a1a; font-weight: 800; font-size: 13px; padding: 4px 12px; border-radius: 20px; flex-shrink: 0; }
+.promo-text { font-size: 13px; line-height: 1.5; flex: 1; min-width: 260px; }
+.promo-text b { color: #fff; }
+.promo-price { font-size: 15px; font-weight: 800; }
+.promo-price .old { text-decoration: line-through; color: #aaa; font-weight: 400; font-size: 12px; margin-right: 6px; }
+.promo-link { font-size: 11.5px; color: #9ca3af; }
+.promo-link a { color: #93c5fd; }
+
+/* Summary bar */
+.summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 26px; }
+@media (max-width: 900px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } }
+.sum-card { background: #fff; border-radius: 10px; padding: 12px 14px; box-shadow: 0 1px 4px rgba(0,0,0,.08); border-top: 3px solid transparent; }
+.sum-name { font-size: 12.5px; font-weight: 700; margin-bottom: 2px; }
+.sum-archetype { font-size: 11px; color: #888; margin-bottom: 6px; }
+.sum-pct { font-size: 19px; font-weight: 700; margin-bottom: 2px; }
+.sum-roas { font-size: 11px; color: #555; }
+.sum-roas span { font-weight: 700; color: #16803c; }
+.sum-motiv { font-size: 10.5px; color: #999; margin-top: 6px; line-height: 1.4; }
+
+/* Section */
+.section { margin-top: 30px; }
+.section-title { font-size: 15.5px; font-weight: 700; margin-bottom: 4px; padding-bottom: 8px; border-bottom: 1px solid #e0e0dd; display: flex; align-items: center; justify-content: space-between; }
+.section-sub { font-size: 12px; color: #777; margin-bottom: 14px; }
+.progress-pill { font-size: 11px; font-weight: 700; background: #f3f4f6; color: #555; padding: 3px 10px; border-radius: 12px; }
+
+/* Banner concept card */
+.banner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px) { .banner-grid { grid-template-columns: 1fr; } }
+
+.b-card { background: #fff; border-radius: 14px; box-shadow: 0 1px 5px rgba(0,0,0,.09); overflow: hidden; transition: box-shadow .15s; }
+.b-card.done { box-shadow: 0 0 0 2px #16803c inset, 0 1px 5px rgba(0,0,0,.09); }
+.accent-strip { height: 4px; }
+.accent-1 { background: linear-gradient(90deg, #f59e0b, #f97316); }
+.accent-2 { background: linear-gradient(90deg, #8b5cf6, #c084fc); }
+.accent-3 { background: linear-gradient(90deg, #10b981, #34d399); }
+.accent-4 { background: linear-gradient(90deg, #ec4899, #f9a8d4); }
+.accent-5 { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+
+.b-header { padding: 12px 16px 10px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f3f4f6; }
+.b-emoji { font-size: 20px; }
+.b-name { font-size: 14px; font-weight: 700; flex: 1; }
+.b-archetype { font-size: 10.5px; color: #999; }
+
+.b-body { padding: 12px 16px; }
+.b-hook { font-size: 13px; font-weight: 600; font-style: italic; color: #111; margin-bottom: 10px; line-height: 1.4; }
+.b-row { margin-bottom: 8px; }
+.b-label { font-size: 10px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 2px; }
+.b-val { font-size: 12px; color: #333; line-height: 1.45; }
+.b-format { display: inline-block; font-size: 10.5px; font-weight: 700; background: #f3f4f6; color: #444; padding: 3px 9px; border-radius: 8px; margin-top: 2px; }
+.b-cta { display: inline-block; font-size: 11.5px; font-weight: 700; background: #1a1a1a; color: #fff; padding: 4px 12px; border-radius: 20px; margin-top: 2px; }
+.b-why { font-size: 11.5px; color: #666; line-height: 1.45; background: #fafaf9; border-radius: 8px; padding: 8px 10px; margin-top: 8px; }
+
+.b-track { border-top: 1px solid #f3f4f6; background: #fafaf9; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+.b-track input[type="text"] { flex: 1; font-size: 12px; border: 1px solid #e5e5e3; border-radius: 6px; padding: 5px 8px; font-family: inherit; }
+.b-track label { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #444; white-space: nowrap; cursor: pointer; }
+.b-track input[type="checkbox"] { width: 15px; height: 15px; cursor: pointer; }
+
+footer { margin-top: 34px; font-size: 11px; color: #aaa; text-align: center; padding-top: 16px; border-top: 1px solid #e0e0dd; }
+</style>
+</head>
+<body>
+
+<h1>Puella — Black Friday 2026: Persony &amp; Návrhy Bannerů</h1>
+<p class="subtitle">Unified cross-market persony (CZ+HU+DE/AT) · Podklad pro generování BF kreativ v týmu · Zaškrtávání se ukládá lokálně v prohlížeči</p>
+
+<div class="promo-box">
+  <div class="promo-badge">💣 SUB-AKCE V RÁMCI BF</div>
+  <div class="promo-text">
+    <b>Set 1+2 na 200 praní</b> — 500 ml parfém na praní + 1 L + 1 L pracího gelu <b>ZDARMA</b>.
+    <div class="promo-price"><span class="old">1 987 Kč</span>799 Kč &nbsp;(–59 %)</div>
+    <div class="promo-link">Zdroj: <a href="https://www.puellavune.cz/rodinne-baleni-na-200-prani/" target="_blank" rel="noopener">puellavune.cz/rodinne-baleni-na-200-prani</a></div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary-grid">
+  <div class="sum-card" style="border-top-color:#f59e0b;">
+    <div class="sum-name">🏆 Domáca šampionka</div>
+    <div class="sum-archetype">45–54 · žena · Core</div>
+    <div class="sum-pct">32 %</div>
+    <div class="sum-roas">CZ+HU ROAS <span>4.51×</span> · DE/AT 1.37×</div>
+    <div class="sum-motiv">Odporúčanie · akcia · dochádza zásoba</div>
+  </div>
+  <div class="sum-card" style="border-top-color:#8b5cf6;">
+    <div class="sum-name">💎 Verná seniorka</div>
+    <div class="sum-archetype">55+ · žena · Loyal base</div>
+    <div class="sum-pct">32 %</div>
+    <div class="sum-roas">CZ+HU ROAS <span>3.88×</span> · DE/AT 0.99×</div>
+    <div class="sum-motiv">Darčekový potenciál 21 % (najvyšší)</div>
+  </div>
+  <div class="sum-card" style="border-top-color:#10b981;">
+    <div class="sum-name">📈 Aktívna zapálená</div>
+    <div class="sum-archetype">35–44 · žena · Growth ★</div>
+    <div class="sum-pct">19 %</div>
+    <div class="sum-roas">CZ+HU ROAS <span>4.49×</span> (najvyšší) · DE/AT 1.48×</div>
+    <div class="sum-motiv">56 % nakupuje LEN pri akcii</div>
+  </div>
+  <div class="sum-card" style="border-top-color:#ec4899;">
+    <div class="sum-name">✨ Mladá fanúšička</div>
+    <div class="sum-archetype">18–34 · žena · Future value</div>
+    <div class="sum-pct">8 %</div>
+    <div class="sum-roas">CZ+HU ROAS <span>≈4.3×</span></div>
+    <div class="sum-motiv">Akcia 63 % (najvyššia) · sety 29 %</div>
+  </div>
+  <div class="sum-card" style="border-top-color:#3b82f6;">
+    <div class="sum-name">🔧 Mužský pragmatik</div>
+    <div class="sum-archetype">35–54 · muž · Underserved</div>
+    <div class="sum-pct">8 %</div>
+    <div class="sum-roas">CZ+HU ROAS <span>≈4.05×</span></div>
+    <div class="sum-motiv">0 Kč mužská kreativa — neotestovaná príležitosť</div>
+  </div>
+</div>
+
+<!-- SECTION 1: OBECNÉ BF BANNERY -->
+<div class="section">
+  <div class="section-title">1. Obecné Black Friday bannery <span class="progress-pill" id="progress-general">0/5 hotovo</span></div>
+  <div class="section-sub">Kreativní koncepty napříč celou BF akcí (nevázané na konkrétní set/produkt).</div>
+  <div class="banner-grid" id="grid-general"></div>
+</div>
+
+<!-- SECTION 2: SET 1+2 BANNERY -->
+<div class="section">
+  <div class="section-title">2. Set 1+2 bannery <span class="progress-pill" id="progress-set12">0/5 hotovo</span></div>
+  <div class="section-sub">Kreativní koncepty pro sub-akci: 500 ml parfém + 2× 1L gel zdarma, 799 Kč (–59 %).</div>
+  <div class="banner-grid" id="grid-set12"></div>
+</div>
+
+<footer>Puella BF 2026 · Persony: syntéza CZ dotazníku (n=1006) + HU + DE/AT + Motion Creative Analytics · Sub-akce 1+2: puellavune.cz</footer>
+
+<script>
+const personas = [
+  { key: "marta",   emoji: "🏆", name: "Marta — Domáca šampionka",     arch: "45–54 · žena · accent-1", accent: "accent-1" },
+  { key: "elena",   emoji: "💎", name: "Elena — Verná seniorka",       arch: "55+ · žena · accent-2",   accent: "accent-2" },
+  { key: "zuzana",  emoji: "📈", name: "Zuzana — Aktívna zapálená",    arch: "35–44 · žena · accent-3", accent: "accent-3" },
+  { key: "lucia",   emoji: "✨", name: "Lucia — Mladá fanúšička",      arch: "18–34 · žena · accent-4", accent: "accent-4" },
+  { key: "petr",    emoji: "🔧", name: "Petr — Mužský pragmatik",      arch: "35–54 · muž · accent-5",  accent: "accent-5" },
+];
+
+const dataGeneral = {
+  marta: {
+    hook: "„Domácí luxus, který si zaslouží slevu.“",
+    visual: "Offer-First: velké % slevy v popředí, produkt v teplém domácím prostředí (obývačka/ložnice), decentní BF barvy (černá/zlatá místo křiklavě červené)",
+    format: "Offer-First Banner / Countdown",
+    cta: "Nakoupit se slevou",
+    why: "Největší spend segment, nejnižší CPA. Motivuje ji akce (55 %) a doporučení (63 %) — Countdown formát u ní ROAS 8.94× (dnes hidden, reaktivovat pro BF)."
+  },
+  elena: {
+    hook: "„Voňavý dárek pro vás i pro vaše blízké.“",
+    visual: "Direct Address hook — přímá řeč do kamery/text, velký čitelný font, důvěryhodná tvář (peer testimonial), minimum grafických prvků",
+    format: "Direct Address Hook / Testimonial",
+    cta: "Vybrat dárek",
+    why: "Nejvyšší dárkový potenciál (21 %), nízká dig. afinita → jednoduchý čitelný design. Direct Address má u ní ROAS 8.61×."
+  },
+  zuzana: {
+    hook: "„Cena, která se vyplatí. Sleva, kterou si nenecháte ujít.“",
+    visual: "Split Screen: původní cena přeškrtnutá vs. BF cena, dynamický střih/B-roll praní, urgence (odpočet do konce akce)",
+    format: "Split Screen cena / Discount Offer",
+    cta: "Ušetřit teď",
+    why: "56 % nakupuje JEN při akci — nejvyšší price sensitivity v CZ. Split Screen a Discount Offer formát ROAS 6.44–7.56×."
+  },
+  lucia: {
+    hook: "„Black Friday edice, po které se bude prášit.“",
+    visual: "Limited Edition rámování, Instagram/Reels vertikální formát, UGC styl, mladá tvář, affordable luxury estetika",
+    format: "Limited Edition / UGC Relatability",
+    cta: "Získat limitku",
+    why: "Nejvíc reaguje na akci (63 %) a nové produkty (31 %). Limited Edition formát ROAS 8.68×, kanál Instagram."
+  },
+  petr: {
+    hook: "„Zásoba na půl roku. Bez řečí, jen sleva.“",
+    visual: "Direct Address, jednoduchý/pragmatický vizuál (produkt + cena, žádné květinové motivy), mužský hlas/tón, tmavší paleta",
+    format: "Direct Address Hook / Offer-First",
+    cta: "Doplnit zásobu",
+    why: "První test mužsky laděné BF kreativy (0 Kč spend doteď). Motivuje ho hlavně docházející zásoba (53 %) a akce (46 %)."
+  }
+};
+
+const dataSet12 = {
+  marta: {
+    hook: "„Zásoba do konce zimy za cenu jednoho parfému.“",
+    visual: "Product Image With Text: foto celé sestavy (parfém + 2× gel), cena 799 Kč přeškrtnutá 1 987 Kč, domácí teplé prostředí, odznak „–59 %“",
+    format: "Product Image With Text / Offer-First",
+    cta: "Objednat set",
+    why: "Motivuje ji „dochází zásoba“ (47 %) a akce (55 %) — set řeší zásobu na zimu. Product Image With Text má u ní ROAS 6.90×."
+  },
+  elena: {
+    hook: "„Koupíte parfém, gely dostanete darem — pro vás i jako dárek.“",
+    visual: "Free Product With Purchase — vizuálně zvýrazněné „2× GEL ZDARMA“, jednoduchý layout, velký čitelný text, testimonial od peer zákaznice",
+    format: "Free Product With Purchase / Testimonial",
+    cta: "Získat dárek",
+    why: "Set 1+2 je doslova formát „Free Product With Purchase“, který má u Eleny ROAS 7.73× — a 21 % dárkový potenciál sedí na rámování „dárek“."
+  },
+  zuzana: {
+    hook: "„200 praní za 799 Kč. To je 4 Kč za praní.“",
+    visual: "Split Screen: nalevo cena/praní bez akce, napravo přepočet s BF setem (4 Kč/praní), čísla velkým fontem, jasná matematika hodnoty",
+    format: "Split Screen cena/praní",
+    cta: "Spočítat úsporu",
+    why: "Nejvyšší price sensitivity — konkrétní přepočet ceny za praní je přesně to, co ji přesvědčí. Split Screen formát ROAS 6.44×."
+  },
+  lucia: {
+    hook: "„Rituál na 200 praní. Voňavý set, který si zamilujete.“",
+    visual: "Chore To Pleasure: stylizovaná fotka setu jako „self-care balíček“, pastelové BF barvy, Instagram Stories formát, UGC unboxing styl",
+    format: "Chore To Pleasure / UGC",
+    cta: "Chci ten set",
+    why: "29 % má zájem o sety — Chore To Pleasure formát má u ní nejvyšší ROAS ze všech (9.31×), přesně sedí na tento produkt."
+  },
+  petr: {
+    hook: "„Jedna objednávka. Půl roku vystaráno.“",
+    visual: "Offer-First / Split Screen: set vs. běžná aviváž (cena i počet praní), stručný pragmatický text, mužský tón, tmavá paleta",
+    format: "Offer-First Banner / Split Screen cena vs. aviváž",
+    cta: "Objednat na půl roku",
+    why: "Set přímo řeší jeho top motivaci „dochází zásoba“ (53 %) a „náhrada aviváže“ — první test mužské kreativy pro tento produkt."
+  }
+};
+
+function renderGrid(gridId, sectionKey, data) {
+  const grid = document.getElementById(gridId);
+  personas.forEach(p => {
+    const d = data[p.key];
+    const storeKey = "bf2026-" + sectionKey + "-" + p.key;
+    const card = document.createElement("div");
+    card.className = "b-card";
+    card.id = storeKey;
+    card.innerHTML = `
+      <div class="accent-strip ${p.accent}"></div>
+      <div class="b-header">
+        <div class="b-emoji">${p.emoji}</div>
+        <div style="flex:1;">
+          <div class="b-name">${p.name}</div>
+          <div class="b-archetype">${p.arch.replace(" · " + p.accent, "")}</div>
+        </div>
+      </div>
+      <div class="b-body">
+        <div class="b-hook">${d.hook}</div>
+        <div class="b-row"><div class="b-label">Vizuální koncept</div><div class="b-val">${d.visual}</div></div>
+        <div class="b-row"><span class="b-format">${d.format}</span></div>
+        <div class="b-row"><div class="b-label">CTA</div><span class="b-cta">${d.cta}</span></div>
+        <div class="b-why">${d.why}</div>
+      </div>
+      <div class="b-track">
+        <input type="text" placeholder="Přiřazeno komu…" data-role="assignee" data-key="${storeKey}-assignee">
+        <label><input type="checkbox" data-role="done" data-key="${storeKey}-done"> Hotovo</label>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+renderGrid("grid-general", "general", dataGeneral);
+renderGrid("grid-set12", "set12", dataSet12);
+
+function updateProgress(sectionKey, pillId) {
+  const boxes = document.querySelectorAll(`[data-key^="bf2026-${sectionKey}-"][data-role="done"]`);
+  let done = 0;
+  boxes.forEach(b => { if (b.checked) done++; });
+  document.getElementById(pillId).textContent = `${done}/${boxes.length} hotovo`;
+}
+
+function restoreAndBind() {
+  document.querySelectorAll('input[data-key]').forEach(el => {
+    const saved = localStorage.getItem(el.dataset.key);
+    if (el.dataset.role === "done") {
+      el.checked = saved === "true";
+      el.addEventListener("change", () => {
+        localStorage.setItem(el.dataset.key, el.checked);
+        el.closest(".b-card").classList.toggle("done", el.checked);
+        updateProgress("general", "progress-general");
+        updateProgress("set12", "progress-set12");
+      });
+      if (el.checked) el.closest(".b-card").classList.add("done");
+    } else {
+      if (saved) el.value = saved;
+      el.addEventListener("input", () => localStorage.setItem(el.dataset.key, el.value));
+    }
+  });
+  updateProgress("general", "progress-general");
+  updateProgress("set12", "progress-set12");
+}
+
+restoreAndBind();
+</script>
+
+</body>
+</html>
