@@ -111,6 +111,9 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
 .trend-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
 .trend-card .trend-sub { font-size: 11px; color: #888; margin-bottom: 10px; }
 .trend-note { background: #eff6ff; border-left: 3px solid #2563eb; border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 12px; color: #1e3a5f; margin-top: 14px; line-height: 1.55; }
+.trend-legend { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; font-size: 11px; color: #444; margin-bottom: 10px; }
+.trend-legend .lg-item { display: flex; align-items: center; gap: 6px; }
+.trend-legend svg { display: block; }
 
 .b2b-note {
   background: #fdf4ff;
@@ -187,6 +190,13 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
     <span class="market-adset">6 týdnů · 11/6 – 21/7 (poslední týden = 6 dní, do 21/7) · cena za lead = spend / complete_registration, ověřeno proti Metabase</span>
   </div>
 
+  <div class="trend-legend">
+    <span class="lg-item"><svg width="24" height="10"><line x1="0" y1="5" x2="24" y2="5" stroke="#6d1c5e" stroke-width="2.5"/></svg> Cena za lead</span>
+    <span class="lg-item"><svg width="24" height="10"><line x1="0" y1="5" x2="24" y2="5" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,3"/></svg> CTR</span>
+    <span class="lg-item"><svg width="24" height="10"><line x1="0" y1="5" x2="24" y2="5" stroke="#d97706" stroke-width="2" stroke-dasharray="1,3" stroke-linecap="round"/></svg> Konverzní poměr klik → registrace</span>
+    <span style="color:#aaa; font-size:10px;">(CTR a konverzní poměr mají vlastní škálu — jde o tvar trendu, ne o absolutní hodnotu)</span>
+  </div>
+
   <div class="trend-grid">
 
     <div class="trend-card">
@@ -194,6 +204,10 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
       <div class="trend-sub">Spend / reálné registrace (Meta) po týdnech</div>
       <svg viewBox="0 0 500 165" style="width:100%; height:auto;">
         <line x1="40" y1="140" x2="460" y2="140" stroke="#e5e7eb" stroke-width="1"/>
+        <polyline points="40,39.7 124,97.1 208,115.6 292,109.3 376,120.3 460,114.2"
+                  fill="none" stroke="#2563eb" stroke-width="1.75" stroke-dasharray="4,3" opacity="0.8"/>
+        <polyline points="40,120.1 124,53.9 208,39.7 292,104.8 376,77.1 460,120.3"
+                  fill="none" stroke="#d97706" stroke-width="1.75" stroke-dasharray="1,3" stroke-linecap="round" opacity="0.85"/>
         <polyline points="40.0,120.3 124.0,102.6 208.0,90.1 292.0,83.6 376.0,84.6 460.0,39.7"
                   fill="none" stroke="#6d1c5e" stroke-width="2.5"/>
         <circle cx="40.0" cy="120.3" r="4" fill="#16803c"/>
@@ -222,6 +236,10 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
       <div class="trend-sub">Spend / reálné registrace (Meta) po týdnech</div>
       <svg viewBox="0 0 500 165" style="width:100%; height:auto;">
         <line x1="40" y1="140" x2="460" y2="140" stroke="#e5e7eb" stroke-width="1"/>
+        <polyline points="40,39.7 124,111.9 208,108.1 292,120.3 376,88.0 460,49.5"
+                  fill="none" stroke="#2563eb" stroke-width="1.75" stroke-dasharray="4,3" opacity="0.8"/>
+        <polyline points="40,39.7 124,81.9 208,98.3 292,119.0 376,107.0 460,120.3"
+                  fill="none" stroke="#d97706" stroke-width="1.75" stroke-dasharray="1,3" stroke-linecap="round" opacity="0.85"/>
         <polyline points="40.0,120.3 124.0,86.7 208.0,75.7 292.0,39.7 376.0,82.2 460.0,91.0"
                   fill="none" stroke="#6d1c5e" stroke-width="2.5"/>
         <circle cx="40.0" cy="120.3" r="4" fill="#16803c"/>
@@ -250,6 +268,10 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
       <div class="trend-sub">Spend / reálné registrace (Meta) po týdnech · první 3 týdny bez dat</div>
       <svg viewBox="0 0 500 165" style="width:100%; height:auto;">
         <line x1="40" y1="140" x2="460" y2="140" stroke="#e5e7eb" stroke-width="1"/>
+        <polyline points="292,102.9 376,120.3 460,39.7"
+                  fill="none" stroke="#2563eb" stroke-width="1.75" stroke-dasharray="4,3" opacity="0.8"/>
+        <polyline points="292,39.7 376,97.2 460,120.3"
+                  fill="none" stroke="#d97706" stroke-width="1.75" stroke-dasharray="1,3" stroke-linecap="round" opacity="0.85"/>
         <polyline points="292.0,120.3 376.0,51.6 460.0,39.7"
                   fill="none" stroke="#6d1c5e" stroke-width="2.5"/>
         <circle cx="40.0" cy="140" r="3" fill="#d1d5db"/>
@@ -276,7 +298,8 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
   </div>
 
   <div class="trend-note">
-    📊 <strong>Co z trendu vidíme:</strong> CZ i SK mají opačný vzorec, než ukazovala stará CPL/LPV metrika — reálná cena za lead <strong>od 11/6 postupně roste</strong> (CZ 502 → 857 Kč, SK 17,85 → typicky 35–45 €, s výkyvem na 66,61 € týden od 2/7). Nové AI kreativy (2/7, 8/7) zvedly CTR a LPV, ale ne úměrně tomu reálné registrace — proto cena za skutečný lead spíš stoupá, zatímco stará CPL metrika (založená na LPV) ukazovala pokles a byla zavádějící. HU má smysluplná data až od týdne 2/7 (adset spuštěn 24/6, hero kreativa nasazena 2/7) — cena za lead tam postupně roste z 4 242 na 6 797 Ft, podobný trend jako CZ/SK. <strong>Doporučení:</strong> neřídit se už CPL/LPV proxy — sledovat týdenní cenu za reálnou registraci a při rostoucím trendu (jako teď ve všech 3 trzích) hledat příčinu v kvalitě publika/kreativ, ne jen v CTR. Poslední bod (16/7*) je jen 6denní okno, ne celý týden.
+    📊 <strong>Co z trendu vidíme:</strong> CZ i SK mají opačný vzorec, než ukazovala stará CPL/LPV metrika — reálná cena za lead <strong>od 11/6 postupně roste</strong> (CZ 502 → 857 Kč, SK 17,85 → typicky 35–45 €, s výkyvem na 66,61 € týden od 2/7). HU má smysluplná data až od týdne 2/7 (adset spuštěn 24/6, hero kreativa nasazena 2/7) — cena za lead tam roste z 4 242 na 6 797 Ft.<br><br>
+    <strong>CTR vs. konverzní poměr — kde je skutečná příčina:</strong> přidali jsme obě metriky do grafu a v každém trhu je jiná hlavní příčina. V <strong>CZ</strong> CTR plynule klesá (1,79 % → 0,90 %), zatímco konverzní poměr klik→registrace jen kolísá bez trendu (1,70–3,06 %) — růst ceny za lead tu táhne hlavně <strong>dražší klik (klesající CTR)</strong>, ne slabší konverze. V <strong>SK</strong> je to obráceně: konverzní poměr klesá poměrně plynule (2,68 % → 0,77 %), ale CTR se v posledních dvou týdnech naopak zotavil (0,76 % → 1,58 %) — to vysvětluje, proč cena za lead po vrcholu 66,61 € klesla zpět na 35,60 €, i když konverze je stále slabší než na začátku. V <strong>HU</strong> konverzní poměr klesá (2,30 % → 1,42 %) zatímco CTR je stabilní až mírně rostoucí (1,39 % → 1,52 %) — tady tedy roste cena za lead hlavně kvůli <strong>slabší konverzi kliku na registraci</strong>, podobně jako v SK, ne kvůli CTR. <strong>Doporučení:</strong> neřídit se už CPL/LPV proxy a nehledat jedno univerzální vysvětlení — v CZ řešit kvalitu/frekvenci kreativ (CTR), v SK a HU spíš landing page a kvalitu přiváděného publika (konverze). Poslední bod (16/7*) je jen 6denní okno, ne celý týden.
   </div>
 </div>
 
