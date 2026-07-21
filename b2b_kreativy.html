@@ -52,6 +52,7 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
 .cpl-mid  { background: #b45309; }
 .cpl-bad  { background: #b91c1c; }
 .cpl-none { background: #6b7280; }
+.cpa-badge { display: inline-block; font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: #eef2ff; color: #3730a3; margin-left: 6px; margin-bottom: 7px; }
 .metrics { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 2px; }
 .metric { font-size: 10px; color: #666; }
 .metric strong { display: block; font-size: 11px; font-weight: 600; color: #111; }
@@ -135,7 +136,7 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
 <body>
 
 <h1>B2B Kreativy — Výkon za 30 dní</h1>
-<p class="subtitle">Filtr adset: "*B2B*" · Last 30 days · Aktualizováno 21. 7. 2026 · Trhy s aktivními B2B adsety: CZ, SK · Kurzy: 1 EUR = 25 CZK (orientační)</p>
+<p class="subtitle">Filtr adset: "*B2B*" · Last 30 days · Aktualizováno 21. 7. 2026 · Trhy s aktivními B2B adsety: CZ, SK, HU · Kurzy: 1 EUR = 25 CZK, 1 EUR ≈ 400 Ft (orientační)</p>
 
 <div class="notice-bar">
   ⚠️ <strong>B2B = lead generation, ne e-commerce.</strong> Cílem je vyplnění registračního formuláře / přihlášení k B2B programu. <strong>Sleduj: počet leadů (LPV), CPL (cost per lead), CTR. Nákupy a ROAS nejsou relevantní metriky pro tuto kampaň.</strong> CPL = cost per landing page view (proxy pro lead — přesné lead konverze nejsou v Motion nastaveny).
@@ -145,7 +146,7 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
 <div class="cross-summary">
   <div class="cs-item">
     <div class="cs-label">Trhy s B2B daty</div>
-    <div class="cs-value">CZ + SK</div>
+    <div class="cs-value">CZ + SK + HU</div>
   </div>
   <div class="cs-item">
     <div class="cs-label">CZ Spend (30 dní)</div>
@@ -160,6 +161,10 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
     <div class="cs-value">40.61 Kč</div>
   </div>
   <div class="cs-item">
+    <div class="cs-label">CZ Registrace (Meta)</div>
+    <div class="cs-value good">76 <span style="font-size:12px; opacity:.75">· 712 Kč</span></div>
+  </div>
+  <div class="cs-item">
     <div class="cs-label">SK Spend (30 dní)</div>
     <div class="cs-value">1 491 €</div>
   </div>
@@ -172,7 +177,27 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
     <div class="cs-value">1.79 €</div>
   </div>
   <div class="cs-item">
-    <div class="cs-label">DE / HU / ostatní</div>
+    <div class="cs-label">SK Registrace (Meta)</div>
+    <div class="cs-value good">32 <span style="font-size:12px; opacity:.75">· 46,6 €</span></div>
+  </div>
+  <div class="cs-item">
+    <div class="cs-label">HU Spend (30 dní)</div>
+    <div class="cs-value">466 106 Ft</div>
+  </div>
+  <div class="cs-item">
+    <div class="cs-label">HU Leads (LPV)</div>
+    <div class="cs-value good">1 298</div>
+  </div>
+  <div class="cs-item">
+    <div class="cs-label">HU Avg CPL</div>
+    <div class="cs-value">359 Ft</div>
+  </div>
+  <div class="cs-item">
+    <div class="cs-label">HU Registrace (Meta)</div>
+    <div class="cs-value good">78 <span style="font-size:12px; opacity:.75">· 5 976 Ft</span></div>
+  </div>
+  <div class="cs-item">
+    <div class="cs-label">DE / ostatní</div>
     <div class="cs-value" style="font-size:14px; opacity:.75">Žádné B2B adsety</div>
   </div>
 </div>
@@ -265,7 +290,7 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
   </div>
 
   <div class="metric-note">
-    📊 <strong>Poznámka k metrikám:</strong> Motion workspace CZ nemá nastavenu custom konverzi pro "form fill / lead". Jako proxy pro lead použity <strong>Landing Page Views (LPV)</strong> — počet unikátních návštěv registrační stránky. CPL = Kč / LPV.
+    📊 <strong>Poznámka k metrikám:</strong> Motion workspace CZ nemá nastavenu custom konverzi pro "form fill / lead". Jako proxy pro lead použity <strong>Landing Page Views (LPV)</strong> — počet unikátních návštěv registrační stránky. CPL = Kč / LPV. Nově doplněna <strong>skutečná registrace</strong> (standardní Meta pixel event „complete_registration") — ověřeno proti Metabase: Motion 76 vs. Metabase 98 registrací celkem za 30 dní (78 % atribuováno Meta reklamě, zbytek organika/jiné kanály).
   </div>
 
   <div class="market-summary">
@@ -275,6 +300,8 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
     <div class="ms"><div class="ms-label">Best CPL</div><div class="ms-value" style="color:#16803c">21.55 Kč</div></div>
     <div class="ms"><div class="ms-label">Best CTR</div><div class="ms-value">1.60 %</div></div>
     <div class="ms"><div class="ms-label">Kreativy</div><div class="ms-value">14</div></div>
+    <div class="ms"><div class="ms-label">Registrace (Meta)</div><div class="ms-value" style="color:#16803c">76</div></div>
+    <div class="ms"><div class="ms-label">Cena/registraci</div><div class="ms-value" style="color:#3730a3">711.79 Kč</div></div>
   </div>
 
   <div class="creative-grid" id="cz-grid"></div>
@@ -332,7 +359,7 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
   </div>
 
   <div class="metric-note">
-    📊 <strong>Poznámka k metrikám:</strong> Motion workspace SK nemá nastavenu custom konverziu pre "form fill / lead". Ako proxy pre lead použité <strong>Landing Page Views (LPV)</strong>. CPL = € / LPV. SK CPL je prirodzene nižší než CZ (iná mena, nižší CPC trh).
+    📊 <strong>Poznámka k metrikám:</strong> Motion workspace SK nemá nastavenu custom konverziu pre "form fill / lead". Ako proxy pre lead použité <strong>Landing Page Views (LPV)</strong>. CPL = € / LPV. SK CPL je prirodzene nižší než CZ (iná mena, nižší CPC trh). Doplnená <strong>skutočná registrácia</strong> (štandardný Meta pixel event „complete_registration") — overené proti Metabase: Motion 32 vs. Metabase 39 registrácií celkovo za 30 dní (82 % atribuovaných Meta reklame).
   </div>
 
   <div class="market-summary">
@@ -342,6 +369,8 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
     <div class="ms"><div class="ms-label">Best CPL</div><div class="ms-value" style="color:#16803c">1.08 €</div></div>
     <div class="ms"><div class="ms-label">Best CTR</div><div class="ms-value">1.81 %</div></div>
     <div class="ms"><div class="ms-label">Kreativy (ad var.)</div><div class="ms-value">12</div></div>
+    <div class="ms"><div class="ms-label">Registrace (Meta)</div><div class="ms-value" style="color:#16803c">32</div></div>
+    <div class="ms"><div class="ms-label">Cena/registraci</div><div class="ms-value" style="color:#3730a3">46.61 €</div></div>
   </div>
 
   <div class="creative-grid" id="sk-grid"></div>
@@ -386,11 +415,79 @@ h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
 
 <div class="divider"></div>
 
+<!-- ═══════════════════════════════ HU ═══════════════════════════════ -->
+<div class="market-section">
+  <div class="market-header">
+    <span class="market-flag">🇭🇺</span>
+    <span class="market-name">HU</span>
+    <span class="market-adset">24/06/26 - HU - CONTACTS - B2B (Copy + SET 2) · Ft</span>
+  </div>
+
+  <div class="b2b-note">
+    B2B HU cílí na majitele obchodů / partnery. Landing page: puellapartner.hu/regisztracio — konverze = registrace k B2B programu. Nově objevený adset (nebyl v předchozí verzi reportu) — běží paralelně ve dvou téměř identických adsetech ("B2B - Copy" a "B2B - SET 2") uvnitř širší akviziční kampaně "HU_19/6/25_akv_sales_Creative_testing", spuštěný 24/6, hero kreativa nasazena 2/7. Metriky: Spend (Ft), Leads = Landing Page Views, CPL = Ft za LPV.
+  </div>
+
+  <div class="metric-note">
+    📊 <strong>Poznámka k metrikám:</strong> Motion workspace HU nemá nastavenu custom konverzi pro "form fill / lead". Jako proxy pro lead použity <strong>Landing Page Views (LPV)</strong>. CPL = Ft / LPV. Na rozdíl od CZ/SK se u HU objevují i reálné e-shop nákupy (68 ks, ROAS 1.69) — B2B traffic tu částečně konvertuje i na nákup, ne jen na registraci partnera. Doplněna <strong>skutečná registrace</strong> (standardní Meta pixel event „complete_registration") — ověřeno proti Metabase: Motion 78 vs. Metabase 77 registrací celkem za 30 dní — téměř přesná shoda (HU registrace jdou prakticky výhradně přes Meta reklamu).
+  </div>
+
+  <div class="market-summary">
+    <div class="ms"><div class="ms-label">Spend (Ft)</div><div class="ms-value">466 106 Ft</div></div>
+    <div class="ms"><div class="ms-label">Leads (LPV)</div><div class="ms-value" style="color:#16803c">1 298</div></div>
+    <div class="ms"><div class="ms-label">Avg CPL (Ft/LPV)</div><div class="ms-value" style="color:#b45309">359 Ft</div></div>
+    <div class="ms"><div class="ms-label">Best CPL</div><div class="ms-value" style="color:#16803c">167.67 Ft</div></div>
+    <div class="ms"><div class="ms-label">Best CTR</div><div class="ms-value">2.51 %</div></div>
+    <div class="ms"><div class="ms-label">Kreativy</div><div class="ms-value">12</div></div>
+    <div class="ms"><div class="ms-label">Registrace (Meta)</div><div class="ms-value" style="color:#16803c">78</div></div>
+    <div class="ms"><div class="ms-label">Cena/registraci</div><div class="ms-value" style="color:#3730a3">5 975.72 Ft</div></div>
+  </div>
+
+  <div class="creative-grid" id="hu-grid"></div>
+
+  <div class="analysis-grid">
+    <div class="analysis-card">
+      <h3><span class="dot dot-green"></span>Co funguje</h3>
+      <ul>
+        <li><strong>Copy 2 [Copy]</strong> – hlavní tahoun adsetu: čerpá 49 % budgetu (227 202 Ft) a přesto CPL 312.95 Ft pod průměrem adsetu, s naprosto dominantním objemem (726 z 1 298 LPV, tj. 56 %).</li>
+        <li><strong>Copy 7 [Copy]</strong> – nejnižší CPL (167.67 Ft), CTR 2.51 %, ale jen 3 LPV při 503 Ft spend – zatím statisticky slabý vzorek.</li>
+        <li><strong>Copy 5 [SET2]</strong> – CPL 174.23 Ft, 13 LPV za 2 265 Ft. Druhý nejlevnější lead v adsetu.</li>
+        <li><strong>Copy 8 [SET2]</strong> – CPL 271.47 Ft, CTR 1.25 %, solidní poměr při 5 158 Ft spend.</li>
+      </ul>
+    </div>
+    <div class="analysis-card">
+      <h3><span class="dot dot-red"></span>Co nefunguje</h3>
+      <ul>
+        <li><strong>Copy 4 [SET2] B</strong> – nejhorší CPL v adsetu (553.17 Ft) při 6 638 Ft spend.</li>
+        <li><strong>Copy 3 [SET2]</strong> – CPL 529.48 Ft, druhý nejhorší, 23 LPV za 12 178 Ft.</li>
+        <li><strong>Copy [SET2]</strong> – čerpá 17 % budgetu (80 155 Ft), ale CPL 452.85 Ft je nad průměrem adsetu (359.10 Ft) – velký spend, podprůměrná efektivita.</li>
+        <li><strong>Duplicitní struktura adsetů</strong> – "B2B - Copy" a "B2B - SET 2" běží paralelně se stejnou sadou kreativ (Copy 3, Copy 4 se objevují v obou), což fragmentuje budget a ztěžuje čisté vyhodnocení.</li>
+      </ul>
+    </div>
+    <div class="analysis-card">
+      <h3><span class="dot dot-blue"></span>Doporučení</h3>
+      <ul>
+        <li><strong>Škálovat Copy 2 [Copy]</strong> – nejlepší poměr objem/efektivita, stojí za navýšení budgetu i přes už vysoký podíl spendu.</li>
+        <li><strong>Pauznout Copy 4 [SET2] B a Copy 3 [SET2]</strong> – nejhorší CPL v adsetu, bez výhledu na zlepšení při daném objemu.</li>
+        <li><strong>Sloučit "B2B - Copy" a "B2B - SET 2" do jednoho adsetu</strong> – zamezí duplicitnímu cílení a umožní čistší optimalizaci rozpočtu mezi kreativami.</li>
+        <li><strong>Nastavit custom konverzi v Motion</strong> – form-fill pixel na puellapartner.hu/regisztracio pro přesné měření leadů místo LPV proxy; zároveň prověřit, proč se u HU objevují i e-shop nákupy (přesměrování z B2B kreativy?).</li>
+      </ul>
+      <div class="patterns">
+        <span class="pill pill-green">Copy 2: CPL 313 Ft, 56 % LPV ✓</span>
+        <span class="pill pill-green">Copy 7/5: CPL &lt;175 Ft ✓</span>
+        <span class="pill pill-red">Copy 4 [SET2] B: CPL 553 Ft ✗</span>
+        <span class="pill pill-red">Duplicitní adsety ✗</span>
+        <span class="pill pill-blue">Sloučit adsety</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
 <!-- No B2B data -->
 <div class="inactive-title">Bez aktivních B2B adsetů (last 30 days)</div>
 <div class="inactive-grid">
   <div class="inactive-pill">🇩🇪 <span>DE</span></div>
-  <div class="inactive-pill">🇭🇺 <span>HU</span></div>
   <div class="inactive-pill">🇭🇷 <span>HR</span></div>
   <div class="inactive-pill">🇮🇹 <span>IT</span></div>
   <div class="inactive-pill">🇵🇱 <span>PL</span></div>
@@ -415,25 +512,36 @@ function cplClassSK(cpl) {
   return 'cpl-bad';
 }
 
-function renderGrid(id, creatives, fmtSpend, fmtCPL, cplFn) {
+// CPL thresholds for HU (Ft)
+function cplClassHU(cpl) {
+  if (!cpl || cpl === 0) return 'cpl-none';
+  if (cpl <= 320)  return 'cpl-good';
+  if (cpl <= 470)  return 'cpl-mid';
+  return 'cpl-bad';
+}
+
+function renderGrid(id, creatives, fmtSpend, fmtCPL, cplFn, fmtCPA) {
   const max = Math.max(...creatives.map(c => c.spend));
   document.getElementById(id).innerHTML = creatives.map((c, idx) => {
     const thumb = c.thumb
       ? `<img src="${c.thumb}" alt="${c.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="card-placeholder" style="display:none">B2B</div>`
       : `<div class="card-placeholder">B2B</div>`;
     const cplDisplay = c.cpl > 0 ? fmtCPL(c.cpl) : '–';
+    const hasCPA = fmtCPA && typeof c.creg === 'number';
+    const cpaDisplay = hasCPA && c.creg > 0 ? fmtCPA(c.cpreg) : '–';
+    const cpaBadge = hasCPA ? `<span class="cpa-badge">Reg ${c.creg} · ${cpaDisplay}</span>` : '';
     return `
     <div class="card">
       ${thumb}
       <div class="rank-badge">#${idx + 1}</div>
       <div class="info">
         <div class="name" title="${c.name}">${c.name}</div>
-        <span class="cpl-badge ${cplFn(c.cpl)}">CPL ${cplDisplay}</span>
+        <span class="cpl-badge ${cplFn(c.cpl)}">CPL ${cplDisplay}</span>${cpaBadge}
         <div class="metrics">
           <div class="metric"><strong>${fmtSpend(c.spend)}</strong>spend</div>
           <div class="metric"><strong>${c.lpv > 0 ? c.lpv : '–'}</strong>leads</div>
           <div class="metric"><strong>${c.ctr ? c.ctr.toFixed(2) + '%' : '–'}</strong>CTR</div>
-          <div class="metric lpv-good"><strong>${cplDisplay}</strong>CPL</div>
+          <div class="metric${hasCPA && c.creg > 0 ? ' lpv-good' : ''}"><strong>${hasCPA ? c.creg : cplDisplay}</strong>${hasCPA ? 'registrace' : 'CPL'}</div>
         </div>
         <div class="spend-bar-wrap"><div class="spend-bar" style="width:${Math.round(c.spend/max*100)}%"></div></div>
       </div>
@@ -450,6 +558,8 @@ const cz = [
   {
     name: "27/05/26_ad_banner4_b2b",
     spend: 23916.04,
+    creg: 53,
+    cpreg: 451.25,
     lpv: 387,
     cpl: 61.80,
     ctr: 0.97,
@@ -458,6 +568,8 @@ const cz = [
   {
     name: "15/0/26_ad_banner_b2b-vietnam",
     spend: 6751.48,
+    creg: 4,
+    cpreg: 1687.87,
     lpv: 267,
     cpl: 25.29,
     ctr: 0.64,
@@ -466,6 +578,8 @@ const cz = [
   {
     name: "15/0/26_ad_banner_b2b-vietnam - Copy 3",
     spend: 5559.28,
+    creg: 0,
+    cpreg: 0,
     lpv: 171,
     cpl: 32.51,
     ctr: 0.85,
@@ -474,6 +588,8 @@ const cz = [
   {
     name: "2/07/26_ad_banner2_b2b_AI - Copy",
     spend: 5434.88,
+    creg: 7,
+    cpreg: 776.41,
     lpv: 182,
     cpl: 29.86,
     ctr: 1.44,
@@ -482,6 +598,8 @@ const cz = [
   {
     name: "15/0/26_ad_banner_b2b-vietnam - Copy",
     spend: 4391.85,
+    creg: 2,
+    cpreg: 2195.93,
     lpv: 99,
     cpl: 44.36,
     ctr: 0.81,
@@ -490,6 +608,8 @@ const cz = [
   {
     name: "2/07/26_ad_banner2_b2b_AI",
     spend: 3337.11,
+    creg: 6,
+    cpreg: 556.19,
     lpv: 108,
     cpl: 30.90,
     ctr: 1.22,
@@ -498,6 +618,8 @@ const cz = [
   {
     name: "15/0/26_ad_banner_b2b-vietnam - Copy 2",
     spend: 2117.20,
+    creg: 1,
+    cpreg: 2117.2,
     lpv: 46,
     cpl: 46.03,
     ctr: 0.69,
@@ -506,6 +628,8 @@ const cz = [
   {
     name: "27/05/26_ad_banner5_b2b",
     spend: 1119.11,
+    creg: 2,
+    cpreg: 559.56,
     lpv: 25,
     cpl: 44.76,
     ctr: 1.32,
@@ -514,6 +638,8 @@ const cz = [
   {
     name: "15/0/26_ad_banner_b2b-vietnam - Copy 4",
     spend: 609.68,
+    creg: 0,
+    cpreg: 0,
     lpv: 15,
     cpl: 40.65,
     ctr: 0.75,
@@ -522,6 +648,8 @@ const cz = [
   {
     name: "27/05/26_ad_banner2_b2b",
     spend: 603.39,
+    creg: 1,
+    cpreg: 603.39,
     lpv: 28,
     cpl: 21.55,
     ctr: 1.60,
@@ -530,6 +658,8 @@ const cz = [
   {
     name: "2/07/26_ad_banner2_b2b_AI - Copy 2",
     spend: 186.71,
+    creg: 0,
+    cpreg: 0,
     lpv: 4,
     cpl: 46.68,
     ctr: 0.63,
@@ -538,6 +668,8 @@ const cz = [
   {
     name: "27/05/26_ad_banner1_b2b",
     spend: 39.66,
+    creg: 0,
+    cpreg: 0,
     lpv: 0,
     cpl: 0,
     ctr: 2.94,
@@ -546,6 +678,8 @@ const cz = [
   {
     name: "27/05/26_ad_banner6_b2b",
     spend: 25.93,
+    creg: 0,
+    cpreg: 0,
     lpv: 0,
     cpl: 0,
     ctr: 0,
@@ -554,6 +688,8 @@ const cz = [
   {
     name: "27/05/26_ad_banner3_b2b",
     spend: 3.75,
+    creg: 0,
+    cpreg: 0,
     lpv: 0,
     cpl: 0,
     ctr: 0,
@@ -570,6 +706,8 @@ const sk = [
   {
     name: "11/06/26_ad_banner (var.1)",
     spend: 324.62,
+    creg: 8,
+    cpreg: 40.58,
     lpv: 149,
     cpl: 2.18,
     ctr: 0.83,
@@ -578,6 +716,8 @@ const sk = [
   {
     name: "02/07/26_ad_banner_AI (var.1)",
     spend: 191.54,
+    creg: 4,
+    cpreg: 47.89,
     lpv: 124,
     cpl: 1.54,
     ctr: 1.10,
@@ -586,6 +726,8 @@ const sk = [
   {
     name: "02/07/26_ad_banner_AI (var.2)",
     spend: 172.57,
+    creg: 3,
+    cpreg: 57.52,
     lpv: 160,
     cpl: 1.08,
     ctr: 0.75,
@@ -594,6 +736,8 @@ const sk = [
   {
     name: "08/07/26_ad_banner_AI (var.1)",
     spend: 156.76,
+    creg: 8,
+    cpreg: 19.6,
     lpv: 67,
     cpl: 2.34,
     ctr: 1.30,
@@ -602,6 +746,8 @@ const sk = [
   {
     name: "11/06/26_ad_banner (var.2)",
     spend: 146.91,
+    creg: 0,
+    cpreg: 0,
     lpv: 48,
     cpl: 3.06,
     ctr: 1.18,
@@ -610,6 +756,8 @@ const sk = [
   {
     name: "11/06/26_ad_banner (var.3)",
     spend: 145.46,
+    creg: 4,
+    cpreg: 36.37,
     lpv: 92,
     cpl: 1.58,
     ctr: 0.81,
@@ -618,6 +766,8 @@ const sk = [
   {
     name: "11/06/26_ad_banner (var.4)",
     spend: 102.68,
+    creg: 1,
+    cpreg: 102.68,
     lpv: 36,
     cpl: 2.85,
     ctr: 1.51,
@@ -626,6 +776,8 @@ const sk = [
   {
     name: "11/06/26_ad_banner (var.5)",
     spend: 85.80,
+    creg: 0,
+    cpreg: 0,
     lpv: 53,
     cpl: 1.62,
     ctr: 0.77,
@@ -634,6 +786,8 @@ const sk = [
   {
     name: "02/07/26_ad_banner_AI (var.3)",
     spend: 84.58,
+    creg: 1,
+    cpreg: 84.58,
     lpv: 60,
     cpl: 1.41,
     ctr: 1.54,
@@ -642,6 +796,8 @@ const sk = [
   {
     name: "11/06/26_ad_banner (var.6)",
     spend: 60.93,
+    creg: 3,
+    cpreg: 20.31,
     lpv: 33,
     cpl: 1.85,
     ctr: 1.33,
@@ -650,6 +806,8 @@ const sk = [
   {
     name: "08/07/26_ad_banner_AI (var.2)",
     spend: 16.55,
+    creg: 0,
+    cpreg: 0,
     lpv: 8,
     cpl: 2.07,
     ctr: 1.23,
@@ -658,6 +816,8 @@ const sk = [
   {
     name: "08/07/26_ad_banner_AI (var.3)",
     spend: 3.07,
+    creg: 0,
+    cpreg: 0,
     lpv: 3,
     cpl: 1.02,
     ctr: 1.81,
@@ -665,8 +825,137 @@ const sk = [
   }
 ];
 
-renderGrid('cz-grid', cz, s => (s/1000).toFixed(1) + 'K Kč', c => c.toFixed(0) + ' Kč', cplClassCZ);
-renderGrid('sk-grid', sk, s => s.toFixed(0) + ' €', c => c.toFixed(2) + ' €', cplClassSK);
+// ── HU data ──────────────────────────────────────────────────────────
+// Source: Motion API, LAST_30_DAYS (pulled 2026-07-21), adsetName contains "B2B", workspace HU
+// Adsets: 24/06/26 - HU - CONTACTS - B2B - Copy | 24/06/26 - HU - CONTACTS - B2B - SET 2 (parallel, near-duplicate)
+// Landing: puellapartner.hu/regisztracio. Spend in HUF (Ft). CPL = Ft per Landing Page View (proxy for lead).
+// No custom lead conversion configured in Motion HU workspace. Thumbnails are CDN URLs — run fix_b2b_thumbs.command to embed as base64.
+const hu = [
+  {
+    name: "Copy 2 [Copy]",
+    spend: 227202,
+    creg: 42,
+    cpreg: 5409.57,
+    lpv: 726,
+    cpl: 312.95,
+    ctr: 1.20,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a47eaf3d6099112b0ed7220/large-thumbnail/6e1dc7ea-eeb3-41a2-a504-5b6ef9ebc9a5.jpg"
+  },
+  {
+    name: "Copy [SET2]",
+    spend: 80155,
+    creg: 8,
+    cpreg: 10019.38,
+    lpv: 177,
+    cpl: 452.85,
+    ctr: 1.77,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4f65201b6dca8125cc9f5e/large-thumbnail/a49fc814-5b20-4acc-ac07-6bf43e77bdcc.jpg"
+  },
+  {
+    name: "Copy 4 [SET2] A",
+    spend: 60086,
+    creg: 8,
+    cpreg: 7510.75,
+    lpv: 148,
+    cpl: 405.99,
+    ctr: 1.56,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4f65211b6dca8125cc9fda/large-thumbnail/e46322af-9e6e-46a6-854b-64d08e1ae5de.png"
+  },
+  {
+    name: "Copy 9 [Copy]",
+    spend: 37241,
+    creg: 11,
+    cpreg: 3385.55,
+    lpv: 90,
+    cpl: 413.79,
+    ctr: 1.63,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4b60e854453b457b649a5e/large-thumbnail/6590a2de-b154-4cbb-93ad-9b1e14914637.png"
+  },
+  {
+    name: "Base [Copy]",
+    spend: 28745,
+    creg: 6,
+    cpreg: 4790.83,
+    lpv: 73,
+    cpl: 393.77,
+    ctr: 1.74,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a47eaf3d6099112b0ed7219/large-thumbnail/50420256-2b6d-4154-9a2d-877e1178b3e5.jpg"
+  },
+  {
+    name: "Copy 3 [SET2]",
+    spend: 12178,
+    creg: 0,
+    cpreg: 0,
+    lpv: 23,
+    cpl: 529.48,
+    ctr: 2.39,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4f65211b6dca8125cc9fee/large-thumbnail/e8772d9c-fce1-4873-9068-84ba20961b8e.png"
+  },
+  {
+    name: "Copy 4 [SET2] B",
+    spend: 6638,
+    creg: 0,
+    cpreg: 0,
+    lpv: 12,
+    cpl: 553.17,
+    ctr: 1.64,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4f65211b6dca8125cca095/large-thumbnail/d8987a19-853d-4a5d-98b4-a917c3a51d68.png"
+  },
+  {
+    name: "Copy 8 [SET2]",
+    spend: 5158,
+    creg: 0,
+    cpreg: 0,
+    lpv: 19,
+    cpl: 271.47,
+    ctr: 1.25,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4f65201b6dca8125cc9f73/large-thumbnail/db5883f2-43b7-4b72-98af-a490c9ce48b9.png"
+  },
+  {
+    name: "Copy 6 [Copy]",
+    spend: 4673,
+    creg: 2,
+    cpreg: 2336.5,
+    lpv: 10,
+    cpl: 467.30,
+    ctr: 1.18,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4b60e854453b457b6499c7/large-thumbnail/67f0d8e2-54ab-4065-be00-d467f95c97d3.png"
+  },
+  {
+    name: "Copy 5 [SET2]",
+    spend: 2265,
+    creg: 0,
+    cpreg: 0,
+    lpv: 13,
+    cpl: 174.23,
+    ctr: 0.93,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4f65201b6dca8125cc9ed9/large-thumbnail/845d026b-fc32-4ff7-b222-6baca0dc6dde.png"
+  },
+  {
+    name: "Copy 3 [Copy]",
+    spend: 1262,
+    creg: 1,
+    cpreg: 1262,
+    lpv: 4,
+    cpl: 315.50,
+    ctr: 2.14,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4b60e854453b457b649a4c/large-thumbnail/e869220a-446f-4a92-b30a-ec98e3a31318.png"
+  },
+  {
+    name: "Copy 7 [Copy]",
+    spend: 503,
+    creg: 0,
+    cpreg: 0,
+    lpv: 3,
+    cpl: 167.67,
+    ctr: 2.51,
+    thumb: "https://motionaccountassets.blob.core.windows.net/6864e0a25dc5af0b8de5fc07/adunit/6a4b60e854453b457b649a24/large-thumbnail/896741fb-7eac-4271-aafb-4d43cd13a51f.png"
+  }
+];
+
+renderGrid('cz-grid', cz, s => (s/1000).toFixed(1) + 'K Kč', c => c.toFixed(0) + ' Kč', cplClassCZ, c => c.toFixed(0) + ' Kč');
+renderGrid('sk-grid', sk, s => s.toFixed(0) + ' €', c => c.toFixed(2) + ' €', cplClassSK, c => c.toFixed(2) + ' €');
+renderGrid('hu-grid', hu, s => (s/1000).toFixed(0) + 'K Ft', c => c.toFixed(0) + ' Ft', cplClassHU, c => c.toFixed(0) + ' Ft');
 </script>
 </body>
 </html>
