@@ -180,6 +180,13 @@
   .creative-link { font-size: 12px; font-weight: 650; color: var(--series-1); text-decoration: none; margin-top: 2px; }
   .creative-link:hover { text-decoration: underline; }
   @media (max-width: 760px) { .creative-grid { grid-template-columns: 1fr; } }
+
+  /* Recommendations */
+  .reco-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .reco-item { display: flex; gap: 12px; align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 12px 15px; }
+  .reco-num { flex: none; width: 18px; font-size: 12.5px; font-weight: 700; color: var(--series-1); font-variant-numeric: tabular-nums; padding-top: 1px; }
+  .reco-text { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin: 0; }
+  .reco-text b { color: var(--text-primary); }
 </style>
 </head>
 <body class="viz-root">
@@ -524,12 +531,46 @@
     <h2>Shrnutí</h2>
     <p class="section-note" style="max-width:820px;">
       Rozpočet vzrostl v průměru na cca 3× (a poslední dny na 5×) původní úroveň, CPA se zvedlo jen o 45 % a objem nákupů/den se víc než zdvojnásobil.
-      CPM i frequency zůstaly prakticky beze změny, což ukazuje, že aukce ještě není přehřátá a publikum má rezervu.
+      V průměru za celé „po" období zůstaly CPM i frequency prakticky beze změny, ale uvnitř těchto pěti dní CPM plynule roste (+38 %, viz sekce Doporučení) — early signál, který stojí za sledování, i když frequency zatím žádné přehřátí nenaznačuje.
       Nárůst CPA táhnou hlavně starší segmenty (35–44, a především 65+), zatímco 25–34 a 55–64 zvládají extra rozpočet velmi dobře.
       Pokud budeš pokračovat ve škálování, dává smysl hlídat frequency/CPM právě u 65+ (případně mu nasadit strop podílu rozpočtu) a nechat růst tam, kde je zatím nejvíc prostoru — u 55–64 a 25–34.
       Kampaň je audiencí téměř čistě akviziční (93–95 % spendu jde do skutečně nových lidí) a po škálování ještě víc — malý REM/existing segment sice zlevnil, ale je moc malý na to, aby ovlivnil celek.
       Z pohledu kreativ drží CPA dole hlavně dvě vlajkové kreativy („video3_vyzva“ a „longevity“), které po škálování nesou 91 % spendu a rostou v CPA o polovinu pomaleji než kampaň jako celek — menší kreativy sice zdražily prudce, ale Meta jim spend včas omezila, takže dopad na celek zůstal malý.
     </p>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section>
+    <h2>Doporučení a další kroky</h2>
+    <p class="section-note">Odpověď na „jak dlouho tohle může vydržet" nejde bez znalosti celkové velikosti dostupného publika dát na přesný počet dní — ale denní vývoj posledních pěti dní ukazuje konkrétní ukazatel, který stojí za sledování.</p>
+
+    <div class="chart-card">
+      <p class="chart-title">Denní CPM, 10.–14. 8. (€)</p>
+      <p class="chart-desc">CPM roste plynule každý den — +38 % od začátku škálování. 14. 8. je neúplný den, hodnota se ještě může posunout. Frequency za stejné dny zůstává nízká (1,15–1,24), takže zatím nejde o opakované zásahy stejných lidí, ale o dražší aukci za nové.</p>
+      <div id="chartCPMTrend"></div>
+    </div>
+
+    <div class="callouts" style="margin-top:4px;">
+      <div class="callout">
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Signál k sledování: CPM, ne frequency</div>
+        <p>Průměr celého „po" období vypadá stabilně, ale den po dni CPM roste (€9,59 → €13,20). Pokud tempo bude pokračovat, lze v horizontu cca 1–2 týdnů čekat citelnější tlak na CPA. Pokud se zklidní, může současné tempo vydržet déle.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>Kdy zkontrolovat znovu</div>
+        <p>Doporučujeme podívat se na stejné denní CPM/CPA znovu za 3–5 dní a podle toho, jestli trend pokračuje nebo se zplošťuje, rozhodnout o dalším kroku škálování.</p>
+      </div>
+    </div>
+
+    <p class="chart-title" style="margin: 20px 2px 10px;">Konkrétní doporučení</p>
+    <div class="reco-list">
+      <div class="reco-item"><span class="reco-num">1</span><p class="reco-text">Další navýšení dělejte po menších krocích (+10–20 %), ne dalším skokem — po každém kroku dejte aukci 2–3 dny na reakci, než přidáte další.</p></div>
+      <div class="reco-item"><span class="reco-num">2</span><p class="reco-text">Sledujte <b>CPM</b> jako hlavní ukazatel nasycení, ne jen frequency — u téhle kampaně frequency zatím nic nenaznačuje, CPM ano.</p></div>
+      <div class="reco-item"><span class="reco-num">3</span><p class="reco-text">Chraňte obě vlajkové kreativy (<b>„video3_vyzva"</b> a <b>„longevity"</b>) — nesou 91 % spendu, takže na jejich vlastní frequency (ne na blended účtu) záleží víc, než ukazuje celkové číslo.</p></div>
+      <div class="reco-item"><span class="reco-num">4</span><p class="reco-text">Připravte 1–2 nové kreativní koncepty (ne jen recuty) jako zálohu — „ugc new", „longevity 2" a „gifting" už degradují nezávisle na škálování, takže je namístě je osvěžit nebo nahradit, než se totéž stane vlajkovým kreativám.</p></div>
+      <div class="reco-item"><span class="reco-num">5</span><p class="reco-text">Věnujte extra pozornost/testování segmentům <b>55–64</b> a <b>25–34</b> — mají zatím nejvíc rezervy. U <b>65+</b> zvažte strop podílu rozpočtu, protože tam CPA roste nejrychleji.</p></div>
+      <div class="reco-item"><span class="reco-num">6</span><p class="reco-text"><b>Instagram</b> placement zdražil dvakrát rychleji než Facebook (+101 % vs. +42 %) — při dalším škálování hlídejte, jestli právě on netáhne rostoucí CPM.</p></div>
+      <div class="reco-item"><span class="reco-num">7</span><p class="reco-text">Malý REM/existing segment zlevnil a má rezervu — dává smysl otestovat menší vyhrazený remarketingový ad set, aby přírůstkový objem nešel jen do čím dál dražšího prospectingu.</p></div>
+    </div>
   </section>
 
   <footer>
@@ -983,6 +1024,13 @@
     {label:'Video – longevity 2', before:4.52, after:10.96},
     {label:'Video – gifting', before:5.17, after:10.90}
   ];
+  var cpmTrend = [
+    {date:'10.8.', cpm:9.59},
+    {date:'11.8.', cpm:9.83},
+    {date:'12.8.', cpm:10.53},
+    {date:'13.8.', cpm:11.32},
+    {date:'14.8.', cpm:13.20}
+  ];
 
   renderLine('chartSpend', daily, {
     key: 'spend', refIndex: refIndex,
@@ -1020,9 +1068,15 @@
     tipFmt: function(v){ return fmtEUR(v, 2); },
     niceMax: function(m){ return Math.ceil(m / 2) * 2; }
   });
+  renderLine('chartCPMTrend', cpmTrend, {
+    key: 'cpm',
+    axisFmt: function(v){ return '€' + v.toFixed(0); },
+    tipLabel: 'CPM', tipFmt: function(v){ return fmtEUR(v, 2); },
+    niceMax: function(m){ return Math.ceil(m / 2) * 2; }
+  });
 
   window.addEventListener('resize', function(){
-    ['chartSpend','chartCPA','chartAgeCPA','chartAgeReach','chartGenderCPA','chartAudienceMix','chartCreativeMix','chartCreativeCPA'].forEach(function(id){
+    ['chartSpend','chartCPA','chartAgeCPA','chartAgeReach','chartGenderCPA','chartAudienceMix','chartCreativeMix','chartCreativeCPA','chartCPMTrend'].forEach(function(id){
       document.getElementById(id).innerHTML = '';
     });
     renderLine('chartSpend', daily, { key:'spend', refIndex: refIndex, axisFmt:function(v){return '€'+Math.round(v);}, tipLabel:'Spend', tipFmt:function(v){return fmtEUR(v,2);}, niceMax:function(m){return Math.ceil(m/100)*100;} });
@@ -1033,6 +1087,7 @@
     renderStackedBar('chartAudienceMix', buildAudienceRows(), {});
     renderStackedBar('chartCreativeMix', buildCreativeMixRows(), {});
     renderDumbbell('chartCreativeCPA', creativeCPA, { axisFmt:function(v){return '€'+v.toFixed(0);}, tipFmt:function(v){return fmtEUR(v,2);}, niceMax:function(m){return Math.ceil(m/2)*2;} });
+    renderLine('chartCPMTrend', cpmTrend, { key:'cpm', axisFmt:function(v){return '€'+v.toFixed(0);}, tipLabel:'CPM', tipFmt:function(v){return fmtEUR(v,2);}, niceMax:function(m){return Math.ceil(m/2)*2;} });
   });
 
   // re-render the stacked bars on theme toggle so they repaint with the new mode's colors
