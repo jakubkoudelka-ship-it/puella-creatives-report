@@ -24,6 +24,7 @@
     --series-1-wash:  rgba(42,120,214,0.10);
     --series-2:       #eb6834;   /* orange - categorical slot 2 */
     --series-3:       #1baf7a;   /* aqua - categorical slot 3 */
+    --series-4:       #eda100;   /* yellow - categorical slot 4 */
     --status-good:    #0ca30c;
     --status-warning: #fab219;
     --status-serious: #ec835a;
@@ -46,6 +47,7 @@
       --series-1-wash:  rgba(57,135,229,0.14);
       --series-2:       #d95926;
       --series-3:       #199e70;
+      --series-4:       #c98500;
       --status-good:    #0ca30c;
       --status-warning: #fab219;
       --status-serious: #ec835a;
@@ -68,6 +70,7 @@
     --series-1-wash:  rgba(57,135,229,0.14);
     --series-2:       #d95926;
     --series-3:       #199e70;
+    --series-4:       #c98500;
     --status-good:    #0ca30c;
     --status-warning: #fab219;
     --status-serious: #ec835a;
@@ -195,57 +198,58 @@
   <header class="top">
     <div>
       <p class="eyebrow">Puella DE &middot; Meta Ads &middot; kampaň „DE_11/03/26_akv_Sampling“</p>
-      <h1>Škálování rozpočtu 10.–13. 8. — dopad na CPA</h1>
-      <p class="subtitle">Srovnání výkonu před rozvolněním rozpočtu a po něm. Zdroj: Meta Ads (účet Puelladufte.de), měna EUR.</p>
+      <h1>Škálování rozpočtu 10.–16. 8. — dopad na CPA</h1>
+      <p class="subtitle">Srovnání výkonu před rozvolněním rozpočtu a po něm, aktualizováno k 17. 8. Zdroj: Meta Ads (účet Puelladufte.de), měna EUR.</p>
     </div>
     <button class="theme-toggle" id="themeToggle" type="button">Tmavý režim</button>
   </header>
 
   <div class="period-pill">
     <span><span class="dot" style="background:var(--series-1-light)"></span> Před &nbsp;<b>1.–9. 8.</b> (9 dní)</span>
-    <span><span class="dot" style="background:var(--series-1-dark)"></span> Po &nbsp;<b>10.–13. 8.</b> (4 dny)</span>
+    <span><span class="dot" style="background:var(--series-1-dark)"></span> Po &nbsp;<b>10.–16. 8.</b> (7 dní, celé dny)</span>
+    <span style="color:var(--text-muted);">17. 8. je neúplný den — v trendových grafech zvlášť</span>
   </div>
 
   <!-- KPI ROW -->
   <section>
     <h2>Klíčová čísla</h2>
-    <p class="section-note">Denní průměry za dané období, aby byla obě srovnatelná bez ohledu na počet dní.</p>
+    <p class="section-note">Denní průměry za dané období (jen celé dny, dnešek 17. 8. není zahrnutý), aby byla obě srovnatelná bez ohledu na počet dní.</p>
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-label">Denní spend</div>
-        <div class="kpi-value">€481</div>
+        <div class="kpi-value">€577</div>
         <div class="kpi-sub">z €160/den</div>
-        <div class="kpi-delta delta-flat">▲ +201 % (záměrně)</div>
+        <div class="kpi-delta delta-flat">▲ +261 % (záměrně)</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Denní počet nákupů</div>
-        <div class="kpi-value">55,0</div>
+        <div class="kpi-value">57,7</div>
         <div class="kpi-sub">z 26,4/den</div>
-        <div class="kpi-delta delta-up-good">▲ +108 %</div>
+        <div class="kpi-delta delta-up-good">▲ +118 %</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">CPA (cena za nákup)</div>
-        <div class="kpi-value">€8,75</div>
+        <div class="kpi-value">€9,99</div>
         <div class="kpi-sub">z €6,04</div>
-        <div class="kpi-delta delta-up-bad">▲ +45 %</div>
+        <div class="kpi-delta delta-up-bad">▲ +65 %</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Průměrný denní reach</div>
-        <div class="kpi-value">37 770</div>
+        <div class="kpi-value">41 561</div>
         <div class="kpi-sub">z 12 974</div>
-        <div class="kpi-delta delta-up-good">▲ +191 %</div>
+        <div class="kpi-delta delta-up-good">▲ +220 %</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">CPM</div>
-        <div class="kpi-value">€10,32</div>
-        <div class="kpi-sub">z €10,48</div>
-        <div class="kpi-delta delta-flat">≈ −1,6 %</div>
+        <div class="kpi-value">€11,26</div>
+        <div class="kpi-sub">z €10,40</div>
+        <div class="kpi-delta delta-up-bad">▲ +8 %</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Frequency</div>
-        <div class="kpi-value">1,19</div>
+        <div class="kpi-value">1,22</div>
         <div class="kpi-sub">z 1,18</div>
-        <div class="kpi-delta delta-flat">≈ beze změny</div>
+        <div class="kpi-delta delta-flat">≈ +3 % (mírně)</div>
       </div>
     </div>
   </section>
@@ -253,17 +257,17 @@
   <!-- TIME TREND -->
   <section>
     <h2>Vývoj v čase</h2>
-    <p class="section-note">Denní spend a CPA, 27. 7. – 13. 8. Přerušovaná čára značí 10. 8., kdy se spend začal rozvolňovat.</p>
+    <p class="section-note">Denní spend a CPA, 27. 7. – 17. 8. Přerušovaná čára značí 10. 8., kdy se spend začal rozvolňovat. Poslední bod (17. 8.) je neúplný den.</p>
 
     <div class="chart-card">
       <p class="chart-title">Denní spend (€)</p>
-      <p class="chart-desc">Škálování je vidět jako prudký nárůst od 10. 8. — spend se ve čtyřech dnech zvýšil zhruba pětinásobně.</p>
+      <p class="chart-desc">Škálování je vidět jako prudký nárůst od 10. 8. — spend zůstává od 12. 8. zvýšený zhruba 4–5×, s výkyvy den ke dni.</p>
       <div id="chartSpend"></div>
     </div>
 
     <div class="chart-card">
       <p class="chart-title">Denní CPA (€ za nákup)</p>
-      <p class="chart-desc">CPA rostlo mírně a s výkyvy — žádný prudký, trvalý skok odpovídající tempu růstu spendu.</p>
+      <p class="chart-desc">CPA po škálování kolísá výš než dřív a 15. 8. poprvé přesáhlo €14 — první náznak, že tempo růstu už není zadarmo.</p>
       <div id="chartCPA"></div>
     </div>
   </section>
@@ -271,34 +275,34 @@
   <!-- AGE BREAKDOWN -->
   <section>
     <h2>Rozpad podle věku</h2>
-    <p class="section-note">Za každou věkovou skupinu: hodnota před (světlejší tečka) a po (tmavší tečka) navýšení rozpočtu. Skupina 18–24 je v CPA grafu vynechána — objem je tam prakticky nulový (1 nákup za celé předobdobí).</p>
+    <p class="section-note">Za každou věkovou skupinu: hodnota před (světlejší tečka) a po (tmavší tečka) navýšení rozpočtu. Skupina 18–24 je v CPA grafu vynechána — objem je tam pořád malý (2 nákupy za celé „po" období).</p>
 
     <div class="legend">
       <span class="legend-item"><span class="legend-swatch" style="background:var(--series-1-light)"></span>Před (1.–9. 8.)</span>
-      <span class="legend-item"><span class="legend-swatch" style="background:var(--series-1-dark)"></span>Po (10.–13. 8.)</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:var(--series-1-dark)"></span>Po (10.–16. 8.)</span>
     </div>
 
     <div class="row-2">
       <div class="chart-card">
         <p class="chart-title">CPA podle věku (€)</p>
-        <p class="chart-desc">25–34 zlevnilo. 65+ zdražilo nejvíc — skoro na dvojnásobek.</p>
+        <p class="chart-desc">25–34 zůstává nejlevnější, i když náskok se zmenšil. Za týden dat je vidět jiný obrázek než po prvních čtyřech dnech: nejvíc zdražilo 45–54, ne 65+.</p>
         <div id="chartAgeCPA"></div>
       </div>
       <div class="chart-card">
         <p class="chart-title">Reach podle věku (tis. lidí, kumulativně za období)</p>
-        <p class="chart-desc">55–64 zvládlo největší nárůst reache při relativně mírném zdražení.</p>
+        <p class="chart-desc">45–54 a 55–64 zvládly největší nárůst reache v absolutních číslech.</p>
         <div id="chartAgeReach"></div>
       </div>
     </div>
 
     <div class="callouts">
       <div class="callout">
-        <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>Nejlépe škáluje</div>
-        <p><b>55–64</b> (nejobjemnější segment, 32–33 % spendu) zvládl reach +71 % za cenu jen +17 % na CPA. <b>25–34</b> se dokonce zlevnilo o 17 %.</p>
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>25–34 stále nejlevnější</div>
+        <p><b>25–34</b> je jediná skupina, která zůstává levnější než před škálováním (€10,17 → €9,77), a zvládla víc než zdvojnásobit reach (+113 %). Náskok se ale za týden zmenšil — v prvním čtyřdenním pohledu bylo zlevnění −17 %, teď jen −4 %.</p>
       </div>
       <div class="callout">
-        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Blíží se nasycení</div>
-        <p><b>65+</b> zvýšil podíl rozpočtu z 16 % na 21 % a CPA se mu zdvojnásobilo (€4,41 → €9,01). Nejvíc táhne celkový nárůst CPA nahoru.</p>
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Update: teď zdražuje hlavně 45–54</div>
+        <p>Po prvních čtyřech dnech to vypadalo na 65+ — po týdnu dat je pořadí jiné. <b>45–54</b> má teď nejvyšší CPA (€11,42, +74 %), zatímco <b>65+</b> se usadilo uprostřed (€9,26, +110 % z nízkého základu, ale v absolutním čísle už ne extrém).</p>
       </div>
     </div>
   </section>
@@ -324,24 +328,24 @@
           <tbody>
             <tr>
               <td class="tbl-tag"><span class="dot" style="background:var(--series-1)"></span>Prospecting (nová)</td>
-              <td>93,0 % → 95,4 %</td>
+              <td>93,0 % → 95,2 %</td>
               <td>€5,99</td>
-              <td>€8,92</td>
-              <td class="pct-up">+49 %</td>
+              <td>€10,44</td>
+              <td class="pct-up">+74 %</td>
             </tr>
             <tr>
               <td class="tbl-tag"><span class="dot" style="background:var(--series-2)"></span>Existing (REM)</td>
               <td>4,4 % → 3,1 %</td>
               <td>€12,74</td>
-              <td>€6,00</td>
-              <td style="color:var(--status-good); font-weight:650;">−53 %</td>
+              <td>€4,61</td>
+              <td style="color:var(--status-good); font-weight:650;">−64 %</td>
             </tr>
             <tr>
               <td class="tbl-tag"><span class="dot" style="background:var(--series-3)"></span>Engaged</td>
-              <td>2,5 % → 1,5 %</td>
+              <td>2,5 % → 1,7 %</td>
               <td>€4,06</td>
-              <td>€9,33</td>
-              <td class="pct-up">+130 %</td>
+              <td>€9,91</td>
+              <td class="pct-up">+144 %</td>
             </tr>
           </tbody>
         </table>
@@ -350,12 +354,12 @@
 
     <div class="callouts">
       <div class="callout">
-        <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>REM segment zlevnil</div>
-        <p>Malý „Existing“ segment (~3–4 % spendu) po škálování zlevnil skoro o polovinu (€12,74 → €6,00) a objem mírně narostl — je ale příliš malý na to, aby zatáhl celkové CPA dolů.</p>
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>REM segment je teď nejlevnější v kampani</div>
+        <p>Malý „Existing“ segment (~3 % spendu) po týdnu škálování zlevnil ještě víc, než po prvních čtyřech dnech vypadalo (€12,74 → €4,61, −64 %) — je to teď zdaleka nejlevnější CPA v celé kampani. Pořád je ale příliš malý na to, aby zatáhl celkové CPA dolů.</p>
       </div>
       <div class="callout">
-        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Prospecting táhne většinu nárůstu</div>
-        <p>93–95 % spendu jde do skutečně nových lidí a jejich CPA vzrostlo o 49 % — prakticky kopíruje celkový trend kampaně, protože je to naprostá většina objemu.</p>
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Prospecting táhne prakticky celý nárůst</div>
+        <p>95 % spendu jde do skutečně nových lidí a jejich CPA vzrostlo o 74 % — prakticky kopíruje celkový trend kampaně (+65 %), protože je to naprostá většina objemu. To dál posiluje argument pro test menšího remarketingového ad setu (viz Doporučení).</p>
       </div>
     </div>
   </section>
@@ -363,16 +367,17 @@
   <!-- GENDER + PLACEMENT -->
   <section>
     <h2>Pohlaví a umístění</h2>
-    <p class="section-note">Mix pohlaví zůstal stabilní (ženy ~90 % spendu v obou obdobích) — škálování nešlo výrazně na úkor jednoho pohlaví.</p>
+    <p class="section-note">Mix pohlaví zůstal zhruba stabilní (ženy ~89–90 % spendu v obou obdobích), ale rozjíždí se rozdíl v CPA mezi pohlavími.</p>
 
     <div class="row-2">
       <div class="chart-card">
         <p class="chart-title">CPA podle pohlaví (€)</p>
+        <p class="chart-desc">Muži zdražili jen mírně (+13 %), ženy výrazně víc (+69 %) — za týden dat je rozdíl jasnější než po prvních čtyřech dnech.</p>
         <div id="chartGenderCPA"></div>
       </div>
       <div class="chart-card">
         <p class="chart-title">Umístění (placement)</p>
-        <p class="chart-desc" style="margin-bottom:12px;">Facebook nese ~92 % spendu v obou obdobích. Instagram je malý objemem, ale zdražil nejvíc.</p>
+        <p class="chart-desc" style="margin-bottom:12px;">Facebook nese ~89 % spendu. Instagram zdražil dramaticky a nese teď větší podíl rozpočtu než dřív.</p>
         <table class="data-table">
           <thead>
             <tr><th>Placement</th><th>Podíl spendu</th><th>CPA před</th><th>CPA po</th><th>Změna</th></tr>
@@ -380,27 +385,38 @@
           <tbody>
             <tr>
               <td class="tbl-tag"><span class="dot" style="background:var(--series-1)"></span>Facebook</td>
-              <td>92,5 % → 92,2 %</td>
+              <td>92,5 % → 88,8 %</td>
               <td>€6,02</td>
-              <td>€8,54</td>
-              <td class="pct-up">+42 %</td>
+              <td>€9,46</td>
+              <td class="pct-up">+57 %</td>
             </tr>
             <tr>
               <td class="tbl-tag"><span class="dot" style="background:var(--series-1)"></span>Instagram</td>
-              <td>7,2 % → 7,4 %</td>
+              <td>7,2 % → 10,7 %</td>
               <td>€6,47</td>
-              <td>€13,03</td>
-              <td class="pct-up">+101 %</td>
+              <td>€21,63</td>
+              <td class="pct-up">+234 %</td>
             </tr>
             <tr>
               <td class="tbl-tag"><span class="dot" style="background:var(--text-muted)"></span>Audience Network</td>
-              <td>&lt;0,3 %</td>
+              <td>&lt;0,3 % → 0,4 %</td>
               <td>€3,69</td>
-              <td>€5,93</td>
-              <td class="pct-up">okrajové</td>
+              <td>€3,57</td>
+              <td style="color:var(--status-good); font-weight:650;">okrajové, ale levné</td>
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <div class="callouts" style="margin-top:4px;">
+      <div class="callout">
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Instagram — update z předchozí verze</div>
+        <p>Po prvních čtyřech dnech vypadalo zdražení Instagramu na +101 %. Za týden je to +234 % (€6,47 → €21,63) a jeho podíl rozpočtu mezitím vzrostl (7,2 % → 10,7 %) — kombinace horší i dražší najednou, stojí za akci, ne jen sledování.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>Audience Network zůstává levné</div>
+        <p>I když je objemem okrajové (0,4 % spendu), jeho CPA se prakticky nehnulo (€3,69 → €3,57) — nejlevnější placement v kampani, malý prostor k opatrnému navýšení.</p>
       </div>
     </div>
   </section>
@@ -408,21 +424,21 @@
   <!-- CREATIVES -->
   <section>
     <h2>Pohled na kreativy</h2>
-    <p class="section-note">Kampaň běží na 13 reálně aktivních kreativách (ostatní ad sety jsou pozastavené a bez spendu). Čísla jsou z Meta Ads na úrovni jednotlivé reklamy, rozdělená na stejná dvě období jako zbytek reportu — jde tedy o čistě DE data, ne o odhad.</p>
+    <p class="section-note">Kampaň běží na 13 reálně aktivních kreativách (ostatní ad sety jsou pozastavené a bez spendu). Čísla jsou z Meta Ads na úrovni jednotlivé reklamy, rozdělená na stejná dvě období jako zbytek reportu — jde tedy o čistě DE data, ne o odhad. <b>Update oproti minulé verzi:</b> za týden dat je vidět, že Meta do „ugc new" a „longevity 2" naopak přilila výrazně víc rozpočtu, ne míň, jak se zdálo po prvních čtyřech dnech.</p>
 
     <div class="row-2">
       <div class="chart-card">
         <p class="chart-title">Koncentrace spendu</p>
-        <p class="chart-desc">Dvě vlajkové kreativy nesou drtivou většinu rozpočtu — a po škálování ještě víc.</p>
+        <p class="chart-desc">Za týden dat se obrázek vyrovnal — teď jsou v hlavní hře čtyři kreativy, ne dvě.</p>
         <div class="legend" id="creativeLegend"></div>
         <div id="chartCreativeMix"></div>
       </div>
       <div class="chart-card">
         <p class="chart-title">CPA podle kreativy (€)</p>
-        <p class="chart-desc">Obě vlajkové kreativy rostou v CPA pomaleji než kampaň jako celek (+45 %). Menší kreativy naopak zdražily prudce.</p>
+        <p class="chart-desc">Obě vlajkové kreativy rostou v CPA pomaleji než kampaň jako celek (+65 %). „ugc new" a „longevity 2" zdražily prudce a teď na nich leží reálné peníze.</p>
         <div class="legend">
           <span class="legend-item"><span class="legend-swatch" style="background:var(--series-1-light)"></span>Před (1.–9. 8.)</span>
-          <span class="legend-item"><span class="legend-swatch" style="background:var(--series-1-dark)"></span>Po (10.–13. 8.)</span>
+          <span class="legend-item"><span class="legend-swatch" style="background:var(--series-1-dark)"></span>Po (10.–16. 8.)</span>
         </div>
         <div id="chartCreativeCPA"></div>
       </div>
@@ -434,12 +450,12 @@
         <div class="creative-thumb"><img src="https://motionaccountassets.blob.core.windows.net/6864e12320dc98f7c2139bf9/adunit/69fc99402de0ffa12f49d5b9/large-thumbnail/8738f41c-a127-43aa-8c42-64fa7e691e10.jpg" alt="Náhled kreativy video3_vyzva" loading="lazy" onerror="this.parentElement.innerHTML='&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;var(--text-muted)&quot; stroke-width=&quot;1.6&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;14&quot; height=&quot;14&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M17 9l4-2v10l-4-2z&quot;/&gt;&lt;/svg&gt;'"></div>
         <div class="creative-name">27/3/2026_video3_vyzva (6xPNP)</div>
         <div class="creative-stats">
-          <span>Spend: <b>€559 → €941</b> (+68 %)</span>
-          <span>Nákupy: <b>89 → 114</b></span>
+          <span>Spend: <b>€559 → €1 533</b> (+174 %)</span>
+          <span>Nákupy: <b>89 → 172</b></span>
         </div>
         <div class="creative-cpa-row">
-          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€6,29 → €8,25</b></span>
-          <span class="creative-cpa-badge delta-up-good">+31 %</span>
+          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€6,29 → €8,91</b></span>
+          <span class="creative-cpa-badge delta-up-good">+42 %</span>
         </div>
         <a class="creative-link" href="https://business.facebook.com/ads/api/preview_iframe.php?d=AQIMvzbTQPHgwpsiMkPcFO4L9t6Q6cIs8urnILhsABZCwyfSMZeEwArbqRRRYUu85wvCtScS6NmTE9uQJLrxsONnkQqD_umWPMPjrLxu-ZviHydB_Z8goX4ODKtXDzGNzPlPqkwmfsNbjNI_-pzw3W5XrwZQhZLd3QaOALkgKSaLmDe-U7huC7xBFgOmwgZPbz8FqzzUw0bRiv8VkD1pLasOzDeZMO0MdzwP715B4v8Q3A&amp;t=AQKesSf_M73JOFLviFU" target="_blank" rel="noopener">Zobrazit náhled kreativy ↗</a>
       </div>
@@ -448,12 +464,12 @@
         <div class="creative-thumb"><img src="https://motionaccountassets.blob.core.windows.net/6864e12320dc98f7c2139bf9/adunit/6a54f0d01b6dca8125021b12/large-thumbnail/2074986b-e8f7-4cbe-9051-5b748be5bef4.jpg" alt="Náhled kreativy longevity" loading="lazy" onerror="this.parentElement.innerHTML='&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;var(--text-muted)&quot; stroke-width=&quot;1.6&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;14&quot; height=&quot;14&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M17 9l4-2v10l-4-2z&quot;/&gt;&lt;/svg&gt;'"></div>
         <div class="creative-name">12/6/2026_video_(6xPNP) – longevity</div>
         <div class="creative-stats">
-          <span>Spend: <b>€609 → €814</b> (+34 %)</span>
-          <span>Nákupy: <b>87 → 93</b></span>
+          <span>Spend: <b>€609 → €1 378</b> (+126 %)</span>
+          <span>Nákupy: <b>87 → 144</b></span>
         </div>
         <div class="creative-cpa-row">
-          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€7,00 → €8,75</b></span>
-          <span class="creative-cpa-badge delta-up-good">+25 %</span>
+          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€7,00 → €9,57</b></span>
+          <span class="creative-cpa-badge delta-up-good">+37 %</span>
         </div>
         <a class="creative-link" href="https://business.facebook.com/ads/api/preview_iframe.php?d=AQJy7P_PWOR5Z4cuxT32zjR6G9G02yUhNI1AVkiy1gCwhBViBXAGavYBPLDqzGI-eGedtTJ8H0qX4tn8SxeL48csTtN6puE3J8wOJp_B8XGj2MTVZIpPJZ1t_aeXBuj-U1gQRlqSE5QlHxtsvLN0r1uBa8rGBuV-FwVV0d2o368FcykTqWEp6oDE-jKzfAOVqJ2f2qE3sqQeqkE-WY1jFycUgeOfBCRmaf2sM2U6H585lw&amp;t=AQJ0-BNoLFSH_dWfZ7s" target="_blank" rel="noopener">Zobrazit náhled kreativy ↗</a>
       </div>
@@ -462,12 +478,12 @@
         <div class="creative-thumb"><img src="https://motionaccountassets.blob.core.windows.net/6864e12320dc98f7c2139bf9/adunit/69fc99402de0ffa12f49d5b2/large-thumbnail/bbd186f3-ab06-49f0-b087-61761fc329f2.jpg" alt="Náhled kreativy ugc new" loading="lazy" onerror="this.parentElement.innerHTML='&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;var(--text-muted)&quot; stroke-width=&quot;1.6&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;14&quot; height=&quot;14&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M17 9l4-2v10l-4-2z&quot;/&gt;&lt;/svg&gt;'"></div>
         <div class="creative-name">7/5/2026_video_(6xPNP) – ugc new</div>
         <div class="creative-stats">
-          <span>Spend: <b>€163 → €82</b> (−49 %)</span>
-          <span>Nákupy: <b>39 → 5</b></span>
+          <span>Spend: <b>€163 → €514</b> (+215 %, update: dřív se zdálo, že klesá)</span>
+          <span>Nákupy: <b>39 → 31</b></span>
         </div>
         <div class="creative-cpa-row">
-          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€4,18 → €16,47</b></span>
-          <span class="creative-cpa-badge delta-up-bad">+294 %</span>
+          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€4,18 → €16,57</b></span>
+          <span class="creative-cpa-badge delta-up-bad">+296 %</span>
         </div>
         <a class="creative-link" href="https://business.facebook.com/ads/api/preview_iframe.php?d=AQKQdC-kyM0T_dP3wnHLNiig86Y-V8t-sK9Icy45bfSgK1d-Ce7jmzNWC2w4lz3tHOwe8IuzJo-xz4EOGRvBKqazEw1uqmsr5KjdIKd_rYqK--BYJUDpNqUhIHkE6e4srXLh3yROodf2l536wo7gl7YkS6hA2lEZykE1ST_GgaI2kjDexG4W9yiyBfzgrW5eGSvggMd97vZPoZjxL5nEvhMtnPKOvIdwamyh2RZmyDwicg&amp;t=AQL9nNJq49n5SdNYyvs" target="_blank" rel="noopener">Zobrazit náhled kreativy ↗</a>
       </div>
@@ -476,12 +492,12 @@
         <div class="creative-thumb"><img src="https://motionaccountassets.blob.core.windows.net/6864e12320dc98f7c2139bf9/adunit/6a54f0d01b6dca8125021b20/large-thumbnail/dbb12ed4-c6b0-4277-9742-c8ab1be5d10b.jpg" alt="Náhled kreativy longevity 2" loading="lazy" onerror="this.parentElement.innerHTML='&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;var(--text-muted)&quot; stroke-width=&quot;1.6&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;14&quot; height=&quot;14&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M17 9l4-2v10l-4-2z&quot;/&gt;&lt;/svg&gt;'"></div>
         <div class="creative-name">12/6/2026_video_(6xPNP) – longevity 2</div>
         <div class="creative-stats">
-          <span>Spend: <b>€63 → €55</b> (−13 %)</span>
-          <span>Nákupy: <b>14 → 5</b></span>
+          <span>Spend: <b>€63 → €551</b> (+771 %, update: dřív se zdálo, že klesá)</span>
+          <span>Nákupy: <b>14 → 49</b></span>
         </div>
         <div class="creative-cpa-row">
-          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€4,52 → €10,96</b></span>
-          <span class="creative-cpa-badge delta-up-bad">+142 %</span>
+          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€4,52 → €11,25</b></span>
+          <span class="creative-cpa-badge delta-up-bad">+149 %</span>
         </div>
         <a class="creative-link" href="https://business.facebook.com/ads/api/preview_iframe.php?d=AQK_mGT_OpDbw0nUYkJV3e2EaHNf8z-RYWbEYcMxGhJt20pAQonqv4hTRXh1QZVVqIlkRV6cp_JtRY5iXoidxXmgA3axCFVK2pWv5qKtfYjHanYtvg23ASwtaj2ywqXcvIaO-3kjrNNFKWWjesZRsUepOSOdNq8EIoBMkvzT8eN2VPo7hQyXEd4vgaEh0pV8ZWkrf33RI_eFGy3jJNu-5SEq5QTO-OqPvZaFP0fOtOWIIg&amp;t=AQIDBbuKgP2Wo7kIhEY" target="_blank" rel="noopener">Zobrazit náhled kreativy ↗</a>
       </div>
@@ -490,12 +506,12 @@
         <div class="creative-thumb"><img src="https://motionaccountassets.blob.core.windows.net/6864e12320dc98f7c2139bf9/adunit/6a54f0d01b6dca8125021afd/large-thumbnail/35681546-ed9b-4291-a06d-d85d772d1cfd.jpg" alt="Náhled kreativy gifting" loading="lazy" onerror="this.parentElement.innerHTML='&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;var(--text-muted)&quot; stroke-width=&quot;1.6&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;14&quot; height=&quot;14&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M17 9l4-2v10l-4-2z&quot;/&gt;&lt;/svg&gt;'"></div>
         <div class="creative-name">12/6/2026_video_(6xPNP) – gifting</div>
         <div class="creative-stats">
-          <span>Spend: <b>€31 → €11</b> (−65 %)</span>
-          <span>Nákupy: <b>6 → 1</b></span>
+          <span>Spend: <b>€31 → €20</b> (−35 %)</span>
+          <span>Nákupy: <b>6 → 2</b></span>
         </div>
         <div class="creative-cpa-row">
-          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€5,17 → €10,90</b></span>
-          <span class="creative-cpa-badge delta-up-bad">+111 %</span>
+          <span style="font-size:12px; color:var(--text-secondary);">CPA <b style="color:var(--text-primary)">€5,17 → €10,02</b></span>
+          <span class="creative-cpa-badge delta-up-bad">+94 %</span>
         </div>
         <a class="creative-link" href="https://business.facebook.com/ads/api/preview_iframe.php?d=AQJ8bNwfjOaqEpDSz7-j4LwDbro9KEc0c5UjQx7jzOklNzpTaNGvIth-7UukpQIImkDKThpAcP8Erqs8lTGIaiV0WqDRO8pcYjNL69TUz-_2yt77Swktc3mxgbDao4nIgQGYvz5cIAoE1Dad07gzd_7VrQyu7tHdp_p7Q0VyT7wBsECNgIyJ-Q_fgjD1gT6PtXa5tBzPzjtB9JX8NeR5oVKEbvIiJGzkn1AEbpSx-fT3xQ&amp;t=AQKz_ChwgTw_jIb80IM" target="_blank" rel="noopener">Zobrazit náhled kreativy ↗</a>
       </div>
@@ -504,11 +520,11 @@
         <div class="creative-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg></div>
         <div class="creative-name">Ostatní kreativy (refresh, ritual, scent identity a testovací varianty)</div>
         <div class="creative-stats">
-          <span>Spend: <b>€269 → €171</b></span>
-          <span>Podíl spendu: <b>18,7 % → 8,9 %</b></span>
+          <span>Spend: <b>€11 → €40</b></span>
+          <span>Podíl spendu: <b>0,8 % → 1,0 %</b></span>
         </div>
         <div class="creative-cpa-row">
-          <span style="font-size:12px; color:var(--text-secondary);">Nákupy: <b style="color:var(--text-primary)">3 → 2</b></span>
+          <span style="font-size:12px; color:var(--text-secondary);">Nákupy: <b style="color:var(--text-primary)">3 → 6</b></span>
         </div>
         <span class="creative-link" style="color:var(--text-muted); cursor:default;">Objem na náhled zanedbatelný</span>
       </div>
@@ -516,12 +532,12 @@
 
     <div class="callouts" style="margin-top:16px;">
       <div class="callout">
-        <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>Dvě kreativy drží CPA dole</div>
-        <p><b>„video3_vyzva“</b> a <b>„longevity“</b> nesly 81 % spendu a 74 % nákupů před škálováním — po škálování už 91 % spendu a 94 % nákupů. Jejich CPA rostlo jen +31 % a +25 %, výrazně pod celkovým +45 %, takže právě ony drží průměr kampaně dole.</p>
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>Dvě vlajkové kreativy pořád drží CPA dole</div>
+        <p><b>„video3_vyzva“</b> a <b>„longevity“</b> nesou dohromady 72 % spendu za celý týden škálování. Jejich CPA rostlo +42 % a +37 %, výrazně pod celkovým +65 %, takže právě ony drží průměr kampaně dole — to se oproti první verzi reportu nezměnilo.</p>
       </div>
       <div class="callout">
-        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>„ugc new“ ztrácí konverze, ne aukci</div>
-        <p>CPA u <b>„ugc new“</b> vzrostlo skoro 4× (€4,18 → €16,47), přestože CPM naopak kleslo (€10,37 → €9,38) — problém je v konverzním výkonu kreativy, ne v dražší aukci. Meta na to reagovala a spend jí sama snížila (€163 → €82), stejně jako u „longevity 2“ a „gifting“.</p>
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Update: „ugc new“ a „longevity 2“ dostaly víc peněz, ne míň</div>
+        <p>V první verzi reportu (první 4 dny) to vypadalo, že Meta spend z těchto kreativ stahuje. Za týden je to naopak — <b>„longevity 2“</b> vzrostla ze €63 na €551 (8,7×) a <b>„ugc new“</b> z €163 na €514, obě s CPA přes €11–17. Dohromady teď nesou 26 % rozpočtu při vysoce nadprůměrném CPA — to už není okrajová věc a stojí za aktivní zásah (viz Doporučení).</p>
       </div>
     </div>
   </section>
@@ -530,52 +546,52 @@
   <section>
     <h2>Shrnutí</h2>
     <p class="section-note" style="max-width:820px;">
-      Rozpočet vzrostl v průměru na cca 3× (a poslední dny na 5×) původní úroveň, CPA se zvedlo jen o 45 % a objem nákupů/den se víc než zdvojnásobil.
-      V průměru za celé „po" období zůstaly CPM i frequency prakticky beze změny, ale uvnitř těchto pěti dní CPM plynule roste (+38 %, viz sekce Doporučení) — early signál, který stojí za sledování, i když frequency zatím žádné přehřátí nenaznačuje.
-      Nárůst CPA táhnou hlavně starší segmenty (35–44, a především 65+), zatímco 25–34 a 55–64 zvládají extra rozpočet velmi dobře.
-      Pokud budeš pokračovat ve škálování, dává smysl hlídat frequency/CPM právě u 65+ (případně mu nasadit strop podílu rozpočtu) a nechat růst tam, kde je zatím nejvíc prostoru — u 55–64 a 25–34.
-      Kampaň je audiencí téměř čistě akviziční (93–95 % spendu jde do skutečně nových lidí) a po škálování ještě víc — malý REM/existing segment sice zlevnil, ale je moc malý na to, aby ovlivnil celek.
-      Z pohledu kreativ drží CPA dole hlavně dvě vlajkové kreativy („video3_vyzva“ a „longevity“), které po škálování nesou 91 % spendu a rostou v CPA o polovinu pomaleji než kampaň jako celek — menší kreativy sice zdražily prudce, ale Meta jim spend včas omezila, takže dopad na celek zůstal malý.
+      Za celý týden škálování (10.–16. 8., 7 celých dní) vzrostl denní rozpočet v průměru na cca 3,6× původní úroveň, CPA se zvedlo o 65 % a objem nákupů/den vzrostl o 118 %.
+      Oproti první, čtyřdenní verzi tohoto reportu je nárůst CPA výraznější (dřív +45 %, teď +65 %) — CPM za celé „po" období vzrostlo o 8 % a denní vývoj ukazuje plynulý růst až k €14,30 (15. 8.), což potvrzuje signál, který jsme dřív zachytili jen v zárodku.
+      Pořadí věkových skupin podle CPA se za týden přeskládalo: dřív to vypadalo na 65+ jako hlavní riziko, teď je nejvíc zdražené 45–54 (+74 %); 65+ se usadilo uprostřed. Jediná skupina, která zůstává levnější než na startu, je 25–34, i když s menším náskokem než po prvních čtyřech dnech.
+      Kampaň je audiencí téměř čistě akviziční (93–95 % spendu jde do skutečně nových lidí) — malý REM/existing segment je teď dokonce ještě levnější než dřív (€4,61 CPA), ale pořád moc malý na to, aby ovlivnil celek.
+      Z pohledu kreativ se obrázek výrazně změnil: dřív to vypadalo, že Meta spend z „ugc new" a „longevity 2" stahuje — za týden je to naopak, obě dostaly řádově víc rozpočtu (8,7× a 3,2×) při vysoce nadprůměrném CPA a teď spolu nesou 26 % útraty. Vlajkové kreativy „video3_vyzva" a „longevity" pořád drží průměr dole (72 % spendu, CPA roste o polovinu pomaleji než kampaň).
+      Instagram placement zdražil ještě prudčeji, než se zdálo (+234 %, dřív +101 %), a jeho podíl rozpočtu mezitím vzrostl — spolu s „ugc new"/„longevity 2" je to teď hlavní kandidát na konkrétní zásah, ne jen na sledování.
     </p>
   </section>
 
   <!-- RECOMMENDATIONS -->
   <section>
     <h2>Doporučení a další kroky</h2>
-    <p class="section-note">Odpověď na „jak dlouho tohle může vydržet" nejde bez znalosti celkové velikosti dostupného publika dát na přesný počet dní — ale denní vývoj posledních pěti dní ukazuje konkrétní ukazatel, který stojí za sledování.</p>
+    <p class="section-note">Odpověď na „jak dlouho tohle může vydržet" nejde bez znalosti celkové velikosti dostupného publika dát na přesný počet dní — ale denní vývoj posledního týdne ukazuje konkrétní ukazatel, který stojí za sledování, a potvrzuje trend, který jsme v minulé verzi zachytili jen v zárodku.</p>
 
     <div class="chart-card">
-      <p class="chart-title">Denní CPM, 10.–14. 8. (€)</p>
-      <p class="chart-desc">CPM roste plynule každý den — +38 % od začátku škálování. 14. 8. je neúplný den, hodnota se ještě může posunout. Frequency za stejné dny zůstává nízká (1,15–1,24), takže zatím nejde o opakované zásahy stejných lidí, ale o dražší aukci za nové.</p>
+      <p class="chart-title">Denní CPM, 10.–17. 8. (€)</p>
+      <p class="chart-desc">CPM roste plynule od začátku škálování — z €9,59 na €12,60+ za týden. 17. 8. je neúplný den, hodnota se ještě posune. 15. 8. poprvé přesáhlo i denní CPA €14 — první konkrétní projev toho, co CPM trend naznačoval.</p>
       <div id="chartCPMTrend"></div>
     </div>
 
     <div class="callouts" style="margin-top:4px;">
       <div class="callout">
-        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Signál k sledování: CPM, ne frequency</div>
-        <p>Průměr celého „po" období vypadá stabilně, ale den po dni CPM roste (€9,59 → €13,20). Pokud tempo bude pokračovat, lze v horizontu cca 1–2 týdnů čekat citelnější tlak na CPA. Pokud se zklidní, může současné tempo vydržet déle.</p>
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Signál se potvrdil: CPM pokračuje nahoru</div>
+        <p>V minulé verzi reportu (po 5 dnech) jsme čekali, že při pokračujícím tempu přijde citelnější tlak na CPA v horizontu 1–2 týdnů. Přesně to se stalo — CPA za celé „po" období vzrostlo z +45 % na +65 % a 15. 8. mělo nejhorší denní CPA za celé sledované období (€14,30).</p>
       </div>
       <div class="callout">
         <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>Kdy zkontrolovat znovu</div>
-        <p>Doporučujeme podívat se na stejné denní CPM/CPA znovu za 3–5 dní a podle toho, jestli trend pokračuje nebo se zplošťuje, rozhodnout o dalším kroku škálování.</p>
+        <p>Doporučujeme podívat se na stejné denní CPM/CPA znovu za dalších 5–7 dní. Pokud trend nadále poroste podobným tempem, je namístě zvážit dočasné zastavení dalšího navyšování, dokud si aukce nesedne.</p>
       </div>
     </div>
 
     <p class="chart-title" style="margin: 20px 2px 10px;">Konkrétní doporučení</p>
     <div class="reco-list">
-      <div class="reco-item"><span class="reco-num">1</span><p class="reco-text">Další navýšení dělejte po menších krocích (+10–20 %), ne dalším skokem — po každém kroku dejte aukci 2–3 dny na reakci, než přidáte další.</p></div>
-      <div class="reco-item"><span class="reco-num">2</span><p class="reco-text">Sledujte <b>CPM</b> jako hlavní ukazatel nasycení, ne jen frequency — u téhle kampaně frequency zatím nic nenaznačuje, CPM ano.</p></div>
-      <div class="reco-item"><span class="reco-num">3</span><p class="reco-text">Chraňte obě vlajkové kreativy (<b>„video3_vyzva"</b> a <b>„longevity"</b>) — nesou 91 % spendu, takže na jejich vlastní frequency (ne na blended účtu) záleží víc, než ukazuje celkové číslo.</p></div>
-      <div class="reco-item"><span class="reco-num">4</span><p class="reco-text">Připravte 1–2 nové kreativní koncepty (ne jen recuty) jako zálohu — „ugc new", „longevity 2" a „gifting" už degradují nezávisle na škálování, takže je namístě je osvěžit nebo nahradit, než se totéž stane vlajkovým kreativám.</p></div>
-      <div class="reco-item"><span class="reco-num">5</span><p class="reco-text">Věnujte extra pozornost/testování segmentům <b>55–64</b> a <b>25–34</b> — mají zatím nejvíc rezervy. U <b>65+</b> zvažte strop podílu rozpočtu, protože tam CPA roste nejrychleji.</p></div>
-      <div class="reco-item"><span class="reco-num">6</span><p class="reco-text"><b>Instagram</b> placement zdražil dvakrát rychleji než Facebook (+101 % vs. +42 %) — při dalším škálování hlídejte, jestli právě on netáhne rostoucí CPM.</p></div>
-      <div class="reco-item"><span class="reco-num">7</span><p class="reco-text">Malý REM/existing segment zlevnil a má rezervu — dává smysl otestovat menší vyhrazený remarketingový ad set, aby přírůstkový objem nešel jen do čím dál dražšího prospectingu.</p></div>
+      <div class="reco-item"><span class="reco-num">1</span><p class="reco-text">Další navýšení dělejte po menších krocích (+10–20 %), ne dalším skokem — po každém kroku dejte aukci 2–3 dny na reakci, než přidáte další. Vzhledem k pokračujícímu růstu CPM zvažte teď spíš stabilizaci na současné úrovni než další skok.</p></div>
+      <div class="reco-item"><span class="reco-num">2</span><p class="reco-text">Sledujte <b>CPM</b> jako hlavní ukazatel nasycení, ne jen frequency — u téhle kampaně frequency zatím nic nenaznačuje, CPM ano, a trend za týden se potvrdil.</p></div>
+      <div class="reco-item"><span class="reco-num">3</span><p class="reco-text">Chraňte obě vlajkové kreativy (<b>„video3_vyzva"</b> a <b>„longevity"</b>) — nesou 72 % spendu, takže na jejich vlastní frequency (ne na blended účtu) záleží víc, než ukazuje celkové číslo.</p></div>
+      <div class="reco-item"><span class="reco-num">4</span><p class="reco-text">Update: <b>„ugc new"</b> a <b>„longevity 2"</b> teď dostávají výrazně víc rozpočtu (dohromady 26 % spendu) při CPA €11–17 — to už není okrajová věc, kterou vyřeší sama sebou algoritmus. Zvažte jim ručně nastavit strop rozpočtu nebo je dočasně pozastavit a nahradit novým kreativním konceptem.</p></div>
+      <div class="reco-item"><span class="reco-num">5</span><p class="reco-text">Update: nejvíc rezervy má teď <b>25–34</b> (jediná skupina stále pod PRE-CPA). <b>45–54</b> se ukázalo jako segment s nejrychlejším růstem CPA (+74 %) — dřívější doporučení hlídat hlavně 65+ nahraďte sledováním 45–54.</p></div>
+      <div class="reco-item"><span class="reco-num">6</span><p class="reco-text">Update: <b>Instagram</b> zdražil ještě víc, než se zdálo (+234 %, dřív +101 %), a jeho podíl rozpočtu mezitím vzrostl na 10,7 %. Zvažte mu nastavit strop podílu rozpočtu nebo placement dočasně omezit ve prospěch Facebooku a levného Audience Network (CPA €3,57, prakticky beze změny).</p></div>
+      <div class="reco-item"><span class="reco-num">7</span><p class="reco-text">Malý REM/existing segment je teď ještě levnější (CPA €4,61) — dává čím dál větší smysl otestovat menší vyhrazený remarketingový ad set, aby přírůstkový objem nešel jen do čím dál dražšího prospectingu.</p></div>
     </div>
   </section>
 
   <footer>
     Zdroj: Meta Ads Manager, účet Puelladufte.de (act 1180515223372750), kampaň DE_11/03/26_akv_Sampling. CPA počítáno jako amount spent / website purchases (pixel, default attribution window).
-    Poslední 1–2 dny se mohou po dopočtení pozdní atribuce ještě mírně zpřesnit. Report vygenerován 14. 8. 2026.
+    Poslední 1–2 dny se mohou po dopočtení pozdní atribuce ještě mírně zpřesnit. Report vygenerován 14. 8. 2026, aktualizován 17. 8. 2026.
   </footer>
 
 </div>
@@ -935,10 +951,10 @@
         { key:'existing', label:'Existing (REM)', value:63.71, share:0.044, color:c2 },
         { key:'engaged', label:'Engaged', value:36.51, share:0.025, color:c3 }
       ]},
-      { row: 'Po (10.–13. 8.)', segs: [
-        { key:'prospecting', label:'Prospecting (nová)', value:1836.84, share:0.954, color:c1 },
-        { key:'existing', label:'Existing (REM)', value:59.97, share:0.031, color:c2 },
-        { key:'engaged', label:'Engaged', value:27.98, share:0.015, color:c3 }
+      { row: 'Po (10.–16. 8.)', segs: [
+        { key:'prospecting', label:'Prospecting (nová)', value:3840.98, share:0.9516, color:c1 },
+        { key:'existing', label:'Existing (REM)', value:124.59, share:0.0309, color:c2 },
+        { key:'engaged', label:'Engaged', value:69.40, share:0.0172, color:c3 }
       ]}
     ];
   }
@@ -952,17 +968,21 @@
   }
 
   function buildCreativeMixRows() {
-    var c1 = cssVar('--series-1'), c2 = cssVar('--series-2'), c3 = cssVar('--series-3');
+    var c1 = cssVar('--series-1'), c2 = cssVar('--series-2'), c3 = cssVar('--series-3'), c4 = cssVar('--series-4'), c5 = cssVar('--text-muted');
     return [
       { row: 'Před (1.–9. 8.)', segs: [
-        { key:'vyzva', label:'„video3_vyzva“', value:559.46, share:0.389, color:c1 },
-        { key:'longevity', label:'„longevity“', value:608.72, share:0.424, color:c2 },
-        { key:'ostatni', label:'Ostatní kreativy', value:268.79, share:0.187, color:c3 }
+        { key:'vyzva', label:'„video3_vyzva“', value:559.46, share:0.3894, color:c1 },
+        { key:'longevity', label:'„longevity“', value:608.72, share:0.4236, color:c2 },
+        { key:'ugcnew', label:'„ugc new“', value:163.01, share:0.1134, color:c3 },
+        { key:'longevity2', label:'„longevity 2“', value:63.29, share:0.0440, color:c4 },
+        { key:'ostatni', label:'Ostatní (gifting + testovací)', value:42.49, share:0.0296, color:c5 }
       ]},
-      { row: 'Po (10.–13. 8.)', segs: [
-        { key:'vyzva', label:'„video3_vyzva“', value:940.55, share:0.488, color:c1 },
-        { key:'longevity', label:'„longevity“', value:813.76, share:0.422, color:c2 },
-        { key:'ostatni', label:'Ostatní kreativy', value:171.37, share:0.089, color:c3 }
+      { row: 'Po (10.–16. 8.)', segs: [
+        { key:'vyzva', label:'„video3_vyzva“', value:1532.68, share:0.3797, color:c1 },
+        { key:'longevity', label:'„longevity“', value:1378.13, share:0.3415, color:c2 },
+        { key:'ugcnew', label:'„ugc new“', value:513.56, share:0.1272, color:c3 },
+        { key:'longevity2', label:'„longevity 2“', value:551.49, share:0.1366, color:c4 },
+        { key:'ostatni', label:'Ostatní (gifting + testovací)', value:60.26, share:0.0149, color:c5 }
       ]}
     ];
   }
@@ -972,7 +992,9 @@
     legendEl.innerHTML =
       '<span class="legend-item"><span class="legend-swatch" style="background:var(--series-1)"></span>„video3_vyzva“</span>' +
       '<span class="legend-item"><span class="legend-swatch" style="background:var(--series-2)"></span>„longevity“</span>' +
-      '<span class="legend-item"><span class="legend-swatch" style="background:var(--series-3)"></span>Ostatní kreativy</span>';
+      '<span class="legend-item"><span class="legend-swatch" style="background:var(--series-3)"></span>„ugc new“</span>' +
+      '<span class="legend-item"><span class="legend-swatch" style="background:var(--series-4)"></span>„longevity 2“</span>' +
+      '<span class="legend-item"><span class="legend-swatch" style="background:var(--text-muted)"></span>Ostatní</span>';
   }
 
   // ---------------- DATA ----------------
@@ -993,43 +1015,50 @@
     {date:'9.8.',  spend:192.11, cpa:8.73},
     {date:'10.8.', spend:256.26, cpa:7.32},
     {date:'11.8.', spend:293.07, cpa:10.85},
-    {date:'12.8.', spend:587.16, cpa:8.16},
-    {date:'13.8.', spend:789.02, cpa:9.17}
+    {date:'12.8.', spend:587.19, cpa:8.16},
+    {date:'13.8.', spend:790.01, cpa:9.19},
+    {date:'14.8.', spend:732.80, cpa:10.78},
+    {date:'15.8.', spend:586.49, cpa:14.30},
+    {date:'16.8.', spend:790.30, cpa:10.54},
+    {date:'17.8.', spend:143.23, cpa:13.02}
   ];
   var refIndex = 14; // 10.8.
 
   var ageCPA = [
-    {label:'25–34', before:10.17, after:8.46},
-    {label:'35–44', before:5.64,  after:9.82},
-    {label:'45–54', before:6.58,  after:9.25},
-    {label:'55–64', before:6.79,  after:7.93},
-    {label:'65+',   before:4.41,  after:9.01}
+    {label:'25–34', before:10.17, after:9.77},
+    {label:'35–44', before:5.64,  after:9.30},
+    {label:'45–54', before:6.58,  after:11.42},
+    {label:'55–64', before:6.79,  after:10.05},
+    {label:'65+',   before:4.41,  after:9.26}
   ];
   var ageReach = [
-    {label:'18–24', before:0.63,  after:0.71},
-    {label:'25–34', before:7.83,  after:9.27},
-    {label:'35–44', before:23.29, after:29.65},
-    {label:'45–54', before:23.29, after:33.43},
-    {label:'55–64', before:18.97, after:32.39},
-    {label:'65+',   before:7.45,  after:14.57}
+    {label:'18–24', before:0.63,  after:1.79},
+    {label:'25–34', before:7.83,  after:16.69},
+    {label:'35–44', before:23.29, after:49.63},
+    {label:'45–54', before:23.29, after:55.33},
+    {label:'55–64', before:18.97, after:50.96},
+    {label:'65+',   before:7.45,  after:22.34}
   ];
   var genderCPA = [
-    {label:'Ženy', before:6.10, after:8.74},
-    {label:'Muži', before:7.18, after:8.83}
+    {label:'Ženy', before:6.10, after:10.32},
+    {label:'Muži', before:7.18, after:8.15}
   ];
   var creativeCPA = [
-    {label:'Video3 – výzva', before:6.29, after:8.25},
-    {label:'Video – longevity', before:7.00, after:8.75},
-    {label:'Video – ugc new', before:4.18, after:16.47},
-    {label:'Video – longevity 2', before:4.52, after:10.96},
-    {label:'Video – gifting', before:5.17, after:10.90}
+    {label:'Video3 – výzva', before:6.29, after:8.91},
+    {label:'Video – longevity', before:7.00, after:9.57},
+    {label:'Video – ugc new', before:4.18, after:16.57},
+    {label:'Video – longevity 2', before:4.52, after:11.25},
+    {label:'Video – gifting', before:5.17, after:10.02}
   ];
   var cpmTrend = [
     {date:'10.8.', cpm:9.59},
     {date:'11.8.', cpm:9.83},
     {date:'12.8.', cpm:10.53},
     {date:'13.8.', cpm:11.32},
-    {date:'14.8.', cpm:13.20}
+    {date:'14.8.', cpm:11.96},
+    {date:'15.8.', cpm:11.67},
+    {date:'16.8.', cpm:12.19},
+    {date:'17.8.', cpm:12.60}
   ];
 
   renderLine('chartSpend', daily, {
