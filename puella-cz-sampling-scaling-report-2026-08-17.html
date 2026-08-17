@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puella CZ – vzorková kampaň – sledování rozvolnění rozpočtu</title>
+<style>
+  :root {
+    color-scheme: light;
+  }
+  .viz-root {
+    color-scheme: light;
+    --page:           #f9f9f7;
+    --surface-1:      #fcfcfb;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;   /* blue - primary */
+    --series-1-light: #86b6ef;
+    --series-1-dark:  #1c5cab;
+    --series-1-wash:  rgba(42,120,214,0.10);
+    --series-2:       #eb6834;   /* orange - categorical slot 2 */
+    --series-3:       #1baf7a;   /* aqua - categorical slot 3 */
+    --series-4:       #eda100;   /* yellow - categorical slot 4 */
+    --status-good:    #0ca30c;
+    --status-warning: #fab219;
+    --status-serious: #ec835a;
+    --status-critical:#d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page:           #0d0d0d;
+      --surface-1:      #1a1a19;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:           #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-1-light: #184f95;
+      --series-1-dark:  #5598e7;
+      --series-1-wash:  rgba(57,135,229,0.14);
+      --series-2:       #d95926;
+      --series-3:       #199e70;
+      --series-4:       #c98500;
+      --status-good:    #0ca30c;
+      --status-warning: #fab219;
+      --status-serious: #ec835a;
+      --status-critical:#e66767;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page:           #0d0d0d;
+    --surface-1:      #1a1a19;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --grid:           #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --series-1:       #3987e5;
+    --series-1-light: #184f95;
+    --series-1-dark:  #5598e7;
+    --series-1-wash:  rgba(57,135,229,0.14);
+    --series-2:       #d95926;
+    --series-3:       #199e70;
+    --series-4:       #c98500;
+    --status-good:    #0ca30c;
+    --status-warning: #fab219;
+    --status-serious: #ec835a;
+    --status-critical:#e66767;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body.viz-root {
+    background: var(--page);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text-primary);
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 28px 20px 80px; }
+
+  header.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 6px; }
+  .eyebrow { color: var(--text-muted); font-size: 12.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; margin: 0 0 6px; }
+  h1 { font-size: 25px; font-weight: 650; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .subtitle { color: var(--text-secondary); font-size: 14.5px; margin: 0; max-width: 640px; line-height: 1.5; }
+  .theme-toggle {
+    border: 1px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
+    font-size: 12.5px; font-weight: 600; padding: 7px 12px; border-radius: 7px; cursor: pointer; white-space: nowrap;
+  }
+  .theme-toggle:hover { color: var(--text-primary); }
+
+  .period-pill {
+    display: inline-flex; gap: 14px; align-items: center; margin-top: 14px; padding: 8px 14px;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 9px; font-size: 12.5px; color: var(--text-secondary);
+    flex-wrap: wrap;
+  }
+  .period-pill b { color: var(--text-primary); font-weight: 650; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+  .status-banner {
+    margin-top: 14px; padding: 12px 15px; border-radius: 10px; font-size: 13px; line-height: 1.5;
+    background: rgba(250,178,25,0.12); border: 1px solid rgba(250,178,25,0.3); color: var(--text-primary);
+  }
+  .status-banner b { font-weight: 700; }
+
+  section { margin-top: 40px; }
+  h2 { font-size: 16.5px; font-weight: 650; margin: 0 0 4px; }
+  .section-note { color: var(--text-secondary); font-size: 13px; margin: 0 0 16px; max-width: 680px; line-height: 1.55; }
+
+  /* KPI grid */
+  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .kpi { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+  .kpi-label { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; }
+  .kpi-value { font-size: 25px; font-weight: 650; letter-spacing: -0.01em; line-height: 1.1; }
+  .kpi-sub { font-size: 12px; color: var(--text-secondary); margin-top: 6px; }
+  .kpi-delta { display: inline-flex; align-items: center; gap: 4px; font-weight: 650; font-size: 12.5px; padding: 2px 7px; border-radius: 999px; margin-top: 8px; }
+  .delta-up-bad { color: #a34b0c; background: rgba(250,178,25,0.16); }
+  .delta-up-good { color: #0a6b0a; background: rgba(12,163,12,0.12); }
+  .delta-flat { color: var(--text-secondary); background: var(--grid); }
+
+  /* Charts */
+  .chart-card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px 12px; margin-bottom: 16px; }
+  .chart-title { font-size: 13.5px; font-weight: 650; margin: 0 0 2px; }
+  .chart-desc { font-size: 12px; color: var(--text-muted); margin: 0 0 10px; }
+  .legend { display: flex; gap: 16px; align-items: center; margin: 0 0 8px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+  .legend-swatch { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  .legend-line { width: 14px; height: 2px; display: inline-block; }
+
+  svg { display: block; overflow: visible; font-family: inherit; }
+  .axis-label { fill: var(--text-muted); font-size: 10.5px; }
+  .gridline { stroke: var(--grid); stroke-width: 1; }
+  .baseline { stroke: var(--baseline); stroke-width: 1; }
+  .refline { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 3 3; }
+  .reflabel { fill: var(--text-muted); font-size: 10px; font-weight: 600; }
+
+  .tooltip {
+    position: fixed; pointer-events: none; z-index: 50; background: var(--text-primary); color: var(--surface-1);
+    font-size: 12px; line-height: 1.4; padding: 7px 10px; border-radius: 7px; opacity: 0; transform: translate(-50%, -120%);
+    transition: opacity 0.08s ease; white-space: nowrap; font-weight: 500;
+  }
+  .tooltip b { font-weight: 700; }
+
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .row-2 { grid-template-columns: 1fr; }
+  }
+
+  /* Table */
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.data-table th { text-align: left; font-size: 11.5px; color: var(--text-muted); font-weight: 650; text-transform: uppercase; letter-spacing: .02em; padding: 0 10px 8px; border-bottom: 1px solid var(--baseline); }
+  table.data-table td { padding: 10px 10px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+  table.data-table td:first-child, table.data-table th:first-child { padding-left: 0; }
+  table.data-table tr:last-child td { border-bottom: none; }
+  .tbl-tag { display: inline-flex; align-items: center; gap: 6px; font-weight: 650; }
+  .status-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 650; padding: 2px 8px; border-radius: 999px; }
+  .status-active { color: #0a6b0a; background: rgba(12,163,12,0.12); }
+  .status-learning { color: #a3760c; background: rgba(250,178,25,0.16); }
+
+  /* Bars (age breakdown) */
+  .bar-row { display: grid; grid-template-columns: 56px 1fr 74px; align-items: center; gap: 10px; padding: 7px 0; }
+  .bar-label { font-size: 12.5px; font-weight: 650; color: var(--text-secondary); }
+  .bar-track { height: 20px; background: var(--grid); border-radius: 5px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; background: var(--series-1); border-radius: 5px; }
+  .bar-value { font-size: 12.5px; font-weight: 650; text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* Callouts */
+  .callouts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+  .callout { border-radius: 10px; padding: 13px 15px; font-size: 13px; line-height: 1.5; border: 1px solid var(--border); background: var(--surface-1); }
+  .callout-head { display: flex; align-items: center; gap: 7px; font-weight: 700; font-size: 12.5px; margin-bottom: 4px; }
+  .callout-icon { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .callout p { margin: 0; color: var(--text-secondary); }
+  @media (max-width: 760px) { .callouts { grid-template-columns: 1fr; } }
+
+  footer { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11.5px; color: var(--text-muted); line-height: 1.6; }
+
+  /* Recommendations */
+  .reco-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .reco-item { display: flex; gap: 12px; align-items: flex-start; background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 12px 15px; }
+  .reco-num { flex: none; width: 18px; font-size: 12.5px; font-weight: 700; color: var(--series-1); font-variant-numeric: tabular-nums; padding-top: 1px; }
+  .reco-text { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin: 0; }
+  .reco-text b { color: var(--text-primary); }
+</style>
+</head>
+<body class="viz-root">
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <p class="eyebrow">Puella CZ &middot; Meta Ads &middot; kampaň „CZ_20250626_SAM_alwayson_ABO“ (vzorková kampaň)</p>
+      <h1>Rozvolnění rozpočtu 17. 8. — založení sledování</h1>
+      <p class="subtitle">Založeno v den rozvolnění rozpočtu ad setů. Zachycuje výchozí (baseline) výkon za předchozí týden a první, zatím neúplný den po rozvolnění. Zdroj: Meta Ads (účet Puellavune.cz), měna CZK.</p>
+    </div>
+    <button class="theme-toggle" id="themeToggle" type="button">Tmavý režim</button>
+  </header>
+
+  <div class="period-pill">
+    <span><span class="dot" style="background:var(--series-1-light)"></span> Baseline &nbsp;<b>10.–16. 8.</b> (7 celých dní, před rozvolněním)</span>
+    <span><span class="dot" style="background:var(--series-1-dark)"></span> Dnes &nbsp;<b>17. 8.</b> (den rozvolnění, neúplný)</span>
+  </div>
+
+  <div class="status-banner">
+    <b>Tohle je zakládací verze reportu.</b> Rozvolnění proběhlo dnes, takže zatím máme jen necelý jeden den dat „po“. Čísla níže ukazují výchozí stav (baseline) a první, zatím orientační signál z dneška. Plné srovnání před/po — včetně rozpadu podle pohlaví, umístění a kreativ — přidáme v dalším update, až bude k dispozici alespoň týden dat po rozvolnění.
+  </div>
+
+  <!-- KPI ROW -->
+  <section>
+    <h2>Klíčová čísla</h2>
+    <p class="section-note">Hlavní sloupec = denní průměr za baseline týden (10.–16. 8., celé dny). Pod ním dnešní hodnota zatím za neúplný den — bereme ji jako první orientační signál, ne jako potvrzený trend.</p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Denní spend (baseline)</div>
+        <div class="kpi-value">9 230 Kč</div>
+        <div class="kpi-sub">dnes zatím 4 415 Kč (den ještě neskončil)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Denní počet nákupů (baseline)</div>
+        <div class="kpi-value">46,4</div>
+        <div class="kpi-sub">dnes zatím 17</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">CPA (baseline)</div>
+        <div class="kpi-value">198,81 Kč</div>
+        <div class="kpi-sub">dnes 259,73 Kč</div>
+        <div class="kpi-delta delta-up-bad">▲ +31 % dnes (1 den, orientační)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">CPM (baseline)</div>
+        <div class="kpi-value">79,78 Kč</div>
+        <div class="kpi-sub">dnes 90,54 Kč</div>
+        <div class="kpi-delta delta-up-bad">▲ +13,5 % dnes (1 den, orientační)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Průměrný denní reach (baseline)</div>
+        <div class="kpi-value">89 195</div>
+        <div class="kpi-sub">dnes zatím 39 794 (neúplný den)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Frequency (baseline)</div>
+        <div class="kpi-value">1,30</div>
+        <div class="kpi-sub">dnes 1,23</div>
+        <div class="kpi-delta delta-flat">≈ zatím beze změny</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIME TREND -->
+  <section>
+    <h2>Vývoj v čase</h2>
+    <p class="section-note">Denní CPA a CPM, 10.–17. 8. Přerušovaný úsek a prázdný bod na konci (17.8.*) značí dnešní neúplný den — hodnota se do konce dne ještě posune.</p>
+    <div class="row-2">
+      <div class="chart-card">
+        <p class="chart-title">Denní CPA (Kč)</p>
+        <p class="chart-desc">Cena za nákup byla v baseline týdnu poměrně stabilní (179–229 Kč), dnešek zatím ukazuje nejvyšší hodnotu za celé sledované období.</p>
+        <div id="chartCPA"></div>
+      </div>
+      <div class="chart-card">
+        <p class="chart-title">Denní CPM (Kč)</p>
+        <p class="chart-desc">CPM v baseline týdnu mírně rostlo (71 → 88 Kč), dnešek pokračuje ve stejném směru.</p>
+        <div id="chartCPM"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AD SET STRUCTURE -->
+  <section>
+    <h2>Struktura kampaně a co se dnes změnilo</h2>
+    <p class="section-note">Kampaň běží v režimu ABO (rozpočet na úrovni ad setu, ne kampaně) s „daily range“ rozpočtem — tedy min–max pásmem, ne pevnou denní částkou. „Rozvolnění“ dnes znamenalo navýšení horní hranice tohoto pásma u aktivních ad setů, aby aukce mohla utratit víc, když se jí to vyplatí. Čísla v tabulce jsou za baseline týden (10.–16. 8.).</p>
+    <table class="data-table">
+      <thead>
+        <tr><th>Ad set</th><th>Stav</th><th>Rozpočet (denní pásmo)</th><th>Spend (baseline)</th><th>Nákupy</th><th>CPA</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>23/2/26 – CZ – akv – sampling</td>
+          <td><span class="status-chip status-learning">Learning</span></td>
+          <td>do 7 000 Kč</td>
+          <td>21 667 Kč</td>
+          <td>95</td>
+          <td>228,07 Kč</td>
+        </tr>
+        <tr>
+          <td>6/10/25 – CZ – akv – sampling (10676) – puella kreativy</td>
+          <td><span class="status-chip status-active">Active</span></td>
+          <td>do 7 000 Kč</td>
+          <td>32 287 Kč</td>
+          <td>173</td>
+          <td>186,63 Kč</td>
+        </tr>
+        <tr>
+          <td>6/10/25 – CZ – akv – sampling (10676) – socials kreativy</td>
+          <td><span class="status-chip status-learning">Learning</span></td>
+          <td>do 10 000 Kč</td>
+          <td>15 072 Kč</td>
+          <td>74</td>
+          <td>203,67 Kč</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="section-note" style="margin-top:12px;">Dalších 9 ad setů v kampani je vypnutých (nulový spend) — refresh varianty, starší kreativy a testovací sety. „Puella kreativy“ ad set je zatím nejlevnější a nese největší podíl spendu (47 %); oba „Learning“ sety mají vyšší CPA, což je u probíhajícího učení očekávané.</p>
+  </section>
+
+  <!-- AGE BREAKDOWN -->
+  <section>
+    <h2>Rozpad podle věku (baseline, 10.–17. 8.)</h2>
+    <p class="section-note">CPA podle věkové skupiny za posledních 8 dní (17. 8. je v tomto součtu zahrnuté jen částečně, tvoří ale méně než 6 % objemu — na pořadí skupin to nemá zásadní vliv). Skupina 18–24 je nejmenší objemem i nejdražší.</p>
+    <div id="ageBars"></div>
+  </section>
+
+  <!-- WHAT WE'RE WATCHING -->
+  <section>
+    <h2>Co budeme sledovat a další kroky</h2>
+    <div class="callouts">
+      <div class="callout">
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-serious)"></span>Časný signál, ne potvrzený trend</div>
+        <p>CPA i CPM jsou dnes vyšší než baseline průměr (+31 %, resp. +13,5 %), ale je to jen jeden neúplný den — u DE kampaně jsme viděli podobný časný nárůst, který se pak částečně stabilizoval a částečně potvrdil až za týden dat. Nedělejte z toho zatím závěr.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-head"><span class="callout-icon" style="background:var(--status-good)"></span>Kdy přijde další update</div>
+        <p>Doporučujeme se vrátit za 5–7 dní, až bude „po“ období srovnatelně dlouhé jako baseline. Tehdy přidáme skutečné srovnání před/po, rozpad podle pohlaví, umístění a jednotlivých kreativ — stejně jako u DE reportu.</p>
+      </div>
+    </div>
+    <p class="chart-title" style="margin: 20px 2px 10px;">Poznámky k založení</p>
+    <div class="reco-list">
+      <div class="reco-item"><span class="reco-num">1</span><p class="reco-text">Kampaň je typem odlišná od DE (ABO s daily-range rozpočty místo CBO) — sledujte hlavně, jestli aukce reálně využívá nově navýšené pásmo, nebo jestli spend zůstává blízko starého stropu.</p></div>
+      <div class="reco-item"><span class="reco-num">2</span><p class="reco-text">Ad set „puella kreativy“ táhne baseline výkon dolů (CPA 186,63 Kč) — stojí za to sledovat, jestli si tuto pozici udrží i po navýšení rozpočtu, podobně jako vlajkové kreativy u DE.</p></div>
+      <div class="reco-item"><span class="reco-num">3</span><p class="reco-text">Frequency zatím nic nenaznačuje (1,30 baseline, 1,23 dnes) — stejně jako u DE kampaně bude pravděpodobně CPM lepší časný ukazatel nasycení než frequency.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    Zdroj: Meta Ads Manager, účet Puellavune.cz (act 677809736605696), kampaň CZ_20250626_SAM_alwayson_ABO. CPA počítáno jako amount spent / website purchases (pixel, multiple attribution settings dle nastavení účtu). Data ručně stažena z Meta Ads Manager (API pro tento účet zatím není zprovozněné). Poslední 1–2 dny se mohou po dopočtení pozdní atribuce ještě mírně zpřesnit.
+    Report vygenerován 17. 8. 2026.
+  </footer>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- theme toggle ----------
+  var toggle = document.getElementById('themeToggle');
+  var root = document.documentElement;
+  toggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    if (current === 'dark') { root.setAttribute('data-theme','light'); toggle.textContent = 'Tmavý režim'; }
+    else { root.setAttribute('data-theme','dark'); toggle.textContent = 'Světlý režim'; }
+  });
+
+  var tooltip = document.getElementById('tooltip');
+  function showTip(evt, html) {
+    tooltip.innerHTML = html;
+    tooltip.style.left = evt.clientX + 'px';
+    tooltip.style.top = evt.clientY + 'px';
+    tooltip.style.opacity = 1;
+  }
+  function moveTip(evt) {
+    tooltip.style.left = evt.clientX + 'px';
+    tooltip.style.top = evt.clientY + 'px';
+  }
+  function hideTip() { tooltip.style.opacity = 0; }
+
+  function fmtKC(v, d) {
+    d = (d === undefined) ? 2 : d;
+    return v.toLocaleString('cs-CZ', {minimumFractionDigits: d, maximumFractionDigits: d}) + ' Kč';
+  }
+  function fmtNum(v) { return v.toLocaleString('cs-CZ'); }
+
+  // ================= LINE CHART =================
+  function renderLine(containerId, data, opts) {
+    var el = document.getElementById(containerId);
+    var W = el.clientWidth || 900, H = 200;
+    var padL = 46, padR = 14, padT = 14, padB = 26;
+    var innerW = W - padL - padR, innerH = H - padT - padB;
+
+    var values = data.map(function(d){ return d[opts.key]; });
+    var maxV = Math.max.apply(null, values);
+    var niceMax = opts.niceMax ? opts.niceMax(maxV) : Math.ceil(maxV * 1.15);
+    var minV = 0;
+
+    function x(i) { return padL + (innerW * i / (data.length - 1)); }
+    function y(v) { return padT + innerH - (innerH * (v - minV) / (niceMax - minV)); }
+
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', H);
+
+    var steps = 4;
+    for (var s = 0; s <= steps; s++) {
+      var gv = niceMax * s / steps;
+      var gy = y(gv);
+      var line = document.createElementNS(svgNS, 'line');
+      line.setAttribute('x1', padL); line.setAttribute('x2', W - padR);
+      line.setAttribute('y1', gy); line.setAttribute('y2', gy);
+      line.setAttribute('class', s === 0 ? 'baseline' : 'gridline');
+      svg.appendChild(line);
+      var lab = document.createElementNS(svgNS, 'text');
+      lab.setAttribute('x', padL - 8); lab.setAttribute('y', gy + 3);
+      lab.setAttribute('text-anchor', 'end'); lab.setAttribute('class', 'axis-label');
+      lab.textContent = opts.axisFmt ? opts.axisFmt(gv) : Math.round(gv);
+      svg.appendChild(lab);
+    }
+
+    data.forEach(function(d, i) {
+      if (i % 2 !== 0 && i !== data.length - 1) return;
+      var lab = document.createElementNS(svgNS, 'text');
+      lab.setAttribute('x', x(i)); lab.setAttribute('y', H - 6);
+      lab.setAttribute('text-anchor', 'middle'); lab.setAttribute('class', 'axis-label');
+      lab.textContent = (i === data.length - 1 && opts.lastIsPartial) ? d.date + '*' : d.date;
+      svg.appendChild(lab);
+    });
+
+    if (opts.refIndex !== undefined) {
+      var rx = x(opts.refIndex);
+      var rline = document.createElementNS(svgNS, 'line');
+      rline.setAttribute('x1', rx); rline.setAttribute('x2', rx);
+      rline.setAttribute('y1', padT); rline.setAttribute('y2', padT + innerH);
+      rline.setAttribute('class', 'refline');
+      svg.appendChild(rline);
+      var rlabel = document.createElementNS(svgNS, 'text');
+      rlabel.setAttribute('x', rx + 6); rlabel.setAttribute('y', padT + innerH - 8);
+      rlabel.setAttribute('class', 'reflabel');
+      rlabel.textContent = 'rozvolnění';
+      svg.appendChild(rlabel);
+    }
+
+    var areaPts = data.map(function(d,i){ return x(i) + ',' + y(d[opts.key]); }).join(' L ');
+    var area = document.createElementNS(svgNS, 'path');
+    var d0 = 'M ' + x(0) + ',' + y(0) + ' L ' + areaPts + ' L ' + x(data.length-1) + ',' + y(0) + ' Z';
+    area.setAttribute('d', d0);
+    area.setAttribute('fill', 'var(--series-1-wash)');
+    area.setAttribute('stroke', 'none');
+    svg.appendChild(area);
+
+    var splitAt = (opts.lastIsPartial && data.length > 1) ? data.length - 2 : data.length - 1;
+    var solidPts = data.slice(0, splitAt + 1).map(function(d,i){ return x(i) + ',' + y(d[opts.key]); }).join(' L ');
+    var path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', 'M ' + solidPts);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', 'var(--series-1)');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('stroke-linejoin', 'round');
+    path.setAttribute('stroke-linecap', 'round');
+    svg.appendChild(path);
+
+    if (opts.lastIsPartial && data.length > 1) {
+      var lastIdx = data.length - 1;
+      var dashPath = document.createElementNS(svgNS, 'path');
+      dashPath.setAttribute('d', 'M ' + x(splitAt) + ',' + y(data[splitAt][opts.key]) + ' L ' + x(lastIdx) + ',' + y(data[lastIdx][opts.key]));
+      dashPath.setAttribute('fill', 'none');
+      dashPath.setAttribute('stroke', 'var(--series-1)');
+      dashPath.setAttribute('stroke-width', '2');
+      dashPath.setAttribute('stroke-dasharray', '4 4');
+      dashPath.setAttribute('stroke-linecap', 'round');
+      svg.appendChild(dashPath);
+    }
+
+    data.forEach(function(d, i) {
+      var cx = x(i), cy = y(d[opts.key]);
+      var isLast = (i === data.length - 1);
+      var isPartial = isLast && opts.lastIsPartial;
+      var r = isLast ? 4 : 3;
+      var ring = document.createElementNS(svgNS, 'circle');
+      ring.setAttribute('cx', cx); ring.setAttribute('cy', cy); ring.setAttribute('r', r + 2);
+      ring.setAttribute('fill', 'var(--surface-1)');
+      svg.appendChild(ring);
+      var dot = document.createElementNS(svgNS, 'circle');
+      dot.setAttribute('cx', cx); dot.setAttribute('cy', cy); dot.setAttribute('r', r);
+      if (isPartial) {
+        dot.setAttribute('fill', 'var(--surface-1)');
+        dot.setAttribute('stroke', 'var(--series-1)');
+        dot.setAttribute('stroke-width', '2');
+      } else {
+        dot.setAttribute('fill', 'var(--series-1)');
+      }
+      svg.appendChild(dot);
+
+      var hit = document.createElementNS(svgNS, 'circle');
+      hit.setAttribute('cx', cx); hit.setAttribute('cy', cy); hit.setAttribute('r', 12);
+      hit.setAttribute('fill', 'transparent');
+      hit.style.cursor = 'pointer';
+      hit.addEventListener('mouseenter', function(evt){
+        var suffix = (i === data.length - 1 && opts.lastIsPartial) ? ' (neúplný den)' : '';
+        showTip(evt, '<b>' + d.date + suffix + '</b><br>' + opts.tipLabel + ': <b>' + opts.tipFmt(d[opts.key]) + '</b>');
+      });
+      hit.addEventListener('mousemove', moveTip);
+      hit.addEventListener('mouseleave', hideTip);
+      svg.appendChild(hit);
+    });
+
+    var lastD = data[data.length - 1];
+    var endLab = document.createElementNS(svgNS, 'text');
+    endLab.setAttribute('x', x(data.length-1)); endLab.setAttribute('y', y(lastD[opts.key]) - 10);
+    endLab.setAttribute('text-anchor', 'end'); endLab.setAttribute('class', 'axis-label');
+    endLab.setAttribute('font-weight', '700');
+    endLab.style.fill = 'var(--text-primary)';
+    endLab.textContent = opts.tipFmt(lastD[opts.key]);
+    svg.appendChild(endLab);
+
+    el.appendChild(svg);
+  }
+
+  // ================= AGE BARS =================
+  function renderAgeBars() {
+    var el = document.getElementById('ageBars');
+    el.innerHTML = '';
+    var maxCPA = Math.max.apply(null, ageCPA.map(function(d){ return d.cpa; }));
+    ageCPA.forEach(function(d){
+      var row = document.createElement('div');
+      row.className = 'bar-row';
+      var pct = (d.cpa / maxCPA) * 100;
+      row.innerHTML =
+        '<div class="bar-label">' + d.label + '</div>' +
+        '<div class="bar-track"><div class="bar-fill" style="width:' + pct.toFixed(1) + '%"></div></div>' +
+        '<div class="bar-value">' + d.cpa.toLocaleString('cs-CZ',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' Kč</div>';
+      el.appendChild(row);
+    });
+  }
+
+  // ---------- data ----------
+  var daily = [
+    {date:'10.8.', cpa:183.35, cpm:71.49},
+    {date:'11.8.', cpa:204.39, cpm:76.79},
+    {date:'12.8.', cpa:207.64, cpm:75.37},
+    {date:'13.8.', cpa:203.76, cpm:76.69},
+    {date:'14.8.', cpa:196.08, cpm:84.44},
+    {date:'15.8.', cpa:179.13, cpm:87.73},
+    {date:'16.8.', cpa:229.03, cpm:87.73},
+    {date:'17.8.', cpa:259.73, cpm:90.54}
+  ];
+  var refIndex = 7; // 17.8. — den rozvolnění
+
+  var ageCPA = [
+    {label:'18–24', cpa:371.56},
+    {label:'25–34', cpa:206.91},
+    {label:'35–44', cpa:191.76},
+    {label:'45–54', cpa:193.71},
+    {label:'55–64', cpa:207.98},
+    {label:'65+',   cpa:199.30}
+  ];
+
+  function renderAll() {
+    document.getElementById('chartCPA').innerHTML = '';
+    document.getElementById('chartCPM').innerHTML = '';
+    renderLine('chartCPA', daily, { key:'cpa', lastIsPartial:true, axisFmt:function(v){return Math.round(v)+' Kč';}, tipLabel:'CPA', tipFmt:function(v){return fmtKC(v,2);}, niceMax:function(m){return Math.ceil(m/20)*20;} });
+    renderLine('chartCPM', daily, { key:'cpm', lastIsPartial:true, axisFmt:function(v){return Math.round(v)+' Kč';}, tipLabel:'CPM', tipFmt:function(v){return fmtKC(v,2);}, niceMax:function(m){return Math.ceil(m/10)*10;} });
+    renderAgeBars();
+  }
+
+  renderAll();
+  window.addEventListener('resize', function(){ renderAll(); });
+
+  // re-render on theme change so CSS-var-based colors stay correct
+  var mo = new MutationObserver(function(){ renderAll(); });
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+})();
+</script>
+</body>
+</html>
